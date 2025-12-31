@@ -96,7 +96,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 if (isset($_GET['success']) && isset($_SESSION['last_purchase_success'])) {
     $success = $_SESSION['last_purchase_success']['msg'];
     $newKeyCode = $_SESSION['last_purchase_success']['code'];
-    unset($_SESSION['last_purchase_success']);
+    // We don't unset here to allow F5, but we should clear it if they navigate away or buy again
 }
 ?>
 <!DOCTYPE html>
