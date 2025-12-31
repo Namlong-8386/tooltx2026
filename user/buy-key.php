@@ -241,7 +241,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <div class="bg-slate-800/50 border border-white/5 p-4 rounded-2xl font-mono text-xl text-yellow-500 tracking-[0.2em] mb-6 relative z-10">
                     <?php echo $newKeyCode; ?>
                 </div>
-                <p class="text-[10px] text-slate-600 italic relative z-10">Vui lòng sao chép và lưu lại mã key này.</p>
+                <p class="text-[10px] text-slate-600 italic relative z-10">Mỗi mã key chỉ sài được trên 1 thiết bị và không thể thay đổi theiets bị.</p>
             </div>
             <?php exit; ?>
         <?php endif; ?>
