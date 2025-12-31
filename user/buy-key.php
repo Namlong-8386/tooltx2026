@@ -7,13 +7,11 @@ if (!isLoggedIn()) {
 }
 
 $packages = [
-    ['id' => 1, 'name' => '1 Giờ', 'price' => 5000, 'icon' => 'rocket'],
-    ['id' => 2, 'name' => '10 Giờ', 'price' => 10000, 'icon' => 'rocket'],
-    ['id' => 3, 'name' => '1 Ngày', 'price' => 20000, 'icon' => 'rocket'],
-    ['id' => 4, 'name' => '3 Ngày', 'price' => 45000, 'icon' => 'rocket'],
-    ['id' => 5, 'name' => '7 Ngày', 'price' => 80000, 'icon' => 'rocket'],
-    ['id' => 6, 'name' => '1 Tháng', 'price' => 120000, 'icon' => 'rocket'],
-    ['id' => 7, 'name' => 'Vĩnh Viễn', 'price' => 250000, 'icon' => 'rocket'],
+    ['id' => 1, 'name' => '1 Ngày', 'price' => 25000, 'icon' => 'rocket', 'desc' => '1 ngày sử dụng'],
+    ['id' => 2, 'name' => '3 Ngày', 'price' => 65000, 'icon' => 'rocket', 'desc' => '3 ngày sử dụng'],
+    ['id' => 3, 'name' => '7 Ngày', 'price' => 100000, 'icon' => 'rocket', 'desc' => '7 ngày sử dụng'],
+    ['id' => 4, 'name' => '30 Ngày', 'price' => 150000, 'icon' => 'rocket', 'desc' => '30 ngày sử dụng'],
+    ['id' => 5, 'name' => '999999 Ngày', 'price' => 200000, 'icon' => 'rocket', 'desc' => '999999 ngày sử dụng'],
 ];
 
 $error = '';
@@ -188,7 +186,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </div>
     </nav>
 
-    <main class="p-6 max-w-7xl mx-auto w-full mt-8">
+    <main class="p-6 max-w-7xl mx-auto w-full mt-8" x-data="{ selectedId: 1, quantity: 1, packages: <?php echo htmlspecialchars(json_encode($packages)); ?> }">
         <div class="glass p-8 rounded-[2.5rem] border border-white/5 mb-12 relative overflow-hidden">
             <div class="absolute -right-12 -top-12 w-64 h-64 bg-yellow-500/5 rounded-full blur-3xl"></div>
             
@@ -213,13 +211,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <?php echo getIcon('wallet', 'w-7 h-7'); ?>
                     </div>
                     <div>
-                        <p class="text-[10px] text-slate-500 uppercase font-black tracking-widest mb-1">Số dư hiện có</p>
+                        <p class="text-[10px] text-slate-500 uppercase font-black tracking-widest mb-1">Số dư tài khoản:</p>
                         <?php 
                             $users = readJSON('users');
                             $balance = 0;
                             foreach($users as $u) if($u['id'] === $_SESSION['user_id']) $balance = $u['balance'];
                         ?>
-                        <p class="text-2xl font-black text-gradient"><?php echo formatMoney($balance); ?></p>
+                        <p class="text-2xl font-black text-[#10b981]"><?php echo number_format($balance, 0, ',', '.') . '₫'; ?></p>
                     </div>
                 </div>
             </div>
@@ -247,80 +245,47 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <?php endif; ?>
 
         <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
-            <div class="lg:col-span-3 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-                <?php foreach ($packages as $p): ?>
-                    <div class="glass p-6 rounded-[2.5rem] border border-white/5 package-card group relative overflow-hidden flex flex-col">
-                        <div class="absolute -right-6 -top-6 opacity-[0.03] group-hover:opacity-[0.08] transition-all group-hover:scale-110 duration-500">
-                            <?php echo getIcon($p['icon'], 'w-32 h-32'); ?>
+            <div class="lg:col-span-3 space-y-8">
+                <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+                    <?php foreach ($packages as $p): ?>
+                        <div @click="selectedId = <?php echo $p['id']; ?>" 
+                             :class="selectedId === <?php echo $p['id']; ?> ? 'border-blue-500 bg-blue-500/5 ring-2 ring-blue-500/20' : 'border-white/5'"
+                             class="glass p-6 rounded-[1.5rem] border package-card group relative overflow-hidden flex flex-col cursor-pointer text-center">
+                            
+                            <h3 class="text-xl font-bold mb-3"><?php echo $p['name']; ?></h3>
+                            <div class="text-2xl font-black mb-3"><?php echo number_format($p['price'], 0, ',', '.') . '₫'; ?></div>
+                            <p class="text-slate-500 text-xs"><?php echo $p['desc']; ?></p>
                         </div>
-                        
-                        <div class="flex justify-between items-start mb-6">
-                            <div class="p-4 bg-white/5 rounded-2xl text-yellow-500 group-hover:bg-yellow-500 group-hover:text-black transition-all duration-300">
-                                <?php echo getIcon($p['icon'], 'w-6 h-6'); ?>
-                            </div>
-                            <?php if($p['name'] === 'Vĩnh Viễn'): ?>
-                                <span class="px-3 py-1 bg-red-500/20 text-red-500 rounded-full text-[10px] font-black uppercase tracking-widest border border-red-500/30">Hời nhất</span>
-                            <?php endif; ?>
-                        </div>
+                    <?php endforeach; ?>
+                </div>
 
-                        <div class="flex-grow">
-                            <h3 class="text-2xl font-black mb-1"><?php echo $p['name']; ?></h3>
-                            <p class="text-slate-500 text-xs font-bold uppercase tracking-widest mb-4">Gói dịch vụ</p>
-                            <div class="text-3xl font-black text-gradient mb-8"><?php echo formatMoney($p['price']); ?></div>
+                <div class="glass p-8 rounded-[1.5rem] border border-white/5 relative overflow-hidden">
+                    <div class="flex flex-col md:flex-row md:items-center justify-between gap-6">
+                        <div>
+                            <h3 class="text-2xl font-bold mb-1">Tổng thanh toán</h3>
                         </div>
-                        
-                        <form method="POST" class="mt-auto space-y-4">
-                            <input type="hidden" name="csrf_token" value="<?php echo generateCSRFToken(); ?>">
-                            <input type="hidden" name="package_id" value="<?php echo $p['id']; ?>">
-                            <div class="flex gap-3">
-                                <div class="w-24 relative">
-                                    <input type="number" name="quantity" value="1" min="1" class="w-full bg-white/5 border border-white/10 rounded-2xl px-4 py-3 text-sm focus:outline-none focus:border-yellow-500/50 focus:bg-white/10 transition-all font-bold">
-                                    <span class="absolute -top-2 left-3 bg-[#0f172a] px-1 text-[8px] font-black text-slate-500 uppercase">Số lượng</span>
-                                </div>
-                                <button type="submit" class="flex-1 btn-primary text-black py-3 rounded-2xl text-xs font-black hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center justify-center gap-2">
-                                    MUA NGAY
-                                    <?php echo getIcon('rocket', 'w-4 h-4'); ?>
-                                </button>
-                            </div>
-                        </form>
+                        <div class="text-right">
+                            <p class="text-xs text-slate-500 font-bold uppercase tracking-widest mb-1">Tổng cộng</p>
+                            <div class="text-4xl font-black" x-text="new Intl.NumberFormat('vi-VN').format(packages.find(p => p.id === selectedId).price * quantity) + '₫'"></div>
+                        </div>
                     </div>
-                <?php endforeach; ?>
+
+                    <form method="POST" class="mt-8">
+                        <input type="hidden" name="csrf_token" value="<?php echo generateCSRFToken(); ?>">
+                        <input type="hidden" name="package_id" :value="selectedId">
+                        <input type="hidden" name="quantity" :value="quantity">
+                        
+                        <button type="submit" class="w-full py-5 rounded-2xl text-lg font-black bg-gradient-to-r from-[#6366f1] to-[#a855f7] hover:opacity-90 transition-all flex items-center justify-center gap-3 shadow-xl shadow-indigo-500/20 uppercase">
+                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M3 1a1 1 0 000 2h1.22l.305 1.222a.997.997 0 00.01.042l1.358 5.43-.893.892C3.74 11.846 4.632 14 6.414 14H15a1 1 0 000-2H6.414l1-1H14a1 1 0 00.894-.553l3-6A1 1 0 0017 3H6.28l-.31-1.243A1 1 0 005 1H3zM16 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM6.5 18a1.5 1.5 0 100-3 1.5 1.5 0 000 3z"></path>
+                            </svg>
+                            MUA NGAY
+                        </button>
+                    </form>
+                </div>
             </div>
 
             <div class="space-y-6">
-                <div class="glass p-8 rounded-[2.5rem] border-l-4 border-green-500 relative overflow-hidden">
-                    <div class="absolute -right-4 -bottom-4 opacity-5">
-                        <?php echo getIcon('check', 'w-24 h-24'); ?>
-                    </div>
-                    <h3 class="text-xl font-black mb-6 flex items-center gap-3">
-                        <span class="p-2 bg-green-500/10 rounded-xl text-green-500"><?php echo getIcon('check', 'w-5 h-5'); ?></span>
-                        Siêu Ưu Đãi
-                    </h3>
-                    <div class="space-y-4 relative z-10">
-                        <div class="p-4 bg-white/5 rounded-2xl border border-white/5 hover:border-green-500/30 transition-all">
-                            <div class="flex justify-between items-center mb-1">
-                                <span class="text-xs font-bold text-slate-400 uppercase tracking-widest">Mua từ 3 key</span>
-                                <span class="px-2 py-0.5 bg-green-500 text-black rounded-lg text-[10px] font-black">-15%</span>
-                            </div>
-                            <p class="text-[10px] text-slate-500 italic">Tiết kiệm đáng kể</p>
-                        </div>
-                        <div class="p-4 bg-white/5 rounded-2xl border border-white/5 hover:border-green-500/30 transition-all">
-                            <div class="flex justify-between items-center mb-1">
-                                <span class="text-xs font-bold text-slate-400 uppercase tracking-widest">Mua từ 6 key</span>
-                                <span class="px-2 py-0.5 bg-green-500 text-black rounded-lg text-[10px] font-black">-25%</span>
-                            </div>
-                            <p class="text-[10px] text-slate-500 italic">Lựa chọn thông minh</p>
-                        </div>
-                        <div class="p-4 bg-white/5 rounded-2xl border border-white/5 hover:border-green-500/30 transition-all">
-                            <div class="flex justify-between items-center mb-1">
-                                <span class="text-xs font-bold text-slate-400 uppercase tracking-widest">Mua từ 10 key</span>
-                                <span class="px-2 py-0.5 bg-green-500 text-black rounded-lg text-[10px] font-black">-35%</span>
-                            </div>
-                            <p class="text-[10px] text-slate-500 italic">Giá cực sốc</p>
-                        </div>
-                    </div>
-                </div>
-
                 <div class="glass p-8 rounded-[2.5rem] border-l-4 border-yellow-500">
                     <h3 class="text-xl font-black mb-6 flex items-center gap-3">
                         <span class="p-2 bg-yellow-500/10 rounded-xl text-yellow-500"><?php echo getIcon('shield', 'w-5 h-5'); ?></span>
