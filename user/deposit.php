@@ -492,19 +492,23 @@ if (isset($_GET['success']) && isset($_SESSION['current_deposit_order'])) {
                     let parts = timeStr.split(':');
                     if (parts.length !== 2) return;
 
-                    let seconds = parseInt(parts[0]) * 60 + parseInt(parts[1]);
+                    let minutes = parseInt(parts[0]);
+                    let seconds = parseInt(parts[1]);
                     
-                    if (seconds <= 0) {
+                    if (minutes === 0 && seconds === 0) {
                         clearInterval(interval);
-                        timerDisplay.innerText = '00:00';
                         window.location.reload();
                         return;
                     }
                     
-                    seconds--;
-                    const m = Math.floor(seconds / 60);
-                    const s = seconds % 60;
-                    timerDisplay.innerText = (m < 10 ? '0' : '') + m + ':' + (s < 10 ? '0' : '') + s;
+                    if (seconds === 0) {
+                        minutes--;
+                        seconds = 59;
+                    } else {
+                        seconds--;
+                    }
+                    
+                    timerDisplay.innerText = (minutes < 10 ? '0' : '') + minutes + ':' + (seconds < 10 ? '0' : '') + seconds;
                 }, 1000);
             }
 
@@ -539,12 +543,20 @@ if (isset($_GET['success']) && isset($_SESSION['current_deposit_order'])) {
                 }, 3000);
             }
 
-            document.addEventListener('DOMContentLoaded', () => {
+            // Ensure timer starts immediately
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', () => {
+                    <?php if ($order['status'] === 'pending'): ?>
+                    startTimer();
+                    startPolling();
+                    <?php endif; ?>
+                });
+            } else {
                 <?php if ($order['status'] === 'pending'): ?>
                 startTimer();
                 startPolling();
                 <?php endif; ?>
-            });
+            }
             </script>
         <?php endif; ?>
     </main>
