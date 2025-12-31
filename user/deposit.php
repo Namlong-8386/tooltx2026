@@ -207,6 +207,16 @@ if (isset($_GET['success']) && isset($_SESSION['current_deposit_order'])) {
                 </div>
                 <h2 class="text-4xl font-black text-white mb-4">Giao Dịch Bị Hủy</h2>
                 <p class="text-slate-400 text-lg mb-12" x-text="cancelReason"></p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-2xl mx-auto mb-12">
+                    <div class="glass p-6 rounded-3xl border border-white/10">
+                        <p class="text-xs font-black text-slate-500 uppercase tracking-widest mb-2">Số tiền nạp</p>
+                        <p class="text-2xl font-black text-red-500" x-text="amount"></p>
+                    </div>
+                    <div class="glass p-6 rounded-3xl border border-white/10">
+                        <p class="text-xs font-black text-slate-500 uppercase tracking-widest mb-2">Mã giao dịch</p>
+                        <p class="text-2xl font-black text-white" x-text="orderId"></p>
+                    </div>
+                </div>
                 <div class="flex flex-col sm:flex-row gap-4 justify-center">
                     <a href="deposit.php" class="btn-primary text-black font-black px-12 py-5 rounded-[2rem] text-lg">THỬ LẠI</a>
                     <a href="dashboard.php" class="glass text-white font-black px-12 py-5 rounded-[2rem] border-white/10 hover:bg-white/10 text-lg">TRANG CHỦ</a>
@@ -362,9 +372,11 @@ if (isset($_GET['success']) && isset($_SESSION['current_deposit_order'])) {
                                     const app = document.querySelector('[x-data]');
                                     if(app && app.__x) {
                                         app.__x.$data.orderId = d.deposit_id || oId;
+                                        app.__x.$data.amount = d.amount_formatted || '<?php echo formatMoney($order['amount'] ?? 0); ?>';
                                         app.__x.$data.isSuccess = true;
-                                    } else {
+                                    } else if(document.body._x_dataStack){
                                         document.body._x_dataStack[0].orderId = d.deposit_id || oId;
+                                        document.body._x_dataStack[0].amount = d.amount_formatted || '<?php echo formatMoney($order['amount'] ?? 0); ?>';
                                         document.body._x_dataStack[0].isSuccess = true;
                                     }
                                 }else if(d.status==='cancelled'||d.status==='expired'){
@@ -372,9 +384,13 @@ if (isset($_GET['success']) && isset($_SESSION['current_deposit_order'])) {
                                     const app = document.querySelector('[x-data]');
                                     const reason = d.status === 'expired' ? 'Giao dịch đã hết hạn' : 'Giao dịch đã bị quản trị viên hủy';
                                     if(app && app.__x) {
+                                        app.__x.$data.orderId = d.deposit_id || oId;
+                                        app.__x.$data.amount = d.amount_formatted || '<?php echo formatMoney($order['amount'] ?? 0); ?>';
                                         app.__x.$data.cancelReason = reason;
                                         app.__x.$data.isCancelled = true;
-                                    } else {
+                                    } else if(document.body._x_dataStack){
+                                        document.body._x_dataStack[0].orderId = d.deposit_id || oId;
+                                        document.body._x_dataStack[0].amount = d.amount_formatted || '<?php echo formatMoney($order['amount'] ?? 0); ?>';
                                         document.body._x_dataStack[0].cancelReason = reason;
                                         document.body._x_dataStack[0].isCancelled = true;
                                     }

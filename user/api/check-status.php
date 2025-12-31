@@ -47,7 +47,8 @@ foreach ($deposits as $d) {
         echo json_encode([
             'status' => $status,
             'new_balance' => $new_balance,
-            'deposit_id' => $id
+            'deposit_id' => $id,
+            'amount_formatted' => formatMoney($d['amount'] ?? 0)
         ]);
         exit;
     }
