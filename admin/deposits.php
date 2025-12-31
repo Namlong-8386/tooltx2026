@@ -37,8 +37,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'], $_POST['id'
             break;
         }
     }
-    writeJSON('deposits', $deposits);
     if ($found) {
+        writeJSON('deposits', $deposits);
         header('Location: deposits.php?msg=' . urlencode($statusMsg));
         exit;
     }
@@ -92,6 +92,7 @@ foreach ($deposits as $d) {
         .btn-reject { background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%); }
         .loading-spinner { animation: spin 1s linear infinite; }
         @keyframes spin { to { transform: rotate(360deg); } }
+        [x-cloak] { display: none !important; }
     </style>
 </head>
 <body class="min-h-screen p-6">
@@ -113,20 +114,20 @@ foreach ($deposits as $d) {
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
             <div class="glass p-6 rounded-3xl border-l-4 border-l-yellow-500">
                 <p class="text-slate-500 text-xs font-black uppercase tracking-widest mb-1">Chờ duyệt</p>
-                <p class="text-3xl font-black text-yellow-500"><?php echo $totalPending; ?> <span class="text-sm font-medium text-slate-400">Yêu cầu</span></p>
+                <p class="text-3xl font-black text-yellow-500" id="stats-pending"><?php echo $totalPending; ?> <span class="text-sm font-medium text-slate-400">Yêu cầu</span></p>
             </div>
             <div class="glass p-6 rounded-3xl border-l-4 border-l-green-500">
                 <p class="text-slate-500 text-xs font-black uppercase tracking-widest mb-1">Tổng tiền đã duyệt</p>
-                <p class="text-3xl font-black text-green-500"><?php echo formatMoney($totalApprovedAmount); ?></p>
+                <p class="text-3xl font-black text-green-500" id="stats-total-amount"><?php echo formatMoney($totalApprovedAmount); ?></p>
             </div>
             <div class="glass p-6 rounded-3xl border-l-4 border-l-blue-500">
                 <p class="text-slate-500 text-xs font-black uppercase tracking-widest mb-1">Tổng giao dịch</p>
-                <p class="text-3xl font-black text-blue-500"><?php echo count($deposits); ?> <span class="text-sm font-medium text-slate-400">Tổng cộng</span></p>
+                <p class="text-3xl font-black text-blue-500" id="stats-total-count"><?php echo count($deposits); ?> <span class="text-sm font-medium text-slate-400">Tổng cộng</span></p>
             </div>
         </div>
 
         <?php if ($msg): ?>
-        <div class="mb-6 p-4 bg-green-500/10 border border-green-500/20 text-green-500 rounded-2xl text-sm font-bold animate-bounce text-center">
+        <div class="mb-6 p-4 bg-green-500/10 border border-green-500/20 text-green-500 rounded-2xl text-sm font-bold text-center">
             <?php echo htmlspecialchars($msg); ?>
         </div>
         <?php endif; ?>
@@ -142,7 +143,7 @@ foreach ($deposits as $d) {
         <!-- Main Table -->
         <div class="glass rounded-[2.5rem] overflow-hidden border border-white/5 mb-6">
             <div class="overflow-x-auto">
-                <table class="w-full text-left">
+                <table class="w-full text-left" id="deposits-table">
                     <thead class="bg-white/5 border-b border-white/5 text-slate-500 uppercase text-[10px] font-black tracking-widest">
                         <tr>
                             <th class="px-8 py-6">Mã Giao Dịch</th>
@@ -155,7 +156,7 @@ foreach ($deposits as $d) {
                     </thead>
                     <tbody class="divide-y divide-white/5">
                         <?php if (empty($pagedDeposits)): ?>
-                        <tr>
+                        <tr id="empty-row">
                             <td colspan="6" class="px-8 py-20 text-center text-slate-500 italic">
                                 <div class="flex flex-col items-center gap-3">
                                     <?php echo getIcon('wallet', 'w-12 h-12 opacity-20'); ?>
@@ -165,7 +166,7 @@ foreach ($deposits as $d) {
                         </tr>
                         <?php else: ?>
                             <?php foreach ($pagedDeposits as $d): ?>
-                            <tr class="hover:bg-white/5 transition-colors group">
+                            <tr class="hover:bg-white/5 transition-colors group" data-id="<?php echo htmlspecialchars($d['id'] ?? ''); ?>" data-status="<?php echo htmlspecialchars($d['status'] ?? ''); ?>">
                                 <td class="px-8 py-6">
                                     <span class="font-mono text-[11px] bg-slate-800 px-3 py-1 rounded-full text-slate-300">
                                         #<?php echo htmlspecialchars($d['id'] ?? ''); ?>
@@ -188,21 +189,21 @@ foreach ($deposits as $d) {
                                 <td class="px-8 py-6">
                                     <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-<?php echo (($d['status'] ?? '') === 'completed' ? 'green' : (($d['status'] ?? '') === 'pending' ? 'yellow' : 'red')); ?>-500/10 text-<?php echo (($d['status'] ?? '') === 'completed' ? 'green' : (($d['status'] ?? '') === 'pending' ? 'yellow' : 'red')); ?>-500">
                                         <span class="w-1.5 h-1.5 rounded-full bg-current <?php echo (($d['status'] ?? '') === 'pending' ? 'animate-pulse' : ''); ?>"></span>
-                                        <span class="text-[10px] font-black uppercase tracking-tighter"><?php echo $d['status'] ?? 'unknown'; ?></span>
+                                        <span class="text-[10px] font-black uppercase tracking-tighter status-label"><?php echo $d['status'] ?? 'unknown'; ?></span>
                                     </div>
                                 </td>
-                            <td class="px-8 py-6">
-                                <div class="flex justify-center gap-2" id="actions-<?php echo htmlspecialchars($d['id'] ?? ''); ?>">
-                                    <?php if (isset($d['status']) && $d['status'] === 'pending'): ?>
-                                    <button onclick="approveDeposit('<?php echo htmlspecialchars($d['id'] ?? ''); ?>', 'approve')" class="px-4 py-2 btn-approve text-white rounded-xl hover:scale-105 transition-all text-[11px] font-black uppercase tracking-tighter shadow-lg shadow-green-500/20 approve-btn-<?php echo htmlspecialchars($d['id'] ?? ''); ?>">Duyệt</button>
-                                    <button onclick="approveDeposit('<?php echo htmlspecialchars($d['id'] ?? ''); ?>', 'reject')" class="px-4 py-2 btn-reject text-white rounded-xl hover:scale-105 transition-all text-[11px] font-black uppercase tracking-tighter shadow-lg shadow-red-500/20">Hủy</button>
-                                    <?php else: ?>
-                                    <div class="text-[10px] font-black text-slate-600 uppercase tracking-widest flex items-center gap-1">
-                                        <?php echo getIcon('check', 'w-3 h-3'); ?> <?php echo ($d['status'] ?? '') === 'completed' ? 'Hoàn tất' : 'Đã hủy'; ?>
+                                <td class="px-8 py-6">
+                                    <div class="flex justify-center gap-2 actions-container">
+                                        <?php if (isset($d['status']) && $d['status'] === 'pending'): ?>
+                                        <button onclick="handleAction('<?php echo htmlspecialchars($d['id'] ?? ''); ?>', 'approve')" class="px-4 py-2 btn-approve text-white rounded-xl hover:scale-105 transition-all text-[11px] font-black uppercase tracking-tighter shadow-lg shadow-green-500/20 btn-approve-<?php echo htmlspecialchars($d['id'] ?? ''); ?>">Duyệt</button>
+                                        <button onclick="handleAction('<?php echo htmlspecialchars($d['id'] ?? ''); ?>', 'reject')" class="px-4 py-2 btn-reject text-white rounded-xl hover:scale-105 transition-all text-[11px] font-black uppercase tracking-tighter shadow-lg shadow-red-500/20 btn-reject-<?php echo htmlspecialchars($d['id'] ?? ''); ?>">Hủy</button>
+                                        <?php else: ?>
+                                        <div class="text-[10px] font-black text-slate-600 uppercase tracking-widest flex items-center gap-1">
+                                            <?php echo getIcon('check', 'w-3 h-3'); ?> <?php echo ($d['status'] ?? '') === 'completed' ? 'Hoàn tất' : 'Đã hủy'; ?>
+                                        </div>
+                                        <?php endif; ?>
                                     </div>
-                                    <?php endif; ?>
-                                </div>
-                            </td>
+                                </td>
                             </tr>
                             <?php endforeach; ?>
                         <?php endif; ?>
@@ -210,128 +211,58 @@ foreach ($deposits as $d) {
                 </table>
             </div>
         </div>
-
-        <!-- Pagination -->
-        <?php if ($totalPages > 1): ?>
-        <div class="flex justify-center items-center gap-2 mb-12">
-            <?php for ($i = 1; $i <= $totalPages; $i++): ?>
-                <a href="?status=<?php echo $statusFilter; ?>&page=<?php echo $i; ?>" 
-                   class="w-10 h-10 flex items-center justify-center rounded-xl font-bold text-xs transition-all <?php echo $i === $page ? 'bg-blue-500 text-white shadow-lg shadow-blue-500/20' : 'glass text-slate-400 hover:bg-white/10'; ?>">
-                    <?php echo $i; ?>
-                </a>
-            <?php endfor; ?>
-        </div>
-        <?php endif; ?>
     </div>
 
     <script>
-    const currentStatus = new URLSearchParams(window.location.search).get('status') || 'all';
-    let lastDepositIds = new Set();
+    let lastDepositId = '<?php echo !empty($deposits) ? end($deposits)['id'] : ''; ?>';
+    const statusFilter = '<?php echo $statusFilter; ?>';
 
-    async function approveDeposit(depositId, action) {
-        const btn = document.querySelector(`.approve-btn-${depositId}`);
-        const originalText = btn.textContent;
-        btn.disabled = true;
-        btn.innerHTML = '<span class="loading-spinner">⟳</span>';
+    async function handleAction(id, action) {
+        const btnApprove = document.querySelector(`.btn-approve-${id}`);
+        const btnReject = document.querySelector(`.btn-reject-${id}`);
+        if(btnApprove) btnApprove.disabled = true;
+        if(btnReject) btnReject.disabled = true;
 
         try {
-            const response = await fetch('/admin/api/approve-deposit.php', {
+            const formData = new FormData();
+            formData.append('id', id);
+            formData.append('action', action);
+
+            const response = await fetch('deposits.php', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ id: depositId, action: action })
+                body: formData
             });
-            
-            if (!response.ok) {
-                throw new Error(`HTTP ${response.status}`);
+
+            if (response.ok) {
+                // Refresh data manually or reload
+                window.location.reload();
             }
-            
-            const text = await response.text();
-            const data = JSON.parse(text);
-            
-            if (data.success) {
-                showNotification(data.message, 'success');
-                // Remove the row after 500ms
-                setTimeout(() => {
-                    const row = document.querySelector(`#actions-${depositId}`).closest('tr');
-                    if (row) {
-                        row.style.opacity = '0';
-                        row.style.transition = 'opacity 0.3s ease';
-                        setTimeout(() => row.remove(), 300);
-                    }
-                    // Refresh deposits list
-                    setTimeout(refreshDepositsList, 300);
-                }, 500);
-            } else {
-                showNotification(data.error || 'Lỗi', 'error');
-                btn.textContent = originalText;
-                btn.disabled = false;
-            }
-        } catch (error) {
-            showNotification('Lỗi: ' + error.message, 'error');
-            btn.textContent = originalText;
-            btn.disabled = false;
-            console.error('Approve error:', error);
+        } catch (e) {
+            console.error(e);
+            if(btnApprove) btnApprove.disabled = false;
+            if(btnReject) btnReject.disabled = false;
         }
     }
 
-    function showNotification(message, type) {
-        const notif = document.createElement('div');
-        notif.className = `fixed top-4 right-4 p-4 rounded-2xl text-sm font-bold animate-bounce z-50 ${
-            type === 'success' ? 'bg-green-500/20 border border-green-500/20 text-green-500' : 'bg-red-500/20 border border-red-500/20 text-red-500'
-        }`;
-        notif.textContent = message;
-        document.body.appendChild(notif);
-        setTimeout(() => notif.remove(), 3000);
-    }
-
-    async function refreshDepositsList() {
+    async function pollNewDeposits() {
         try {
-            const response = await fetch(`/admin/api/get-deposits.php?status=${currentStatus}`);
-            if (!response.ok) return;
+            const r = await fetch(`api/get-deposits-poll.php?last_id=${lastDepositId}`);
+            const d = await r.json();
             
-            const data = await response.json();
-            if (!data.success) return;
-
-            const tbody = document.querySelector('table tbody');
-            if (!tbody) return;
-
-            // Check for new deposits
-            const currentIds = new Set(data.deposits.map(d => d.id));
-            let hasNewDeposits = false;
-
-            // Remove rows that are no longer in the list (completed/cancelled)
-            document.querySelectorAll('tbody tr').forEach(row => {
-                const cell = row.querySelector('td span.font-mono');
-                if (cell) {
-                    const rowId = cell.textContent.replace('#', '').trim();
-                    if (!currentIds.has(rowId)) {
-                        row.style.opacity = '0.3';
-                    }
+            if (d.status === 'success') {
+                document.getElementById('stats-pending').innerHTML = `${d.pending_count} <span class="text-sm font-medium text-slate-400">Yêu cầu</span>`;
+                
+                if (d.has_new) {
+                    // Update table or show notification
+                    // For now, reload to keep logic simple but instant response
+                    window.location.reload();
                 }
-            });
-
-            // Check for new deposits and show notification
-            data.deposits.forEach(deposit => {
-                if (!lastDepositIds.has(deposit.id)) {
-                    hasNewDeposits = true;
-                    showNotification(`📥 Nạp tiền mới: ${deposit.username} - ${deposit.amount.toLocaleString('vi-VN')} VND`, 'success');
-                }
-            });
-
-            lastDepositIds = currentIds;
-        } catch (error) {
-            console.error('Refresh error:', error);
-        }
+            }
+        } catch (e) {}
     }
 
-    // Initialize lastDepositIds with current deposits
-    document.querySelectorAll('table tbody tr td span.font-mono').forEach(cell => {
-        const id = cell.textContent.replace('#', '').trim();
-        if (id) lastDepositIds.add(id);
-    });
-
-    // Auto-refresh deposits list every 3 seconds (NO page reload)
-    setInterval(refreshDepositsList, 3000);
+    // Poll every 1 second
+    setInterval(pollNewDeposits, 1000);
     </script>
 </body>
 </html>
