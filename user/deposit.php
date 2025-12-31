@@ -83,21 +83,18 @@ if (isset($_GET['success']) && isset($_SESSION['current_deposit_order'])) {
     $found = false;
     foreach ($deposits as $d) {
         if (isset($d['id']) && $d['id'] === $order['id']) {
-            if (strtotime($d['expires_at']) > time()) {
-                $order = $d;
-                $found = true;
-                if ($d['status'] === 'completed' || $d['status'] === 'cancelled') {
-                    $success = true;
-                } else if ($d['status'] === 'pending') {
-                    $success = true;
-                }
-            }
+            $order = $d;
+            $found = true;
             break;
         }
     }
     
     if ($found) {
         $success = true;
+        // If it's no longer pending, we don't need to stay on this order in session after next refresh
+        if ($order['status'] !== 'pending') {
+            // But we keep it for now so the UI can show the success/cancelled state
+        }
     } else {
         unset($_SESSION['current_deposit_order']);
         header('Location: deposit.php');
@@ -145,7 +142,11 @@ if (isset($_GET['success']) && isset($_SESSION['current_deposit_order'])) {
         [x-cloak] { display: none !important; }
     </style>
 </head>
-<body class="min-h-screen flex flex-col" x-data="{ isSuccess: <?php echo ($order && $order['status'] === 'completed') ? 'true' : 'false'; ?> }">
+<body class="min-h-screen flex flex-col" x-data="{ 
+    isSuccess: <?php echo ($order && $order['status'] === 'completed') ? 'true' : 'false'; ?>,
+    isCancelled: <?php echo ($order && ($order['status'] === 'cancelled' || $order['status'] === 'expired')) ? 'true' : 'false'; ?>,
+    cancelReason: '<?php echo ($order && $order['status'] === 'expired') ? 'Giao dịch đã hết hạn' : 'Giao dịch đã bị hủy'; ?>'
+}">
     <nav class="p-4 glass border-b border-white/5 flex justify-between items-center px-6 md:px-12 sticky top-0 z-50">
         <div class="flex items-center gap-3">
             <a href="dashboard.php" class="flex items-center gap-2">
@@ -183,7 +184,6 @@ if (isset($_GET['success']) && isset($_SESSION['current_deposit_order'])) {
                 </div>
                 <h2 class="text-4xl font-black text-white mb-4">Nạp Tiền Thành Công!</h2>
                 <p class="text-slate-400 text-lg mb-12">Số tiền đã được cộng vào tài khoản của bạn.</p>
-                
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-2xl mx-auto mb-12">
                     <div class="glass p-6 rounded-3xl border border-white/10">
                         <p class="text-xs font-black text-slate-500 uppercase tracking-widest mb-2">Số tiền nạp</p>
@@ -194,7 +194,6 @@ if (isset($_GET['success']) && isset($_SESSION['current_deposit_order'])) {
                         <p class="text-2xl font-black text-white"><?php echo $order['id'] ?? ''; ?></p>
                     </div>
                 </div>
-
                 <div class="flex flex-col sm:flex-row gap-4 justify-center">
                     <a href="dashboard.php" class="btn-primary text-black font-black px-12 py-5 rounded-[2rem] text-lg">TRANG CHỦ</a>
                     <a href="buy-key.php" class="glass text-white font-black px-12 py-5 rounded-[2rem] border-white/10 hover:bg-white/10 text-lg">MUA KEY NGAY</a>
@@ -202,7 +201,22 @@ if (isset($_GET['success']) && isset($_SESSION['current_deposit_order'])) {
             </div>
         </template>
 
-        <template x-if="!isSuccess">
+        <template x-if="isCancelled">
+            <div class="glass p-12 rounded-[3rem] border border-white/5 text-center relative overflow-hidden animate-fade-in">
+                <div class="absolute -right-24 -top-24 w-96 h-96 bg-red-500/10 rounded-full blur-3xl"></div>
+                <div class="w-20 h-20 bg-red-500/10 rounded-full flex items-center justify-center text-red-500 mx-auto mb-8">
+                    <?php echo getIcon('x', 'w-10 h-10'); ?>
+                </div>
+                <h2 class="text-4xl font-black text-white mb-4">Giao Dịch Bị Hủy</h2>
+                <p class="text-slate-400 text-lg mb-12" x-text="cancelReason"></p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    <a href="deposit.php" class="btn-primary text-black font-black px-12 py-5 rounded-[2rem] text-lg">THỬ LẠI</a>
+                    <a href="dashboard.php" class="glass text-white font-black px-12 py-5 rounded-[2rem] border-white/10 hover:bg-white/10 text-lg">TRANG CHỦ</a>
+                </div>
+            </div>
+        </template>
+
+        <template x-if="!isSuccess && !isCancelled">
             <div>
                 <div class="glass p-8 rounded-[2.5rem] border border-white/5 mb-10 relative overflow-hidden">
                     <div class="absolute -right-12 -top-12 w-48 h-48 bg-yellow-500/5 rounded-full blur-3xl"></div>
@@ -347,15 +361,20 @@ if (isset($_GET['success']) && isset($_SESSION['current_deposit_order'])) {
                                 if(d.status==='completed'){
                                     clearInterval(pI);
                                     if(bE && d.new_balance) bE.innerText=d.new_balance;
-                                    window.dispatchEvent(new CustomEvent('deposit-completed'));
                                     const app = document.querySelector('[x-data]');
                                     if(app && app.__x) app.__x.$data.isSuccess = true;
-                                    else { // Fallback if alpine not ready
-                                        document.body._x_dataStack[0].isSuccess = true;
-                                    }
+                                    else document.body._x_dataStack[0].isSuccess = true;
                                 }else if(d.status==='cancelled'||d.status==='expired'){
                                     clearInterval(pI);
-                                    window.location.reload();
+                                    const app = document.querySelector('[x-data]');
+                                    const reason = d.status === 'expired' ? 'Giao dịch đã hết hạn' : 'Giao dịch đã bị quản trị viên hủy';
+                                    if(app && app.__x) {
+                                        app.__x.$data.cancelReason = reason;
+                                        app.__x.$data.isCancelled = true;
+                                    } else {
+                                        document.body._x_dataStack[0].cancelReason = reason;
+                                        document.body._x_dataStack[0].isCancelled = true;
+                                    }
                                 }
                             }catch(e){}
                         },1000);

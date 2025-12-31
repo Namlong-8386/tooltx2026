@@ -59,3 +59,4 @@ if (!$found) {
     echo json_encode(['status' => 'not_found', 'deposit_id' => $id]);
     exit;
 }
+?>
