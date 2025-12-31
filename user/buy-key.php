@@ -231,17 +231,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <?php endif; ?>
 
         <?php if ($success): ?>
-            <div class="glass p-8 rounded-3xl border-green-500/30 mb-8 text-center">
-                <div class="w-16 h-16 bg-green-500/10 rounded-full flex items-center justify-center text-green-500 mx-auto mb-4">
-                    <?php echo getIcon('check', 'w-8 h-8'); ?>
+            <div class="glass p-8 rounded-3xl border border-white/5 mb-8 text-center relative overflow-hidden">
+                <div class="absolute -right-12 -top-12 w-64 h-64 bg-green-500/5 rounded-full blur-3xl"></div>
+                <div class="w-12 h-12 bg-green-500/10 rounded-full flex items-center justify-center text-green-500 mx-auto mb-4 relative z-10">
+                    <?php echo getIcon('check', 'w-6 h-6'); ?>
                 </div>
-                <h3 class="text-xl font-black text-green-500 mb-2"><?php echo $success; ?></h3>
-                <p class="text-slate-400 text-sm mb-6">Mã key của bạn đã được tạo thành công:</p>
-                <div class="bg-white/5 border border-white/10 p-4 rounded-2xl font-mono text-2xl text-yellow-500 tracking-widest mb-6">
+                <h3 class="text-xl font-bold text-green-500 mb-2 relative z-10"><?php echo $success; ?></h3>
+                <p class="text-slate-500 text-[10px] mb-6 relative z-10">Mã key của bạn đã được tạo thành công:</p>
+                <div class="bg-slate-800/50 border border-white/5 p-4 rounded-2xl font-mono text-xl text-yellow-500 tracking-[0.2em] mb-6 relative z-10">
                     <?php echo $newKeyCode; ?>
                 </div>
-                <p class="text-xs text-slate-500 italic">Vui lòng sao chép và lưu lại mã key này.</p>
+                <p class="text-[10px] text-slate-600 italic relative z-10">Vui lòng sao chép và lưu lại mã key này.</p>
             </div>
+            <?php exit; ?>
         <?php endif; ?>
 
         <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
