@@ -96,7 +96,6 @@ if (isset($_GET['success']) && isset($_SESSION['current_deposit_order'])) {
                 // If order is completed or cancelled, we should still show it but without polling
                 if ($d['status'] === 'completed' || $d['status'] === 'cancelled') {
                     $success = true;
-                    // Optionally clear session after some time or if navigated away
                 } else if ($d['status'] === 'pending') {
                     $success = true;
                 }
@@ -316,10 +315,10 @@ if (isset($_GET['success']) && isset($_SESSION['current_deposit_order'])) {
                                     <span class="w-2 h-2 bg-green-500 rounded-full"></span>
                                     <span class="text-[10px] font-black text-green-500 uppercase tracking-widest">Nạp tiền thành công</span>
                                 </div>
-                            <?php elseif ($order['status'] === 'cancelled'): ?>
+                            <?php elseif ($order['status'] === 'cancelled' || $order['status'] === 'expired'): ?>
                                 <div class="flex items-center gap-2 px-3 py-1 bg-red-500/10 rounded-full border border-red-500/20">
                                     <span class="w-2 h-2 bg-red-500 rounded-full"></span>
-                                    <span class="text-[10px] font-black text-red-400 uppercase tracking-widest">Yêu cầu đã hủy</span>
+                                    <span class="text-[10px] font-black text-red-400 uppercase tracking-widest"><?php echo $order['status'] === 'expired' ? 'Hết hạn' : 'Đã hủy'; ?></span>
                                 </div>
                             <?php else: ?>
                                 <div class="flex items-center gap-2 px-3 py-1 bg-yellow-500/10 rounded-full border border-yellow-500/20">
@@ -346,8 +345,8 @@ if (isset($_GET['success']) && isset($_SESSION['current_deposit_order'])) {
                             <?php if ($order['status'] === 'completed'): ?>
                                 <h3 class="text-2xl font-black text-green-500">Giao dịch thành công</h3>
                                 <p class="text-sm text-slate-400">Số dư của bạn đã được cập nhật</p>
-                            <?php elseif ($order['status'] === 'cancelled'): ?>
-                                <h3 class="text-2xl font-black text-red-500">Giao dịch đã bị hủy</h3>
+                            <?php elseif ($order['status'] === 'cancelled' || $order['status'] === 'expired'): ?>
+                                <h3 class="text-2xl font-black text-red-500"><?php echo $order['status'] === 'expired' ? 'Giao dịch đã hết hạn' : 'Giao dịch đã bị hủy'; ?></h3>
                                 <p class="text-sm text-slate-400">Vui lòng liên hệ hỗ trợ nếu có thắc mắc</p>
                             <?php else: ?>
                                 <h3 class="text-2xl font-black text-slate-100">Quét mã để nạp tiền</h3>
@@ -358,11 +357,13 @@ if (isset($_GET['success']) && isset($_SESSION['current_deposit_order'])) {
                         <div class="grid grid-cols-2 gap-4">
                             <div class="glass p-4 rounded-2xl border border-white/5">
                                 <p class="text-[10px] text-slate-500 font-black uppercase tracking-widest mb-1">Trạng thái</p>
-                                <p class="text-sm font-bold <?php echo ($order['status'] === 'completed') ? 'text-green-500' : (($order['status'] === 'cancelled') ? 'text-red-500' : 'text-yellow-500'); ?> flex items-center justify-center gap-2" id="order-status">
+                                <p class="text-sm font-bold <?php echo ($order['status'] === 'completed') ? 'text-green-500' : (($order['status'] === 'cancelled' || $order['status'] === 'expired') ? 'text-red-500' : 'text-yellow-500'); ?> flex items-center justify-center gap-2" id="order-status">
                                     <?php if ($order['status'] === 'completed'): ?>
                                         <?php echo getIcon("check", "w-4 h-4"); ?> Thành công
                                     <?php elseif ($order['status'] === 'cancelled'): ?>
                                         <?php echo getIcon("x", "w-4 h-4"); ?> Đã hủy
+                                    <?php elseif ($order['status'] === 'expired'): ?>
+                                        <?php echo getIcon("x", "w-4 h-4"); ?> Hết hạn
                                     <?php else: ?>
                                         <svg class="animate-spin h-3 w-3" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" fill="none"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
                                         Kiểm tra...
@@ -378,7 +379,7 @@ if (isset($_GET['success']) && isset($_SESSION['current_deposit_order'])) {
                                     } else {
                                         $remaining = strtotime($order['expires_at']) - time();
                                         if ($remaining > 0) {
-                                            echo date('i:s', $remaining);
+                                            echo sprintf('%02d:%02d', floor($remaining / 60), $remaining % 60);
                                         } else {
                                             echo '00:00';
                                         }
@@ -419,142 +420,134 @@ if (isset($_GET['success']) && isset($_SESSION['current_deposit_order'])) {
                             <div class="glass p-4 rounded-2xl border border-white/10 flex justify-between items-center group hover:bg-white/5 transition-all">
                                 <div class="text-left">
                                     <p class="text-[9px] text-slate-500 font-black uppercase tracking-widest mb-0.5">Số tài khoản</p>
-                                    <p class="font-black text-slate-200 text-lg tracking-wider"><?php echo $order['account_no']; ?></p>
+                                    <p class="font-black text-slate-200"><?php echo $order['account_no']; ?></p>
                                 </div>
                                 <button onclick="copyText('<?php echo $order['account_no']; ?>', this)" class="p-2 hover:text-yellow-500 transition-colors">
                                     <?php echo getIcon('copy', 'w-4 h-4'); ?>
                                 </button>
                             </div>
 
-                            <div class="glass p-4 rounded-2xl border-2 border-yellow-500/30 bg-yellow-500/5 flex justify-between items-center group hover:bg-yellow-500/10 transition-all">
+                            <div class="glass p-4 rounded-2xl border border-white/10 flex justify-between items-center group hover:bg-white/5 transition-all">
                                 <div class="text-left">
-                                    <p class="text-[9px] text-yellow-500 font-black uppercase tracking-widest mb-0.5">Nội dung chuyển khoản</p>
-                                    <p class="font-black text-yellow-500 text-xl tracking-widest"><?php echo $order['description']; ?></p>
+                                    <p class="text-[9px] text-slate-500 font-black uppercase tracking-widest mb-0.5">Chủ tài khoản</p>
+                                    <p class="font-black text-slate-200 uppercase"><?php echo $order['account_name']; ?></p>
                                 </div>
-                                <button onclick="copyText('<?php echo $order['description']; ?>', this)" class="p-3 bg-yellow-500 text-black rounded-xl hover:scale-105 transition-all">
+                                <button onclick="copyText('<?php echo $order['account_name']; ?>', this)" class="p-2 hover:text-yellow-500 transition-colors">
                                     <?php echo getIcon('copy', 'w-4 h-4'); ?>
                                 </button>
+                            </div>
+
+                            <div class="glass p-4 rounded-2xl border border-white/10 flex justify-between items-center group hover:bg-white/5 transition-all bg-yellow-500/5">
+                                <div class="text-left">
+                                    <p class="text-[9px] text-yellow-500 font-black uppercase tracking-widest mb-0.5">Nội dung chuyển khoản</p>
+                                    <p class="font-black text-yellow-500 text-lg"><?php echo $order['description']; ?></p>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <div class="w-2 h-2 bg-yellow-500 rounded-full animate-pulse"></div>
+                                    <button onclick="copyText('<?php echo $order['description']; ?>', this)" class="p-2 hover:text-yellow-500 transition-colors">
+                                        <?php echo getIcon('copy', 'w-4 h-4'); ?>
+                                    </button>
+                                </div>
                             </div>
 
                             <div class="glass p-4 rounded-2xl border border-white/10 flex justify-between items-center group hover:bg-white/5 transition-all">
                                 <div class="text-left">
                                     <p class="text-[9px] text-slate-500 font-black uppercase tracking-widest mb-0.5">Số tiền</p>
-                                    <p class="font-black text-slate-200 text-lg"><?php echo formatMoney($order['amount']); ?></p>
+                                    <p class="font-black text-slate-200"><?php echo formatMoney($order['amount']); ?></p>
                                 </div>
                                 <button onclick="copyText('<?php echo $order['amount']; ?>', this)" class="p-2 hover:text-yellow-500 transition-colors">
                                     <?php echo getIcon('copy', 'w-4 h-4'); ?>
                                 </button>
                             </div>
                         </div>
-                    </div>
 
-                    <div class="glass p-6 rounded-[2.5rem] border border-yellow-500/20 bg-yellow-500/5">
-                        <div class="flex items-start gap-3">
-                            <div class="p-2 bg-yellow-500/20 rounded-lg text-yellow-500">
-                                <?php echo getIcon('shield', 'w-4 h-4'); ?>
+                        <div class="mt-6 p-4 glass rounded-2xl border border-yellow-500/20 flex gap-4">
+                            <div class="p-2 bg-yellow-500/10 rounded-xl text-yellow-500 self-start">
+                                <?php echo getIcon('info', 'w-4 h-4'); ?>
                             </div>
-                            <p class="text-[11px] text-slate-400 leading-relaxed">
-                                <strong class="text-yellow-500 uppercase tracking-wider block mb-1">Lưu ý:</strong>
-                                Chuyển đúng <strong>nội dung</strong> và <strong>số tiền</strong>. Tiền sẽ vào tài khoản sau 1-3 phút.
-                            </p>
+                            <div>
+                                <p class="text-[10px] font-black uppercase text-yellow-500 tracking-widest mb-1">Lưu ý:</p>
+                                <p class="text-[10px] text-slate-400 leading-relaxed">Chuyển đúng nội dung và số tiền. Tiền sẽ vào tài khoản sau 1-3 phút.</p>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <style>
-                @keyframes scan {
-                    0%, 100% { top: 16px; opacity: 0; }
-                    10% { opacity: 1; }
-                    90% { opacity: 1; }
-                    100% { top: calc(100% - 16px); opacity: 0; }
-                }
-                .animate-scan {
-                    animation: scan 3s linear infinite;
-                }
-            </style>
-
             <script>
-                function copyText(text, btn) {
-                    navigator.clipboard.writeText(text);
-                    const original = btn.innerHTML;
-                    btn.innerHTML = '<?php echo getIcon("check", "w-4 h-4 text-green-500"); ?>';
-                    setTimeout(() => btn.innerHTML = original, 2000);
-                }
+            function copyText(text, btn) {
+                navigator.clipboard.writeText(text);
+                const originalIcon = btn.innerHTML;
+                btn.innerHTML = '<svg class="w-4 h-4 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>';
+                setTimeout(() => { btn.innerHTML = originalIcon; }, 2000);
+            }
 
-                // Wait for DOM to be ready
-                if (document.readyState === 'loading') {
-                    document.addEventListener('DOMContentLoaded', initDeposit);
-                } else {
-                    initDeposit();
-                }
+            // Timer logic
+            function startTimer() {
+                const timerDisplay = document.getElementById('expiry-timer');
+                if (!timerDisplay) return;
 
-                function initDeposit() {
-                    // Status Polling - Check every 3 seconds
-                    let orderId = '<?php echo $order['id']; ?>';
-                    let currentStatus = '<?php echo $order['status']; ?>';
-                    let statusChecked = false;
+                const interval = setInterval(() => {
+                    let timeStr = timerDisplay.innerText;
+                    let parts = timeStr.split(':');
+                    if (parts.length !== 2) return;
+
+                    let seconds = parseInt(parts[0]) * 60 + parseInt(parts[1]);
                     
-                    if (currentStatus !== 'pending') {
-                        return; // Don't start timer or polling if not pending
+                    if (seconds <= 0) {
+                        clearInterval(interval);
+                        timerDisplay.innerText = '00:00';
+                        window.location.reload();
+                        return;
                     }
-
-                    // Timer countdown
-                    const expiresAt = new Date('<?php echo $order['expires_at']; ?>').getTime();
-                    let timeLeft = Math.max(0, Math.floor((expiresAt - new Date().getTime()) / 1000));
-
-                    function updateTimer() {
-                        if (timeLeft <= 0) {
-                            document.getElementById('expiry-timer').innerText = '00:00';
-                            return;
-                        }
-                        let mins = Math.floor(timeLeft / 60);
-                        let secs = timeLeft % 60;
-                        document.getElementById('expiry-timer').innerText = `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
-                        timeLeft--;
-                    }
-
-                    // Start timer immediately and every second
-                    updateTimer();
-                    let timerInterval = setInterval(updateTimer, 1000);
-
-                    // Status Polling - Check every 3 seconds
-                    let orderId = '<?php echo $order['id']; ?>';
-                    let statusChecked = false;
                     
-                    let checkInterval = setInterval(async () => {
-                        if (statusChecked) return;
+                    seconds--;
+                    const m = Math.floor(seconds / 60);
+                    const s = seconds % 60;
+                    timerDisplay.innerText = (m < 10 ? '0' : '') + m + ':' + (s < 10 ? '0' : '') + s;
+                }, 1000);
+            }
+
+            // Polling logic
+            function startPolling() {
+                const orderId = '<?php echo $order['id']; ?>';
+                const statusElement = document.getElementById('order-status');
+                const balanceElement = document.getElementById('current-balance');
+                
+                const pollInterval = setInterval(async () => {
+                    try {
+                        const response = await fetch(`api/check-status.php?id=${orderId}`);
+                        const data = await response.json();
                         
-                        try {
-                            const response = await fetch(`api/check-status.php?id=${orderId}&t=${Date.now()}`);
-                            if (!response.ok) return;
-                            
-                            const data = await response.json();
-                            console.log('Poll result:', data.status);
-                            
-                            if (data.status === 'completed' || data.status === 'cancelled') {
-                                statusChecked = true;
-                                clearInterval(checkInterval);
-                                clearInterval(timerInterval);
-                                
-                                // FORCE RELOAD IMMEDIATELY
-                                window.location.href = window.location.pathname + '?success=1&refresh=' + Date.now();
-                            } 
-                            else if (data.status === 'expired') {
-                                statusChecked = true;
-                                clearInterval(checkInterval);
-                                clearInterval(timerInterval);
-                                window.location.reload();
+                        if (data.status === 'completed') {
+                            clearInterval(pollInterval);
+                            statusElement.innerHTML = '<?php echo getIcon("check", "w-4 h-4"); ?> Thành công';
+                            statusElement.className = 'text-sm font-bold text-green-500 flex items-center justify-center gap-2';
+                            if (data.new_balance) {
+                                balanceElement.innerText = data.new_balance;
                             }
-                        } catch (e) {
-                            console.error('Polling error:', e);
+                            setTimeout(() => window.location.reload(), 2000);
+                        } else if (data.status === 'cancelled' || data.status === 'expired') {
+                            clearInterval(pollInterval);
+                            statusElement.innerHTML = '<?php echo getIcon("x", "w-4 h-4"); ?> ' + (data.status === 'expired' ? 'Hết hạn' : 'Đã hủy');
+                            statusElement.className = 'text-sm font-bold text-red-500 flex items-center justify-center gap-2';
+                            setTimeout(() => window.location.reload(), 2000);
                         }
-                    }, 2000); // Polling faster (2s)
-                }
+                    } catch (e) {
+                        // Polling silently fails if network issues
+                    }
+                }, 3000);
+            }
+
+            document.addEventListener('DOMContentLoaded', () => {
+                <?php if ($order['status'] === 'pending'): ?>
+                startTimer();
+                startPolling();
+                <?php endif; ?>
+            });
             </script>
         <?php endif; ?>
     </main>
-    <script src="../assets/js/transitions.js"></script>
     <script src="../assets/js/security.js"></script>
 </body>
 </html>
