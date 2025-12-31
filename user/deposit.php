@@ -487,28 +487,28 @@ if (isset($_GET['success']) && isset($_SESSION['current_deposit_order'])) {
                 const timerDisplay = document.getElementById('expiry-timer');
                 if (!timerDisplay) return;
 
-                const interval = setInterval(() => {
-                    let timeStr = timerDisplay.innerText;
-                    let parts = timeStr.split(':');
-                    if (parts.length !== 2) return;
+                // Initial parse
+                let timeStr = timerDisplay.innerText;
+                let parts = timeStr.split(':');
+                if (parts.length !== 2) return;
 
-                    let minutes = parseInt(parts[0]);
-                    let seconds = parseInt(parts[1]);
+                let totalSeconds = parseInt(parts[0]) * 60 + parseInt(parts[1]);
+                
+                if (totalSeconds <= 0) return;
+
+                const interval = setInterval(() => {
+                    totalSeconds--;
                     
-                    if (minutes === 0 && seconds === 0) {
+                    if (totalSeconds <= 0) {
                         clearInterval(interval);
+                        timerDisplay.innerText = '00:00';
                         window.location.reload();
                         return;
                     }
                     
-                    if (seconds === 0) {
-                        minutes--;
-                        seconds = 59;
-                    } else {
-                        seconds--;
-                    }
-                    
-                    timerDisplay.innerText = (minutes < 10 ? '0' : '') + minutes + ':' + (seconds < 10 ? '0' : '') + seconds;
+                    const m = Math.floor(totalSeconds / 60);
+                    const s = totalSeconds % 60;
+                    timerDisplay.innerText = (m < 10 ? '0' : '') + m + ':' + (s < 10 ? '0' : '') + s;
                 }, 1000);
             }
 
@@ -543,20 +543,13 @@ if (isset($_GET['success']) && isset($_SESSION['current_deposit_order'])) {
                 }, 3000);
             }
 
-            // Ensure timer starts immediately
-            if (document.readyState === 'loading') {
-                document.addEventListener('DOMContentLoaded', () => {
-                    <?php if ($order['status'] === 'pending'): ?>
-                    startTimer();
-                    startPolling();
-                    <?php endif; ?>
-                });
-            } else {
+            // Execute immediately
+            (function() {
                 <?php if ($order['status'] === 'pending'): ?>
                 startTimer();
                 startPolling();
                 <?php endif; ?>
-            }
+            })();
             </script>
         <?php endif; ?>
     </main>
