@@ -91,10 +91,6 @@ if (isset($_GET['success']) && isset($_SESSION['current_deposit_order'])) {
     
     if ($found) {
         $success = true;
-        // If it's no longer pending, we don't need to stay on this order in session after next refresh
-        if ($order['status'] !== 'pending') {
-            // But we keep it for now so the UI can show the success/cancelled state
-        }
     } else {
         unset($_SESSION['current_deposit_order']);
         header('Location: deposit.php');
@@ -145,7 +141,9 @@ if (isset($_GET['success']) && isset($_SESSION['current_deposit_order'])) {
 <body class="min-h-screen flex flex-col" x-data="{ 
     isSuccess: <?php echo ($order && $order['status'] === 'completed') ? 'true' : 'false'; ?>,
     isCancelled: <?php echo ($order && ($order['status'] === 'cancelled' || $order['status'] === 'expired')) ? 'true' : 'false'; ?>,
-    cancelReason: '<?php echo ($order && $order['status'] === 'expired') ? 'Giao dịch đã hết hạn' : 'Giao dịch đã bị hủy'; ?>'
+    cancelReason: '<?php echo ($order && $order['status'] === 'expired') ? 'Giao dịch đã hết hạn' : 'Giao dịch đã bị hủy'; ?>',
+    orderId: '<?php echo $order['id'] ?? ''; ?>',
+    amount: '<?php echo formatMoney($order['amount'] ?? 0); ?>'
 }">
     <nav class="p-4 glass border-b border-white/5 flex justify-between items-center px-6 md:px-12 sticky top-0 z-50">
         <div class="flex items-center gap-3">
@@ -187,11 +185,11 @@ if (isset($_GET['success']) && isset($_SESSION['current_deposit_order'])) {
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-2xl mx-auto mb-12">
                     <div class="glass p-6 rounded-3xl border border-white/10">
                         <p class="text-xs font-black text-slate-500 uppercase tracking-widest mb-2">Số tiền nạp</p>
-                        <p class="text-2xl font-black text-yellow-500"><?php echo formatMoney($order['amount'] ?? 0); ?></p>
+                        <p class="text-2xl font-black text-yellow-500" x-text="amount"></p>
                     </div>
                     <div class="glass p-6 rounded-3xl border border-white/10">
                         <p class="text-xs font-black text-slate-500 uppercase tracking-widest mb-2">Mã giao dịch</p>
-                        <p class="text-2xl font-black text-white"><?php echo $order['id'] ?? ''; ?></p>
+                        <p class="text-2xl font-black text-white" x-text="orderId"></p>
                     </div>
                 </div>
                 <div class="flex flex-col sm:flex-row gap-4 justify-center">
@@ -362,8 +360,13 @@ if (isset($_GET['success']) && isset($_SESSION['current_deposit_order'])) {
                                     clearInterval(pI);
                                     if(bE && d.new_balance) bE.innerText=d.new_balance;
                                     const app = document.querySelector('[x-data]');
-                                    if(app && app.__x) app.__x.$data.isSuccess = true;
-                                    else document.body._x_dataStack[0].isSuccess = true;
+                                    if(app && app.__x) {
+                                        app.__x.$data.orderId = d.deposit_id || oId;
+                                        app.__x.$data.isSuccess = true;
+                                    } else {
+                                        document.body._x_dataStack[0].orderId = d.deposit_id || oId;
+                                        document.body._x_dataStack[0].isSuccess = true;
+                                    }
                                 }else if(d.status==='cancelled'||d.status==='expired'){
                                     clearInterval(pI);
                                     const app = document.querySelector('[x-data]');
