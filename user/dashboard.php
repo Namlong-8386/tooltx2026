@@ -190,15 +190,6 @@ if (!$currentUser) {
         }
 
         async function logout() {
-            // Show success message using simple alert or customized UI if available
-            // For now, let's use the current modal to show success then redirect
-            const modalTitle = document.querySelector('#showLogoutConfirm h3');
-            const modalText = document.querySelector('#showLogoutConfirm p');
-            const modalButtons = document.querySelector('#showLogoutConfirm .flex.gap-4');
-            
-            // Note: Since we're using AlpineJS, it's better to manage state.
-            // But to keep it simple and effective as requested:
-            
             // Find the confirmation modal content and update it
             const confirmBox = document.querySelector('[x-show="showLogoutConfirm"] .glass');
             if (confirmBox) {
@@ -219,6 +210,7 @@ if (!$currentUser) {
                 window.location.href = '../logout.php';
             }, 1500);
         }
+        window.logout = logout;
         </script>
 
         <!-- Notifications Section -->
