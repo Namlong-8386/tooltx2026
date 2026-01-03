@@ -110,7 +110,7 @@ require_once 'core/functions.php';
                 <div class="w-12 h-12 bg-blue-500/10 rounded-2xl flex items-center justify-center text-blue-500 mb-6 group-hover:bg-blue-500 group-hover:text-black transition-all">
                     <?php echo getIcon('plus', 'w-7 h-7'); ?>
                 </div>
-                <h3 class="text-xl font-bold mb-3">Xóc Đĩa VIP</h3>
+                <h3 class="text-xl font-bold mb-3">Tool Xóc Đĩa</h3>
                 <p class="text-sm text-slate-400 leading-relaxed">Bắt vị chẵn lẻ, tứ tử cực chuẩn với thuật toán nhận diện cầu.</p>
             </div>
             <div class="glass p-8 rounded-3xl glass-hover group">
