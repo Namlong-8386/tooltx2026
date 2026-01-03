@@ -212,7 +212,7 @@ if (isset($_GET['success']) && isset($_SESSION['last_purchase_success'])) {
                 <div class="absolute -right-12 -top-12 w-64 h-64 bg-green-500/5 rounded-full blur-3xl"></div>
                 <div class="w-12 h-12 bg-green-500/10 rounded-full flex items-center justify-center text-green-500 mx-auto mb-4 relative z-10"><?php echo getIcon('check', 'w-6 h-6'); ?></div>
                 <h3 class="text-xl font-bold text-green-500 mb-2 relative z-10"><?php echo $success; ?></h3>
-                <p class="text-slate-500 text-[10px] mb-6 relative z-10">Mã key của bạn đã được tạo thành công:</p>
+                <p class="text-white text-sm font-semibold mb-6 relative z-10">Mã key của bạn đã được tạo thành công:</p>
                 <div class="bg-slate-800/50 border border-white/5 p-4 rounded-2xl font-mono text-xl text-yellow-500 tracking-[0.2em] mb-6 relative z-10"><?php echo $newKeyCode; ?></div>
                 <div class="warning-box p-3 rounded-2xl mb-6 relative z-10 max-w-sm mx-auto">
                     <p class="text-[10px] font-black text-red-400 flex items-center justify-center gap-2 uppercase tracking-widest">
