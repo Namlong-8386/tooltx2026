@@ -1,8 +1,10 @@
 <?php
 require_once 'core/functions.php';
 
-function generateSessionTokenLocal() {
-    return bin2hex(random_bytes(32));
+if (!function_exists('generateSessionTokenLocal')) {
+    function generateSessionTokenLocal() {
+        return bin2hex(random_bytes(32));
+    }
 }
 
 if (isLoggedIn()) {
@@ -25,6 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $sessionToken = generateSessionTokenLocal();
             
             // Update user session token in JSON
+            $users = readJSON('users');
             foreach ($users as &$u) {
                 if ($u['id'] === $user['id']) {
                     $u['session_token'] = $sessionToken;
