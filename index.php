@@ -117,7 +117,7 @@ require_once 'core/functions.php';
                 <div class="w-12 h-12 bg-purple-500/10 rounded-2xl flex items-center justify-center text-purple-500 mb-6 group-hover:bg-purple-500 group-hover:text-black transition-all">
                     <?php echo getIcon('key', 'w-7 h-7'); ?>
                 </div>
-                <h3 class="text-xl font-bold mb-3">Baccarat</h3>
+                <h3 class="text-xl font-bold mb-3">Tool Bacarat</h3>
                 <p class="text-sm text-slate-400 leading-relaxed">Hỗ trợ soi cầu Player/Banker và quản lý vốn thông minh.</p>
             </div>
         </div>
