@@ -114,8 +114,10 @@ require_once 'core/functions.php';
                 <p class="text-sm text-slate-400 leading-relaxed">Bắt vị chẵn lẻ, tứ tử cực chuẩn với thuật toán nhận diện cầu.</p>
             </div>
             <div class="glass p-8 rounded-3xl glass-hover group">
-                <div class="w-20 h-20 mx-auto bg-purple-500/10 rounded-2xl flex items-center justify-center mb-6 overflow-hidden group-hover:scale-110 transition-all">
-                    <img src="assets/images/baccarat-logo.png" alt="Bacarat Logo" class="w-full h-full object-cover">
+                <div class="w-24 h-24 mx-auto p-1 bg-gradient-to-br from-purple-500 via-pink-500 to-blue-500 rounded-3xl flex items-center justify-center mb-6 overflow-hidden group-hover:scale-110 group-hover:rotate-3 transition-all shadow-[0_0_20px_rgba(168,85,247,0.4)]">
+                    <div class="w-full h-full rounded-2xl overflow-hidden bg-black/50">
+                        <img src="assets/images/baccarat-logo.png" alt="Bacarat Logo" class="w-full h-full object-cover">
+                    </div>
                 </div>
                 <h3 class="text-xl font-bold mb-3">Tool Bacarat</h3>
                 <p class="text-sm text-slate-400 leading-relaxed">Hỗ trợ soi cầu Player/Banker và quản lý vốn thông minh.</p>
