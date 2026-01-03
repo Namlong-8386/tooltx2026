@@ -96,7 +96,7 @@ require_once 'core/functions.php';
                 <div class="w-12 h-12 bg-yellow-500/10 rounded-2xl flex items-center justify-center text-yellow-500 mb-6 group-hover:bg-yellow-500 group-hover:text-black transition-all">
                     <?php echo getIcon('rocket', 'w-7 h-7'); ?>
                 </div>
-                <h3 class="text-xl font-bold mb-3">Tài Xỉu AI</h3>
+                <h3 class="text-xl font-bold mb-3">Tool Tài Xỉu</h3>
                 <p class="text-sm text-slate-400 leading-relaxed">Dự đoán kết quả theo thời gian thực với độ chính xác vượt trội.</p>
             </div>
             <div class="glass p-8 rounded-3xl glass-hover group">
