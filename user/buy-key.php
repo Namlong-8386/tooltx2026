@@ -143,7 +143,7 @@ if (isset($_GET['success']) && isset($_SESSION['last_purchase_success'])) {
         [x-cloak] { display: none !important; }
     </style>
 </head>
-<body class="min-h-screen flex flex-col">
+<body class="min-h-screen flex flex-col" x-data="{ showLogoutConfirm: false, navOpen: false }">
     <nav class="p-4 glass border-b border-white/5 flex justify-between items-center px-6 md:px-12 sticky top-0 z-50">
         <div class="flex items-center gap-3">
             <a href="dashboard.php" class="flex items-center gap-2">
@@ -154,11 +154,11 @@ if (isset($_GET['success']) && isset($_SESSION['last_purchase_success'])) {
             </a>
         </div>
         
-        <div class="flex items-center gap-4" x-data="{ open: false }">
-            <button @click="open = !open" class="p-2.5 bg-slate-800/80 backdrop-blur-md rounded-xl text-slate-400 hover:bg-slate-700/80 hover:text-white transition-all border border-white/10 shadow-lg">
+        <div class="flex items-center gap-4">
+            <button @click="navOpen = !navOpen" class="p-2.5 bg-slate-800/80 backdrop-blur-md rounded-xl text-slate-400 hover:bg-slate-700/80 hover:text-white transition-all border border-white/10 shadow-lg">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
             </button>
-            <div x-show="open" @click.away="open = false" x-cloak class="absolute right-6 top-20 w-64 bg-slate-900/95 backdrop-blur-xl rounded-[1.5rem] border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.5)] py-3 overflow-hidden z-[60]">
+            <div x-show="navOpen" @click.away="navOpen = false" x-cloak class="absolute right-6 top-20 w-64 bg-slate-900/95 backdrop-blur-xl rounded-[1.5rem] border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.5)] py-3 overflow-hidden z-[60]">
                 <div class="px-4 py-3 border-b border-white/5 mb-2">
                     <p class="text-[10px] text-slate-500 uppercase font-black tracking-widest">Tài khoản</p>
                     <p class="text-sm font-bold text-slate-200 truncate"><?php echo htmlspecialchars($_SESSION['username']); ?></p>
@@ -167,12 +167,53 @@ if (isset($_GET['success']) && isset($_SESSION['last_purchase_success'])) {
                 <a href="deposit.php" class="flex items-center gap-3 px-4 py-3 hover:bg-white/5 text-sm font-semibold transition-all"><?php echo getIcon('wallet', 'w-5 h-5 text-orange-500'); ?> Nạp tiền</a>
                 <a href="buy-key.php" class="flex items-center gap-3 px-4 py-3 hover:bg-white/5 text-sm font-semibold transition-all"><?php echo getIcon('key', 'w-5 h-5 text-blue-500'); ?> Mua Key</a>
                 <a href="history.php" class="flex items-center gap-3 px-4 py-3 hover:bg-white/5 text-sm font-semibold transition-all border-b border-white/5"><?php echo getIcon('history', 'w-5 h-5 text-purple-500'); ?> Lịch sử</a>
-                <a href="../logout.php" class="flex items-center gap-3 px-4 py-3 hover:bg-red-500/10 text-red-400 text-sm font-bold transition-all"><?php echo getIcon('logout', 'w-5 h-5'); ?> Đăng xuất</a>
+                <a href="javascript:void(0)" @click="showLogoutConfirm = true; navOpen = false" class="flex items-center gap-3 px-4 py-3 hover:bg-red-500/10 text-red-400 text-sm font-bold transition-all border-t border-white/5"><?php echo getIcon('logout', 'w-5 h-5'); ?> Đăng xuất</a>
             </div>
         </div>
     </nav>
 
     <main class="p-6 max-w-7xl mx-auto w-full mt-8 px-6 md:px-12" x-data="{ selectedId: 1, quantity: 1, packages: <?php echo htmlspecialchars(json_encode($packages)); ?> }">
+        <!-- Logout Confirmation Modal -->
+        <div class="fixed inset-0 z-[110] flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm" style="display: none;" x-show="showLogoutConfirm" x-transition:enter="animate-fade-in" x-transition:leave="animate-fade-out">
+            <div class="glass p-8 rounded-[2.5rem] max-w-sm w-full border border-white/10 text-center relative overflow-hidden shadow-2xl">
+                <div class="absolute -top-24 -left-24 w-48 h-48 bg-orange-500/10 rounded-full blur-3xl opacity-20"></div>
+                <div class="p-4 bg-orange-500/10 rounded-full w-20 h-20 mx-auto mb-6 flex items-center justify-center text-orange-500 border border-orange-500/20">
+                    <?php echo getIcon('logout', 'w-10 h-10'); ?>
+                </div>
+                <h3 class="text-2xl font-black text-white mb-2 uppercase">ĐĂNG XUẤT?</h3>
+                <p class="text-slate-400 text-sm font-semibold mb-8 leading-relaxed">
+                    Bạn có chắc chắn muốn thoát khỏi phiên làm việc hiện tại không?
+                </p>
+                <div class="flex gap-4">
+                    <button @click="showLogoutConfirm = false" class="flex-1 py-4 bg-white/5 border border-white/10 rounded-2xl text-white font-black hover:bg-white/10 transition-all">
+                        HỦY
+                    </button>
+                    <button @click="logout()" class="flex-1 py-4 bg-gradient-to-r from-red-500 to-orange-600 rounded-2xl text-white font-black hover:scale-[1.02] active:scale-[0.98] transition-all shadow-lg shadow-red-500/20">
+                        XÁC NHẬN
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <script>
+        async function logout() {
+            const confirmBox = document.querySelector('[x-show=\"showLogoutConfirm\"] .glass');
+            if (confirmBox) {
+                confirmBox.innerHTML = `
+                    <div class=\"p-4 bg-green-500/10 rounded-full w-20 h-20 mx-auto mb-6 flex items-center justify-center text-green-500 border border-green-500/20 animate-bounce\">
+                        <svg class=\"w-10 h-10\" fill=\"none\" stroke=\"currentColor\" viewBox=\"0 0 24 24\">
+                            <path stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"3\" d=\"M5 13l4 4L19 7\"></path>
+                        </svg>
+                    </div>
+                    <h3 class=\"text-2xl font-black text-white mb-2 uppercase\">THÀNH CÔNG!</h3>
+                    <p class=\"text-slate-400 text-sm font-semibold mb-4 leading-relaxed\">
+                        Đăng xuất thành công. Đang chuyển hướng...
+                    </p>
+                `;
+            }
+            setTimeout(() => { window.location.href = '../logout.php'; }, 1500);
+        }
+        </script>
         <!-- Session Monitor -->
         <div x-data="sessionMonitor()" x-init="init()" class="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm" style="display: none;" x-show="showLogoutModal">
             <div class="glass p-8 rounded-[2.5rem] max-w-sm w-full border border-white/10 text-center relative overflow-hidden">
