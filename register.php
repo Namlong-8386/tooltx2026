@@ -64,17 +64,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             zoom: 0.9;
         }
         body { 
-            background-color: #0f172a; 
+            background-color: #1e293b; 
             color: #f8fafc; 
             font-family: 'Plus Jakarta Sans', sans-serif;
             background-image: 
-                radial-gradient(at 0% 0%, rgba(234, 179, 8, 0.08) 0px, transparent 50%),
-                radial-gradient(at 100% 100%, rgba(249, 115, 22, 0.08) 0px, transparent 50%);
+                radial-gradient(at 0% 0%, rgba(234, 179, 8, 0.15) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(249, 115, 22, 0.15) 0px, transparent 50%);
         }
         .glass { 
-            background: rgba(255, 255, 255, 0.05); 
+            background: rgba(255, 255, 255, 0.08); 
             backdrop-filter: blur(12px); 
-            border: 1px solid rgba(255, 255, 255, 0.1); 
+            border: 1px solid rgba(255, 255, 255, 0.15); 
         }
         .text-gradient {
             background: linear-gradient(135deg, #fbbf24 0%, #f97316 100%);

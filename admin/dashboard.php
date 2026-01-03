@@ -41,15 +41,18 @@ $recentDeposits = array_slice(array_reverse($deposits), 0, 5);
             zoom: 0.8;
         }
         body { 
-            background-color: #0f172a; 
+            background-color: #1e293b; 
             color: #f8fafc; 
             font-family: 'Plus Jakarta Sans', sans-serif;
             overflow-x: hidden;
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(234, 179, 8, 0.15) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(249, 115, 22, 0.15) 0px, transparent 50%);
         }
         .glass { 
-            background: rgba(255, 255, 255, 0.05); 
+            background: rgba(255, 255, 255, 0.08); 
             backdrop-filter: blur(12px); 
-            border: 1px solid rgba(255, 255, 255, 0.1); 
+            border: 1px solid rgba(255, 255, 255, 0.15); 
         }
         .admin-card {
             background: linear-gradient(135deg, rgba(239, 68, 68, 0.1) 0%, rgba(249, 115, 22, 0.1) 100%);

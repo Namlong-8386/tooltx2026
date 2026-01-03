@@ -36,17 +36,17 @@ if (!$currentUser) {
             zoom: 0.9;
         }
         body { 
-            background-color: #0f172a; 
+            background-color: #1e293b; 
             color: #f8fafc; 
             font-family: 'Plus Jakarta Sans', sans-serif;
             background-image: 
-                radial-gradient(at 0% 0%, rgba(234, 179, 8, 0.04) 0px, transparent 50%),
-                radial-gradient(at 100% 100%, rgba(249, 115, 22, 0.04) 0px, transparent 50%);
+                radial-gradient(at 0% 0%, rgba(234, 179, 8, 0.15) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(249, 115, 22, 0.15) 0px, transparent 50%);
         }
         .glass { 
-            background: rgba(255, 255, 255, 0.05); 
+            background: rgba(255, 255, 255, 0.08); 
             backdrop-filter: blur(16px); 
-            border: 1px solid rgba(255, 255, 255, 0.1); 
+            border: 1px solid rgba(255, 255, 255, 0.15); 
         }
         .vip-card {
             background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
