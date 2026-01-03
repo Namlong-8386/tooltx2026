@@ -131,7 +131,7 @@ if (!$currentUser) {
             </div>
         </div>
     </nav>
-
+    <main class="p-6 max-w-6xl mx-auto w-full mt-8 px-6 lg:px-32">
         <!-- Notifications Section -->
         <div id="notifications-container" class="space-y-4 mb-8">
             <!-- Dynamic notifications will be loaded here -->
