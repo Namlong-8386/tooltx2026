@@ -93,22 +93,28 @@ require_once 'core/functions.php';
         
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 w-full max-w-7xl px-4">
             <div class="glass p-8 rounded-3xl glass-hover group">
-                <div class="w-12 h-12 bg-yellow-500/10 rounded-2xl flex items-center justify-center text-yellow-500 mb-6 group-hover:bg-yellow-500 group-hover:text-black transition-all">
-                    <?php echo getIcon('rocket', 'w-7 h-7'); ?>
+                <div class="w-24 h-24 mx-auto p-1 bg-gradient-to-br from-yellow-400 via-orange-500 to-yellow-600 rounded-3xl flex items-center justify-center mb-6 overflow-hidden group-hover:scale-110 group-hover:rotate-3 transition-all shadow-[0_0_20px_rgba(249,115,22,0.4)]">
+                    <div class="w-full h-full rounded-2xl overflow-hidden bg-black/50">
+                        <img src="assets/images/taixiu.png" alt="Tai Xiu Logo" class="w-full h-full object-cover">
+                    </div>
                 </div>
                 <h3 class="text-xl font-bold mb-3">Tool Tài Xỉu</h3>
                 <p class="text-sm text-slate-400 leading-relaxed">Dự đoán kết quả theo thời gian thực với độ chính xác vượt trội.</p>
             </div>
             <div class="glass p-8 rounded-3xl glass-hover group">
-                <div class="w-12 h-12 bg-orange-500/10 rounded-2xl flex items-center justify-center text-orange-500 mb-6 group-hover:bg-orange-500 group-hover:text-black transition-all">
-                    <?php echo getIcon('check', 'w-7 h-7'); ?>
+                <div class="w-24 h-24 mx-auto p-1 bg-gradient-to-br from-yellow-400 via-orange-500 to-yellow-600 rounded-3xl flex items-center justify-center mb-6 overflow-hidden group-hover:scale-110 group-hover:rotate-3 transition-all shadow-[0_0_20px_rgba(249,115,22,0.4)]">
+                    <div class="w-full h-full rounded-2xl overflow-hidden bg-black/50">
+                        <img src="assets/images/sicbo.png" alt="Sicbo Logo" class="w-full h-full object-cover">
+                    </div>
                 </div>
                 <h3 class="text-xl font-bold mb-3">Tool Sicbo</h3>
                 <p class="text-sm text-slate-400 leading-relaxed">Phân tích xác suất các mặt xúc xắc chuyên sâu từ dữ liệu nhà cái.</p>
             </div>
             <div class="glass p-8 rounded-3xl glass-hover group">
-                <div class="w-12 h-12 bg-blue-500/10 rounded-2xl flex items-center justify-center text-blue-500 mb-6 group-hover:bg-blue-500 group-hover:text-black transition-all">
-                    <?php echo getIcon('plus', 'w-7 h-7'); ?>
+                <div class="w-24 h-24 mx-auto p-1 bg-gradient-to-br from-yellow-400 via-orange-500 to-yellow-600 rounded-3xl flex items-center justify-center mb-6 overflow-hidden group-hover:scale-110 group-hover:rotate-3 transition-all shadow-[0_0_20px_rgba(249,115,22,0.4)]">
+                    <div class="w-full h-full rounded-2xl overflow-hidden bg-black/50">
+                        <img src="assets/images/xocdia.png" alt="Xoc Dia Logo" class="w-full h-full object-cover">
+                    </div>
                 </div>
                 <h3 class="text-xl font-bold mb-3">Tool Xóc Đĩa</h3>
                 <p class="text-sm text-slate-400 leading-relaxed">Bắt vị chẵn lẻ, tứ tử cực chuẩn với thuật toán nhận diện cầu.</p>
