@@ -22,7 +22,7 @@ class PageTransition {
         
         // Xử lý back/forward button
         window.addEventListener('popstate', () => {
-            this.showTransition();
+            // this.showTransition();
         });
     }
 
@@ -63,13 +63,8 @@ class PageTransition {
     }
 
     navigateTo(url) {
-        // Hiển thị hiệu ứng chuyển trang
-        this.showTransition();
-        
-        // Chờ hiệu ứng hoàn thành rồi navigate
-        setTimeout(() => {
-            window.location.href = url;
-        }, this.duration / 2);
+        // Just navigate without showing transition
+        window.location.href = url;
     }
 
     showTransition() {
@@ -91,10 +86,10 @@ class PageTransition {
 
     // Hiệu ứng khi trang vừa load
     pageEnter() {
-        document.body.classList.add('page-enter');
-        setTimeout(() => {
-            document.body.classList.remove('page-enter');
-        }, this.duration);
+        // document.body.classList.add('page-enter');
+        // setTimeout(() => {
+        //     document.body.classList.remove('page-enter');
+        // }, this.duration);
     }
 }
 
