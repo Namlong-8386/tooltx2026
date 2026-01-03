@@ -120,9 +120,14 @@ if (isset($_GET['success']) && isset($_SESSION['last_purchase_success'])) {
                 radial-gradient(at 100% 100%, rgba(249, 115, 22, 0.05) 0px, transparent 50%);
         }
         .glass { 
-            background: rgba(255, 255, 255, 0.05); 
+            background: rgba(255, 255, 255, 0.08); 
             backdrop-filter: blur(16px); 
-            border: 1px solid rgba(255, 255, 255, 0.1); 
+            border: 1px solid rgba(255, 255, 255, 0.15); 
+        }
+        .warning-box {
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            border-left: 4px solid #ef4444;
         }
         .text-gradient {
             background: linear-gradient(135deg, #fbbf24 0%, #f97316 100%);
@@ -209,7 +214,13 @@ if (isset($_GET['success']) && isset($_SESSION['last_purchase_success'])) {
                 <h3 class="text-xl font-bold text-green-500 mb-2 relative z-10"><?php echo $success; ?></h3>
                 <p class="text-slate-500 text-[10px] mb-6 relative z-10">Mã key của bạn đã được tạo thành công:</p>
                 <div class="bg-slate-800/50 border border-white/5 p-4 rounded-2xl font-mono text-xl text-yellow-500 tracking-[0.2em] mb-6 relative z-10"><?php echo $newKeyCode; ?></div>
-                <p class="text-[10px] text-slate-600 italic relative z-10">Mỗi mã key chỉ sài được trên 1 thiết bị và không thể thay đổi thiết bị.</p>
+                <div class="warning-box p-4 rounded-2xl mb-6 relative z-10">
+                    <p class="text-sm font-bold text-red-400 flex items-center justify-center gap-2 uppercase tracking-tight">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+                        Lưu ý quan trọng
+                    </p>
+                    <p class="text-xs text-slate-300 mt-1">Mỗi mã key chỉ sử dụng được trên <span class="text-red-400 font-bold">1 thiết bị</span> duy nhất và <span class="text-red-400 font-bold">không thể thay đổi</span> thiết bị sau khi kích hoạt.</p>
+                </div>
                 <div class="mt-6 flex justify-center gap-4">
                     <a href="buy-key.php" class="px-6 py-2 bg-white/5 border border-white/10 rounded-xl text-xs font-bold hover:bg-white/10 transition-all">Mua thêm</a>
                     <a href="dashboard.php" class="px-6 py-2 bg-yellow-500 text-black rounded-xl text-xs font-bold hover:scale-105 transition-all">Trang chủ</a>
@@ -253,7 +264,7 @@ if (isset($_GET['success']) && isset($_SESSION['last_purchase_success'])) {
                         <h3 class="text-xl font-black mb-6 flex items-center gap-3"><span class="p-2 bg-yellow-500/10 rounded-xl text-yellow-500"><?php echo getIcon('shield', 'w-5 h-5'); ?></span> Lưu Ý VIP</h3>
                         <ul class="space-y-4">
                             <li class="text-xs text-slate-400 flex gap-3"><span class="text-yellow-500 mt-1">✦</span><span>Hệ thống tự động kích hoạt key ngay sau khi thanh toán.</span></li>
-                            <li class="text-xs text-slate-400 flex gap-3"><span class="text-yellow-500 mt-1">✦</span><span>Mỗi key có thể sử dụng cho một tài khoản duy nhất.</span></li>
+                            <li class="text-xs text-red-400 font-bold flex gap-3"><span class="text-red-500 mt-1">✦</span><span>Mỗi mã key chỉ sử dụng được trên 1 thiết bị và không thể thay đổi thiết bị.</span></li>
                             <li class="text-xs text-slate-400 flex gap-3"><span class="text-yellow-500 mt-1">✦</span><span>Hỗ trợ kỹ thuật 24/7 qua kênh Telegram.</span></li>
                         </ul>
                     </div>
