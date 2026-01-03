@@ -98,7 +98,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     </style>
 </head>
-<body class="min-h-screen flex items-center justify-center p-4" x-data="{ status: '<?php echo $status; ?>', message: '<?php echo $message; ?>' }" x-init="if(status === 'success') setTimeout(() => window.location.href='user/dashboard.php', 1500)">
+<body class="min-h-screen flex items-center justify-center p-4" x-data="{ status: '<?php echo $status; ?>', message: '<?php echo $message; ?>' }" x-init="if(status === 'success') setTimeout(() => window.location.href='user/dashboard.php', 800)">
 
     <!-- Status Modal -->
     <template x-if="status !== ''">
