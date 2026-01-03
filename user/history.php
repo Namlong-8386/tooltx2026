@@ -122,18 +122,26 @@ usort($userKeys, function($a, $b) {
             const confirmBox = document.querySelector('[x-show="showLogoutConfirm"] .glass');
             if (confirmBox) {
                 confirmBox.innerHTML = `
-                    <div class="p-4 bg-green-500/10 rounded-full w-20 h-20 mx-auto mb-6 flex items-center justify-center text-green-500 border border-green-500/20 animate-bounce">
-                        <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path>
-                        </svg>
+                    <div class="flex flex-col items-center py-6">
+                        <div class="relative mb-6">
+                            <div class="absolute inset-0 bg-green-500/20 rounded-full blur-xl animate-pulse"></div>
+                            <div class="relative p-5 bg-green-500/10 rounded-full border border-green-500/20 text-green-500">
+                                <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                            </div>
+                        </div>
+                        <h3 class="text-2xl font-black text-white mb-2 tracking-tight">HẸN GẶP LẠI!</h3>
+                        <p class="text-slate-400 text-sm font-medium">Bạn đã đăng xuất thành công.</p>
+                        <div class="mt-8 flex gap-1 justify-center">
+                            <div class="w-2 h-2 bg-green-500 rounded-full animate-bounce" style="animation-delay: 0.1s"></div>
+                            <div class="w-2 h-2 bg-green-500 rounded-full animate-bounce" style="animation-delay: 0.2s"></div>
+                            <div class="w-2 h-2 bg-green-500 rounded-full animate-bounce" style="animation-delay: 0.3s"></div>
+                        </div>
                     </div>
-                    <h3 class="text-2xl font-black text-white mb-2 uppercase">THÀNH CÔNG!</h3>
-                    <p class="text-slate-400 text-sm font-semibold mb-4 leading-relaxed">
-                        Đăng xuất thành công. Đang chuyển hướng...
-                    </p>
                 `;
             }
-            setTimeout(() => { window.location.href = '../logout.php'; }, 1500);
+            setTimeout(() => { window.location.href = '../logout.php'; }, 2000);
         }
         </script>
         <!-- Session Monitor -->
