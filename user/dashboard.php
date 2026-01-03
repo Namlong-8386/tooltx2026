@@ -132,7 +132,22 @@ if (!$currentUser) {
         </div>
     </nav>
 
-    <main class="p-6 max-w-7xl mx-auto w-full mt-6">
+        <!-- Notifications Section -->
+        <div id="notifications-container" class="space-y-4 mb-8">
+            <!-- Dynamic notifications will be loaded here -->
+            <div class="glass p-6 rounded-[2rem] border-l-4 border-blue-500 flex items-center justify-between group">
+                <div class="flex items-center gap-4">
+                    <div class="p-3 bg-blue-500/10 rounded-2xl text-blue-500">
+                        <?php echo getIcon('rocket', 'w-6 h-6'); ?>
+                    </div>
+                    <div>
+                        <p class="text-[10px] font-black text-blue-500 uppercase tracking-[0.2em] mb-1">Cập nhật hệ thống</p>
+                        <p class="text-sm font-bold text-slate-200">Chào mừng bạn trở lại! Chúc bạn một ngày làm việc hiệu quả.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <!-- Account Info Section -->
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12">
             <!-- VIP Card -->
