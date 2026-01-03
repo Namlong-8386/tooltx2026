@@ -21,6 +21,21 @@ if (!$currentUser) {
     exit;
 }
 
+// Persist pending deposit if it exists and hasn't expired
+if (!isset($_GET['success'])) {
+    $deposits = readJSON('deposits');
+    foreach (array_reverse($deposits) as $d) {
+        if ($d['user_id'] === $_SESSION['user_id'] && $d['status'] === 'pending') {
+            $rem = strtotime($d['expires_at']) - time();
+            if ($rem > 0) {
+                $_SESSION['current_deposit_order'] = $d;
+                header('Location: deposit.php?success=1');
+                exit;
+            }
+        }
+    }
+}
+
 $banks = readJSON('banks');
 $error = '';
 $success = false;
