@@ -967,9 +967,10 @@
         "account_no": "999999999",
         "account_name": "Trum HKNam",
         "description": "NAPTSH5QR",
-        "status": "pending",
+        "status": "cancelled",
         "created_at": "2026-01-03 16:33:15",
-        "expires_at": "2026-01-03 16:53:15"
+        "expires_at": "2026-01-03 16:53:15",
+        "updated_at": "2026-01-03 17:53:52"
     },
     {
         "id": "DEPMX30QU5Y",
@@ -981,8 +982,9 @@
         "account_no": "999999999",
         "account_name": "Trum HKNam",
         "description": "NAP16KRWV",
-        "status": "pending",
+        "status": "completed",
         "created_at": "2026-01-03 17:52:10",
-        "expires_at": "2026-01-03 18:12:10"
+        "expires_at": "2026-01-03 18:12:10",
+        "updated_at": "2026-01-03 17:53:55"
     }
 ]

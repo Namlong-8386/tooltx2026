@@ -384,34 +384,41 @@ if (isset($_GET['success']) && isset($_SESSION['current_deposit_order'])) {
                                 if(d.status==='completed'){
                                     clearInterval(pI);
                                     if(bE && d.new_balance) bE.innerText=d.new_balance;
+                                    
+                                    // Cập nhật trạng thái hiển thị
                                     const app = document.querySelector('[x-data]');
-                                    if(app && app.__x) {
-                                        app.__x.$data.orderId = d.deposit_id || oId;
-                                        app.__x.$data.amount = d.amount_formatted || '<?php echo formatMoney($order['amount'] ?? 0); ?>';
-                                        app.__x.$data.isSuccess = true;
-                                    } else if(document.body._x_dataStack){
-                                        document.body._x_dataStack[0].orderId = d.deposit_id || oId;
-                                        document.body._x_dataStack[0].amount = d.amount_formatted || '<?php echo formatMoney($order['amount'] ?? 0); ?>';
-                                        document.body._x_dataStack[0].isSuccess = true;
+                                    if(app && app._x_dataStack){
+                                        app._x_dataStack[0].orderId = d.deposit_id || oId;
+                                        app._x_dataStack[0].amount = d.amount_formatted || '<?php echo formatMoney($order['amount'] ?? 0); ?>';
+                                        app._x_dataStack[0].isSuccess = true;
+                                    } else if(window.Alpine) {
+                                        const body = document.querySelector('body');
+                                        const data = Alpine.$data(body);
+                                        data.isSuccess = true;
+                                        data.amount = d.amount_formatted;
+                                    } else {
+                                        window.location.reload();
                                     }
                                 }else if(d.status==='cancelled'||d.status==='expired'){
                                     clearInterval(pI);
                                     const app = document.querySelector('[x-data]');
                                     const reason = d.status === 'expired' ? 'Giao dịch đã hết hạn' : 'Giao dịch đã bị quản trị viên hủy';
-                                    if(app && app.__x) {
-                                        app.__x.$data.orderId = d.deposit_id || oId;
-                                        app.__x.$data.amount = d.amount_formatted || '<?php echo formatMoney($order['amount'] ?? 0); ?>';
-                                        app.__x.$data.cancelReason = reason;
-                                        app.__x.$data.isCancelled = true;
-                                    } else if(document.body._x_dataStack){
-                                        document.body._x_dataStack[0].orderId = d.deposit_id || oId;
-                                        document.body._x_dataStack[0].amount = d.amount_formatted || '<?php echo formatMoney($order['amount'] ?? 0); ?>';
-                                        document.body._x_dataStack[0].cancelReason = reason;
-                                        document.body._x_dataStack[0].isCancelled = true;
+                                    if(app && app._x_dataStack){
+                                        app._x_dataStack[0].orderId = d.deposit_id || oId;
+                                        app._x_dataStack[0].amount = d.amount_formatted || '<?php echo formatMoney($order['amount'] ?? 0); ?>';
+                                        app._x_dataStack[0].cancelReason = reason;
+                                        app._x_dataStack[0].isCancelled = true;
+                                    } else if(window.Alpine) {
+                                        const body = document.querySelector('body');
+                                        const data = Alpine.$data(body);
+                                        data.isCancelled = true;
+                                        data.cancelReason = reason;
+                                    } else {
+                                        window.location.reload();
                                     }
                                 }
                             }catch(e){}
-                        },1000);
+                        },3000);
                     })();
                     </script>
                 <?php endif; ?>
