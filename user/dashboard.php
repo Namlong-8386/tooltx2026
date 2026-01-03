@@ -208,9 +208,9 @@ if (!$currentUser) {
                 </div>
             </div>
             
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                 <!-- Link Key Section -->
-                <div class="glass p-8 rounded-[2.5rem] border border-white/5 hover:border-blue-500/20 transition-all group md:col-span-2">
+                <div class="glass p-8 rounded-[2.5rem] border border-white/5 hover:border-blue-500/20 transition-all group md:col-span-4">
                     <div class="flex justify-between items-start mb-6">
                         <div class="p-4 bg-blue-500/10 rounded-2xl text-blue-500 group-hover:bg-blue-500 group-hover:text-black transition-all">
                             <?php echo getIcon('key', 'w-8 h-8'); ?>
@@ -250,28 +250,52 @@ if (!$currentUser) {
                     </div>
                 </div>
 
-                <div class="glass p-8 rounded-[2.5rem] border border-white/5 hover:border-yellow-500/20 transition-all group">
-                    <div class="flex justify-between items-start mb-6">
-                        <div class="p-4 bg-yellow-500/10 rounded-2xl text-yellow-500 group-hover:bg-yellow-500 group-hover:text-black transition-all">
-                            <?php echo getIcon('rocket', 'w-8 h-8'); ?>
+                <!-- Tai Xiu Tool -->
+                <div class="glass p-6 rounded-[2.5rem] border border-white/5 hover:border-yellow-500/20 transition-all group">
+                    <div class="w-20 h-20 mx-auto p-1 bg-gradient-to-br from-yellow-400 via-orange-500 to-yellow-600 rounded-3xl flex items-center justify-center mb-6 overflow-hidden group-hover:scale-110 group-hover:rotate-3 transition-all shadow-lg shadow-orange-500/20">
+                        <div class="w-full h-full rounded-2xl overflow-hidden bg-black/50">
+                            <img src="../assets/images/taixiu.png" alt="Tai Xiu Logo" class="w-full h-full object-cover">
                         </div>
-                        <span class="text-[10px] font-black text-slate-500 uppercase tracking-[0.2em]">Phiên bản 4.2</span>
                     </div>
-                    <h4 class="text-xl font-black mb-2">Tool Tài Xỉu Siêu Cấp</h4>
-                    <p class="text-sm text-slate-400 mb-8 leading-relaxed">Sử dụng thuật toán xác suất thống kê thế hệ mới, dự đoán kết quả với độ trễ cực thấp.</p>
-                    <button class="w-full py-4 glass rounded-2xl text-sm font-black hover:bg-yellow-500 hover:text-black transition-all border border-white/5">KÍCH HOẠT NGAY</button>
+                    <h4 class="text-lg font-black mb-2 text-center text-gradient">Tool Tài Xỉu</h4>
+                    <p class="text-[10px] text-slate-400 mb-6 text-center leading-relaxed line-clamp-2">Dự đoán kết quả theo thời gian thực với độ chính xác vượt trội.</p>
+                    <button class="w-full py-3 glass rounded-xl text-xs font-black hover:bg-yellow-500 hover:text-black transition-all border border-white/5">KÍCH HOẠT</button>
                 </div>
-                
-                <div class="glass p-8 rounded-[2.5rem] border border-white/5 hover:border-orange-500/20 transition-all group">
-                    <div class="flex justify-between items-start mb-6">
-                        <div class="p-4 bg-orange-500/10 rounded-2xl text-orange-500 group-hover:bg-orange-500 group-hover:text-black transition-all">
-                            <?php echo getIcon('shield', 'w-8 h-8'); ?>
+
+                <!-- Sicbo Tool -->
+                <div class="glass p-6 rounded-[2.5rem] border border-white/5 hover:border-orange-500/20 transition-all group">
+                    <div class="w-20 h-20 mx-auto p-1 bg-gradient-to-br from-yellow-400 via-orange-500 to-yellow-600 rounded-3xl flex items-center justify-center mb-6 overflow-hidden group-hover:scale-110 group-hover:rotate-3 transition-all shadow-lg shadow-orange-500/20">
+                        <div class="w-full h-full rounded-2xl overflow-hidden bg-black/50">
+                            <img src="../assets/images/sicbo.png" alt="Sicbo Logo" class="w-full h-full object-cover">
                         </div>
-                        <span class="text-[10px] font-black text-slate-500 uppercase tracking-[0.2em]">Phiên bản 3.8</span>
                     </div>
-                    <h4 class="text-xl font-black mb-2">Tool Baccarat Chuyên Nghiệp</h4>
-                    <p class="text-sm text-slate-400 mb-8 leading-relaxed">Phân tích cầu Banker/Player dựa trên dữ liệu lịch sử 1000 phiên gần nhất.</p>
-                    <button class="w-full py-4 glass rounded-2xl text-sm font-black hover:bg-orange-500 hover:text-black transition-all border border-white/5">KÍCH HOẠT NGAY</button>
+                    <h4 class="text-lg font-black mb-2 text-center text-gradient">Tool Sicbo</h4>
+                    <p class="text-[10px] text-slate-400 mb-6 text-center leading-relaxed line-clamp-2">Phân tích xác suất các mặt xúc xắc chuyên sâu.</p>
+                    <button class="w-full py-3 glass rounded-xl text-xs font-black hover:bg-orange-500 hover:text-black transition-all border border-white/5">KÍCH HOẠT</button>
+                </div>
+
+                <!-- Xoc Dia Tool -->
+                <div class="glass p-6 rounded-[2.5rem] border border-white/5 hover:border-blue-500/20 transition-all group">
+                    <div class="w-20 h-20 mx-auto p-1 bg-gradient-to-br from-yellow-400 via-orange-500 to-yellow-600 rounded-3xl flex items-center justify-center mb-6 overflow-hidden group-hover:scale-110 group-hover:rotate-3 transition-all shadow-lg shadow-blue-500/20">
+                        <div class="w-full h-full rounded-2xl overflow-hidden bg-black/50">
+                            <img src="../assets/images/xocdia.png" alt="Xoc Dia Logo" class="w-full h-full object-cover">
+                        </div>
+                    </div>
+                    <h4 class="text-lg font-black mb-2 text-center text-gradient">Tool Xóc Đĩa</h4>
+                    <p class="text-[10px] text-slate-400 mb-6 text-center leading-relaxed line-clamp-2">Bắt vị chẵn lẻ, tứ tử cực chuẩn với AI nhận diện cầu.</p>
+                    <button class="w-full py-3 glass rounded-xl text-xs font-black hover:bg-blue-500 hover:text-black transition-all border border-white/5">KÍCH HOẠT</button>
+                </div>
+
+                <!-- Baccarat Tool -->
+                <div class="glass p-6 rounded-[2.5rem] border border-white/5 hover:border-yellow-500/20 transition-all group">
+                    <div class="w-20 h-20 mx-auto p-1 bg-gradient-to-br from-yellow-400 via-orange-500 to-yellow-600 rounded-3xl flex items-center justify-center mb-6 overflow-hidden group-hover:scale-110 group-hover:rotate-3 transition-all shadow-lg shadow-orange-500/20">
+                        <div class="w-full h-full rounded-2xl overflow-hidden bg-black/50">
+                            <img src="../assets/images/baccarat-logo.png" alt="Baccarat Logo" class="w-full h-full object-cover">
+                        </div>
+                    </div>
+                    <h4 class="text-lg font-black mb-2 text-center text-gradient">Tool Baccarat</h4>
+                    <p class="text-[10px] text-slate-400 mb-6 text-center leading-relaxed line-clamp-2">Hỗ trợ soi cầu Player/Banker và quản lý vốn thông minh.</p>
+                    <button class="w-full py-3 glass rounded-xl text-xs font-black hover:bg-yellow-500 hover:text-black transition-all border border-white/5">KÍCH HOẠT</button>
                 </div>
             </div>
         </div>
