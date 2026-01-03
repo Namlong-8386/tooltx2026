@@ -103,7 +103,7 @@ require_once 'core/functions.php';
                 <div class="w-12 h-12 bg-orange-500/10 rounded-2xl flex items-center justify-center text-orange-500 mb-6 group-hover:bg-orange-500 group-hover:text-black transition-all">
                     <?php echo getIcon('check', 'w-7 h-7'); ?>
                 </div>
-                <h3 class="text-xl font-bold mb-3">Sicbo Pro</h3>
+                <h3 class="text-xl font-bold mb-3">Tool Sicbo</h3>
                 <p class="text-sm text-slate-400 leading-relaxed">Phân tích xác suất các mặt xúc xắc chuyên sâu từ dữ liệu nhà cái.</p>
             </div>
             <div class="glass p-8 rounded-3xl glass-hover group">
