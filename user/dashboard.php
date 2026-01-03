@@ -124,7 +124,7 @@ if (!$currentUser) {
                     <?php echo getIcon('history', 'w-5 h-5 text-purple-500'); ?>
                     Lịch sử
                 </a>
-                <a href="../logout.php" class="flex items-center gap-3 px-4 py-3 hover:bg-red-500/10 text-red-400 text-sm font-bold transition-all border-t border-white/5">
+                <a href="javascript:void(0)" @click="showLogoutConfirm = true" class="flex items-center gap-3 px-4 py-3 hover:bg-red-500/10 text-red-400 text-sm font-bold transition-all border-t border-white/5">
                     <?php echo getIcon('logout', 'w-5 h-5'); ?>
                     Đăng xuất
                 </a>
@@ -147,7 +147,7 @@ if (!$currentUser) {
                     <button @click="showLogoutConfirm = false" class="flex-1 py-4 bg-white/5 border border-white/10 rounded-2xl text-white font-black hover:bg-white/10 transition-all">
                         HỦY
                     </button>
-                    <button @click="window.location.href='../logout.php'" class="flex-1 py-4 bg-gradient-to-r from-red-500 to-orange-600 rounded-2xl text-white font-black hover:scale-[1.02] active:scale-[0.98] transition-all shadow-lg shadow-red-500/20">
+                    <button @click="logout()" class="flex-1 py-4 bg-gradient-to-r from-red-500 to-orange-600 rounded-2xl text-white font-black hover:scale-[1.02] active:scale-[0.98] transition-all shadow-lg shadow-red-500/20">
                         XÁC NHẬN
                     </button>
                 </div>
@@ -187,6 +187,37 @@ if (!$currentUser) {
                     }, 5000);
                 }
             }
+        }
+
+        async function logout() {
+            // Show success message using simple alert or customized UI if available
+            // For now, let's use the current modal to show success then redirect
+            const modalTitle = document.querySelector('#showLogoutConfirm h3');
+            const modalText = document.querySelector('#showLogoutConfirm p');
+            const modalButtons = document.querySelector('#showLogoutConfirm .flex.gap-4');
+            
+            // Note: Since we're using AlpineJS, it's better to manage state.
+            // But to keep it simple and effective as requested:
+            
+            // Find the confirmation modal content and update it
+            const confirmBox = document.querySelector('[x-show="showLogoutConfirm"] .glass');
+            if (confirmBox) {
+                confirmBox.innerHTML = `
+                    <div class="p-4 bg-green-500/10 rounded-full w-20 h-20 mx-auto mb-6 flex items-center justify-center text-green-500 border border-green-500/20 animate-bounce">
+                        <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-2xl font-black text-white mb-2 uppercase">THÀNH CÔNG!</h3>
+                    <p class="text-slate-400 text-sm font-semibold mb-4 leading-relaxed">
+                        Đăng xuất thành công. Đang chuyển hướng...
+                    </p>
+                `;
+            }
+
+            setTimeout(() => {
+                window.location.href = '../logout.php';
+            }, 1500);
         }
         </script>
 
