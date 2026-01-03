@@ -178,6 +178,7 @@ usort($userKeys, function($a, $b) {
                             <tr class="bg-white/5 border-b border-white/10">
                                 <th class="px-8 py-5 text-xs font-black uppercase tracking-widest text-slate-500">Mã Key</th>
                                 <th class="px-8 py-5 text-xs font-black uppercase tracking-widest text-slate-500">Gói dịch vụ</th>
+                                <th class="px-8 py-5 text-xs font-black uppercase tracking-widest text-slate-500">Liên kết</th>
                                 <th class="px-8 py-5 text-xs font-black uppercase tracking-widest text-slate-500">Tổng tiền</th>
                                 <th class="px-8 py-5 text-xs font-black uppercase tracking-widest text-slate-500">Thời gian</th>
                             </tr>
@@ -201,6 +202,16 @@ usort($userKeys, function($a, $b) {
                                             <span class="px-3 py-1 bg-blue-500/10 text-blue-400 rounded-lg text-xs font-black border border-blue-500/20">
                                                 <?php echo strtoupper($k['package_name']); ?>
                                             </span>
+                                        </td>
+                                        <td class="px-8 py-5">
+                                            <?php if (!empty($k['linked_account'])): ?>
+                                                <div class="flex flex-col">
+                                                    <span class="text-xs font-bold text-green-400"><?php echo htmlspecialchars($k['linked_account']); ?></span>
+                                                    <span class="text-[9px] text-slate-500"><?php echo date('H:i d/m', strtotime($k['linked_at'])); ?></span>
+                                                </div>
+                                            <?php else: ?>
+                                                <span class="text-xs font-bold text-slate-500 italic">Chưa liên kết</span>
+                                            <?php endif; ?>
                                         </td>
                                         <td class="px-8 py-5 font-black text-white"><?php echo formatMoney($k['total_price']); ?></td>
                                         <td class="px-8 py-5 text-slate-400 text-sm font-semibold"><?php echo date('H:i d/m/Y', strtotime($k['created_at'])); ?></td>
