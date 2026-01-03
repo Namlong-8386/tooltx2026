@@ -12,41 +12,49 @@ if (isLoggedIn()) {
     exit;
 }
 
-$error = '';
+$status = ''; // loading, success, error
+$message = '';
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $status = 'loading';
     if (!verifyCSRFToken($_POST['csrf_token'] ?? '')) {
-        $error = 'Lỗi xác thực CSRF. Vui lòng thử lại.';
+        $status = 'error';
+        $message = 'Lỗi xác thực CSRF. Vui lòng thử lại.';
     } else {
         $username = trim($_POST['username']);
-    $password = $_POST['password'];
+        $password = $_POST['password'];
 
-    $users = readJSON('users');
-    $found = false;
-    foreach ($users as $user) {
-        if ($user['username'] === $username && password_verify($password, $user['password'])) {
+        $users = readJSON('users');
+        $foundUser = null;
+        foreach ($users as $user) {
+            if ($user['username'] === $username && password_verify($password, $user['password'])) {
+                $foundUser = $user;
+                break;
+            }
+        }
+
+        if ($foundUser) {
             $sessionToken = generateSessionTokenLocal();
-            
             // Update user session token in JSON
             $users = readJSON('users');
             foreach ($users as &$u) {
-                if ($u['id'] === $user['id']) {
+                if ($u['id'] === $foundUser['id']) {
                     $u['session_token'] = $sessionToken;
                     break;
                 }
             }
             writeJSON('users', $users);
 
-            $_SESSION['user_id'] = $user['id'];
-            $_SESSION['username'] = $user['username'];
-            $_SESSION['role'] = $user['role'];
+            $_SESSION['user_id'] = $foundUser['id'];
+            $_SESSION['username'] = $foundUser['username'];
+            $_SESSION['role'] = $foundUser['role'];
             $_SESSION['session_token'] = $sessionToken;
-            $found = true;
-            header('Location: user/dashboard.php');
-            exit;
-        }
-    }
-        if (!$found) {
-            $error = 'Tên đăng nhập hoặc mật khẩu không chính xác.';
+            
+            $status = 'success';
+            $message = 'Đăng nhập thành công! Đang chuyển hướng...';
+        } else {
+            $status = 'error';
+            $message = 'Tên đăng nhập hoặc mật khẩu không chính xác.';
         }
     }
 }
@@ -62,9 +70,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/transitions.css">
     <style>
-        html {
-            zoom: 0.9;
-        }
+        html { zoom: 0.9; }
         body { 
             background-color: #1e293b; 
             color: #f8fafc; 
@@ -89,7 +95,54 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     </style>
 </head>
-<body class="min-h-screen flex items-center justify-center p-4">
+<body class="min-h-screen flex items-center justify-center p-4" x-data="{ status: '<?php echo $status; ?>', message: '<?php echo $message; ?>' }" x-init="if(status === 'success') setTimeout(() => window.location.href='user/dashboard.php', 1500)">
+    
+    <!-- Status Modal -->
+    <template x-if="status !== ''">
+        <div class="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-fade-in">
+            <div class="glass p-8 rounded-[2.5rem] max-w-sm w-full border border-white/10 text-center relative overflow-hidden shadow-2xl">
+                <div class="absolute -top-24 -left-24 w-48 h-48 rounded-full blur-3xl opacity-20" :class="status === 'success' ? 'bg-green-500' : (status === 'error' ? 'bg-red-500' : 'bg-yellow-500')"></div>
+                
+                <!-- Loading -->
+                <template x-if="status === 'loading'">
+                    <div class="flex flex-col items-center">
+                        <div class="w-20 h-20 border-4 border-yellow-500/20 border-t-yellow-500 rounded-full status-spinner mb-6"></div>
+                        <h3 class="text-xl font-black text-white">ĐANG XỬ LÝ...</h3>
+                    </div>
+                </template>
+
+                <!-- Success -->
+                <template x-if="status === 'success'">
+                    <div class="flex flex-col items-center">
+                        <div class="w-20 h-20 mb-6 status-icon-box">
+                            <svg class="w-full h-full" viewBox="0 0 52 52">
+                                <circle class="checkmark-circle" cx="26" cy="26" r="25" fill="none"/>
+                                <path class="checkmark-check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
+                            </svg>
+                        </div>
+                        <h3 class="text-2xl font-black text-green-400 mb-2 uppercase">THÀNH CÔNG</h3>
+                        <p class="text-slate-300 font-semibold" x-text="message"></p>
+                    </div>
+                </template>
+
+                <!-- Error -->
+                <template x-if="status === 'error'">
+                    <div class="flex flex-col items-center">
+                        <div class="w-20 h-20 mb-6 status-icon-box">
+                            <svg class="w-full h-full" viewBox="0 0 52 52">
+                                <circle class="cross-circle" cx="26" cy="26" r="25" fill="none"/>
+                                <path class="cross-line" fill="none" d="M16 16 36 36 M36 16 16 36"/>
+                            </svg>
+                        </div>
+                        <h3 class="text-2xl font-black text-red-500 mb-2 uppercase">THẤT BẠI</h3>
+                        <p class="text-slate-300 font-semibold mb-6" x-text="message"></p>
+                        <button @click="status = ''" class="w-full py-3 bg-white/5 border border-white/10 rounded-2xl text-white font-bold hover:bg-white/10 transition-all">THỬ LẠI</button>
+                    </div>
+                </template>
+            </div>
+        </div>
+    </template>
+
     <div class="glass p-8 rounded-[2.5rem] w-full max-w-md border border-white/10 relative overflow-hidden">
         <div class="absolute -top-24 -left-24 w-48 h-48 bg-yellow-500/10 rounded-full blur-3xl"></div>
         <div class="absolute -bottom-24 -right-24 w-48 h-48 bg-orange-500/10 rounded-full blur-3xl"></div>
@@ -101,13 +154,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <h2 class="text-4xl font-black tracking-tighter text-gradient">ĐĂNG NHẬP</h2>
             <p class="text-slate-500 text-xs font-bold uppercase tracking-widest mt-2">Hệ thống AI dự đoán 2026</p>
         </div>
-
-        <?php if ($error): ?>
-            <div class="bg-red-500/10 border border-red-500/50 text-red-400 p-4 rounded-2xl mb-6 text-sm flex items-center gap-3">
-                <?php echo getIcon('x', 'w-5 h-5'); ?>
-                <?php echo $error; ?>
-            </div>
-        <?php endif; ?>
 
         <form method="POST" class="space-y-6 relative">
             <input type="hidden" name="csrf_token" value="<?php echo generateCSRFToken(); ?>">

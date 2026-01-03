@@ -179,17 +179,60 @@ body.page-exit {
     }
 }
 
-/* Mobile optimization */
-@media (max-width: 768px) {
-    .page-transition-overlay {
-        animation-duration: 0.4s;
-    }
-    
-    body.page-enter {
-        animation-duration: 0.4s;
-    }
-    
-    body.page-exit {
-        animation-duration: 0.2s;
-    }
+/* Status Modal Animations */
+@keyframes status-spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+@keyframes status-scale {
+    0% { transform: scale(0.5); opacity: 0; }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes status-draw {
+    to { stroke-dashoffset: 0; }
+}
+
+.status-spinner {
+    animation: status-spin 0.8s linear infinite;
+}
+
+.status-icon-box {
+    animation: status-scale 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+.checkmark-circle {
+    stroke-dasharray: 166;
+    stroke-dashoffset: 166;
+    stroke-width: 2;
+    stroke-miterlimit: 10;
+    stroke: #10b981;
+    fill: none;
+    animation: status-draw 0.6s cubic-bezier(0.65, 0, 0.45, 1) forwards;
+}
+
+.checkmark-check {
+    transform-origin: 50% 50%;
+    stroke-dasharray: 48;
+    stroke-dashoffset: 48;
+    animation: status-draw 0.3s cubic-bezier(0.65, 0, 0.45, 1) 0.8s forwards;
+}
+
+.cross-circle {
+    stroke-dasharray: 166;
+    stroke-dashoffset: 166;
+    stroke-width: 2;
+    stroke-miterlimit: 10;
+    stroke: #ef4444;
+    fill: none;
+    animation: status-draw 0.6s cubic-bezier(0.65, 0, 0.45, 1) forwards;
+}
+
+.cross-line {
+    transform-origin: 50% 50%;
+    stroke-dasharray: 48;
+    stroke-dashoffset: 48;
+    animation: status-draw 0.3s cubic-bezier(0.65, 0, 0.45, 1) 0.8s forwards;
 }
