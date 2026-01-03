@@ -15,6 +15,11 @@ if (isLoggedIn()) {
 $status = ''; // loading, success, error
 $message = '';
 
+if (isset($_GET['logout']) && $_GET['logout'] === 'success') {
+    $status = 'success';
+    $message = 'Đăng xuất thành công! Hẹn gặp lại bạn.';
+}
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $status = 'loading';
     if (!verifyCSRFToken($_POST['csrf_token'] ?? '')) {
