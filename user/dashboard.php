@@ -132,6 +132,42 @@ if (!$currentUser) {
         </div>
     </nav>
     <main class="p-6 max-w-7xl mx-auto w-full mt-8 px-6 md:px-12">
+        <!-- Session Monitor -->
+        <div x-data="sessionMonitor()" x-init="init()" class="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm" style="display: none;" x-show="showLogoutModal">
+            <div class="glass p-8 rounded-[2.5rem] max-w-sm w-full border border-white/10 text-center relative overflow-hidden">
+                <div class="absolute -top-24 -left-24 w-48 h-48 bg-red-500/10 rounded-full blur-3xl"></div>
+                <div class="p-4 bg-red-500/10 rounded-full w-20 h-20 mx-auto mb-6 flex items-center justify-center text-red-500 border border-red-500/20">
+                    <?php echo getIcon('alert-triangle', 'w-10 h-10'); ?>
+                </div>
+                <h3 class="text-2xl font-black text-white mb-2">PHIÊN ĐĂNG NHẬP HẾT HẠN</h3>
+                <p class="text-slate-400 text-sm font-semibold mb-8 leading-relaxed">
+                    Tài khoản của bạn đã được đăng nhập từ một thiết bị khác. Vui lòng đăng nhập lại để tiếp tục.
+                </p>
+                <button @click="window.location.href='../logout.php'" class="w-full py-4 bg-gradient-to-r from-red-500 to-orange-600 rounded-2xl text-white font-black hover:scale-[1.02] active:scale-[0.98] transition-all shadow-lg shadow-red-500/20">
+                    ĐĂNG NHẬP LẠI
+                </button>
+            </div>
+        </div>
+
+        <script>
+        function sessionMonitor() {
+            return {
+                showLogoutModal: false,
+                init() {
+                    setInterval(() => {
+                        fetch('api/check-session.php')
+                            .then(response => response.json())
+                            .then(data => {
+                                if (data.status === 'expired') {
+                                    this.showLogoutModal = true;
+                                }
+                            });
+                    }, 5000);
+                }
+            }
+        }
+        </script>
+
         <!-- Notifications Section -->
         <div id="notifications-container" class="space-y-4 mb-8">
             <!-- Dynamic notifications will be loaded here -->

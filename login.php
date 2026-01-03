@@ -1,6 +1,10 @@
 <?php
 require_once 'core/functions.php';
 
+function generateSessionTokenLocal() {
+    return bin2hex(random_bytes(32));
+}
+
 if (isLoggedIn()) {
     header('Location: user/dashboard.php');
     exit;
@@ -18,7 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $found = false;
     foreach ($users as $user) {
         if ($user['username'] === $username && password_verify($password, $user['password'])) {
-            $sessionToken = generateSessionToken();
+            $sessionToken = generateSessionTokenLocal();
             
             // Update user session token in JSON
             foreach ($users as &$u) {
