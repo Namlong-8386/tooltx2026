@@ -25,7 +25,21 @@ function generateID($prefix = 'USER') {
 }
 
 function isLoggedIn() {
-    return isset($_SESSION['user_id']);
+    if (!isset($_SESSION['user_id']) || !isset($_SESSION['session_token'])) {
+        return false;
+    }
+    
+    $users = readJSON('users');
+    foreach ($users as $user) {
+        if ($user['id'] === $_SESSION['user_id']) {
+            return $user['session_token'] === $_SESSION['session_token'];
+        }
+    }
+    return false;
+}
+
+function generateSessionToken() {
+    return bin2hex(random_bytes(32));
 }
 
 function isAdminLoggedIn() {

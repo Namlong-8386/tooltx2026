@@ -18,9 +18,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $found = false;
     foreach ($users as $user) {
         if ($user['username'] === $username && password_verify($password, $user['password'])) {
+            $sessionToken = generateSessionToken();
+            
+            // Update user session token in JSON
+            foreach ($users as &$u) {
+                if ($u['id'] === $user['id']) {
+                    $u['session_token'] = $sessionToken;
+                    break;
+                }
+            }
+            writeJSON('users', $users);
+
             $_SESSION['user_id'] = $user['id'];
             $_SESSION['username'] = $user['username'];
             $_SESSION['role'] = $user['role'];
+            $_SESSION['session_token'] = $sessionToken;
             $found = true;
             header('Location: user/dashboard.php');
             exit;

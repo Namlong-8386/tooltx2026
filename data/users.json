@@ -5,7 +5,8 @@
         "password": "$2y$10$a7ZEEuiEgZp9ZKL7C2f81eiHl\/gHXQxlivAyw3P94Awo\/KHrm8e2u",
         "balance": 202255000,
         "role": "admin",
-        "created_at": "2025-12-28 13:24:49"
+        "created_at": "2025-12-28 13:24:49",
+        "session_token": ""
     },
     {
         "id": "USER454954",
@@ -13,6 +14,7 @@
         "password": "$2y$10$4AekexlsN7Gu4N1pVe\/hmO4QhDc2WpvWU5p0dUqAtjx.0a1oBhk\/y",
         "balance": 21830000,
         "role": "user",
-        "created_at": "2025-12-29 16:34:47"
+        "created_at": "2025-12-29 16:34:47",
+        "session_token": ""
     }
 ]
