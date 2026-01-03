@@ -147,8 +147,8 @@ require_once 'core/functions.php';
         <p>&copy; 2026 TOOLTX2026. Thiết kế bởi Manus Team.</p>
     </footer>
 
-    <!-- Global Notification Toast -->
-    <div x-data="{ show: false, title: '', message: '' }" 
+    <!-- Global Notification Modal -->
+    <div x-data="{ show: false, title: '', message: '', type: '' }" 
          x-init="
             setTimeout(async () => {
                 const r = await fetch('user/api/get-notifications.php');
@@ -157,37 +157,64 @@ require_once 'core/functions.php';
                     const latest = d.notifications[0];
                     title = latest.title;
                     message = latest.message;
+                    type = latest.type || 'info';
                     show = true;
-                    setTimeout(() => show = false, 8000);
                 }
-            }, 2000)
+            }, 1000)
          "
          x-show="show"
-         x-transition:enter="transition ease-out duration-500"
-         x-transition:enter-start="opacity-0 translate-y-10 scale-95"
-         x-transition:enter-end="opacity-100 translate-y-0 scale-100"
-         x-transition:leave="transition ease-in duration-300"
-         x-transition:leave-start="opacity-100 translate-y-0 scale-100"
-         x-transition:leave-end="opacity-0 translate-y-10 scale-95"
-         class="fixed bottom-6 right-6 z-[100] max-w-sm w-full"
+         class="fixed inset-0 z-[200] flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm"
+         x-transition:enter="transition ease-out duration-300"
+         x-transition:enter-start="opacity-0"
+         x-transition:enter-end="opacity-100"
+         x-transition:leave="transition ease-in duration-200"
+         x-transition:leave-start="opacity-100"
+         x-transition:leave-end="opacity-0"
          style="display: none;">
-        <div class="glass p-5 rounded-[2rem] border-l-4 border-yellow-500 shadow-2xl relative overflow-hidden group">
-            <div class="absolute top-0 right-0 p-2">
-                <button @click="show = false" class="text-slate-500 hover:text-white transition-colors">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+        
+        <div class="glass max-w-lg w-full rounded-[2.5rem] border border-white/10 shadow-[0_0_50px_rgba(0,0,0,0.5)] overflow-hidden relative animate-modal-in"
+             @click.away="show = false">
+            
+            <!-- Header Decoration -->
+            <div class="h-24 bg-gradient-to-br from-yellow-400 via-orange-500 to-yellow-600 relative overflow-hidden">
+                <div class="absolute inset-0 opacity-20">
+                    <svg class="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
+                        <path d="M0 100 C 20 0 50 0 100 100 Z" fill="white"></path>
+                    </svg>
+                </div>
+                <div class="absolute inset-0 flex items-center justify-center">
+                    <div class="p-3 bg-black/20 rounded-2xl backdrop-blur-md border border-white/20">
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path></svg>
+                    </div>
+                </div>
+                <button @click="show = false" class="absolute top-4 right-4 p-2 bg-black/20 hover:bg-black/40 rounded-xl text-white transition-all">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
                 </button>
             </div>
-            <div class="flex items-start gap-4">
-                <div class="p-3 bg-yellow-500/10 rounded-2xl text-yellow-500 shrink-0">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path></svg>
+
+            <!-- Content -->
+            <div class="p-8 text-center">
+                <h3 class="text-2xl font-black text-gradient uppercase tracking-tight mb-4" x-text="title"></h3>
+                <div class="bg-white/5 rounded-2xl p-6 mb-8 border border-white/5">
+                    <p class="text-slate-300 leading-relaxed text-sm" x-text="message"></p>
                 </div>
-                <div>
-                    <h4 class="font-black text-sm text-yellow-500 uppercase tracking-wider mb-1" x-text="title"></h4>
-                    <p class="text-xs text-slate-300 leading-relaxed" x-text="message"></p>
-                </div>
+                
+                <button @click="show = false" class="btn-primary w-full py-4 rounded-2xl text-black font-black text-sm hover:scale-[1.02] active:scale-[0.98] transition-all shadow-xl shadow-orange-500/20">
+                    ĐÃ HIỂU, CẢM ƠN
+                </button>
             </div>
         </div>
     </div>
+
+    <style>
+        @keyframes modal-in {
+            0% { transform: scale(0.9) translateY(20px); opacity: 0; }
+            100% { transform: scale(1) translateY(0); opacity: 1; }
+        }
+        .animate-modal-in {
+            animation: modal-in 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+    </style>
 
     <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
     <script src="assets/js/transitions.js"></script>
