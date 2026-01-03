@@ -50,7 +50,7 @@ require_once 'core/functions.php';
     </style>
 </head>
 <body class="min-h-screen flex flex-col">
-    <nav class="sticky top-0 z-50 p-4 glass border-b border-white/5 flex justify-between items-center px-6 md:px-12">
+    <nav class="sticky top-0 z-50 p-4 glass border-b border-white/5 flex justify-between items-center px-6 lg:px-32">
         <div class="flex items-center gap-3">
             <div class="p-1 bg-gradient-to-br from-yellow-400 to-orange-600 rounded-xl">
                 <img src="assets/images/logo-vip.png" alt="Logo" class="h-10 w-10 rounded-lg bg-black">
@@ -73,7 +73,7 @@ require_once 'core/functions.php';
         </div>
     </nav>
 
-    <main class="flex-grow flex flex-col items-center justify-center p-6 text-center mt-12">
+    <main class="flex-grow flex flex-col items-center justify-center p-6 text-center mt-12 px-6 lg:px-32">
         <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full glass mb-6 border border-yellow-500/20">
             <span class="relative flex h-2 w-2">
                 <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-yellow-400 opacity-75"></span>
@@ -91,7 +91,7 @@ require_once 'core/functions.php';
             Nền tảng cung cấp công cụ dự đoán kết quả Tài Xỉu, Sicbo, Xóc Đĩa, Baccarat hàng đầu Việt Nam. Sử dụng thuật toán AI thế hệ mới để phân tích cầu và tối ưu hóa lợi nhuận.
         </p>
         
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 w-full max-w-7xl px-4">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 w-full max-w-6xl px-6 md:px-12">
             <div class="glass p-8 rounded-3xl glass-hover group">
                 <div class="w-24 h-24 mx-auto p-1 bg-gradient-to-br from-yellow-400 via-orange-500 to-yellow-600 rounded-3xl flex items-center justify-center mb-6 overflow-hidden group-hover:scale-110 group-hover:rotate-3 transition-all shadow-[0_0_20px_rgba(249,115,22,0.4)]">
                     <div class="w-full h-full rounded-2xl overflow-hidden bg-black/50">

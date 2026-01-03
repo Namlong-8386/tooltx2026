@@ -77,7 +77,7 @@ if (!$currentUser) {
     </style>
 </head>
 <body class="min-h-screen flex flex-col">
-    <nav class="p-4 glass border-b border-white/5 flex justify-between items-center px-6 md:px-12 sticky top-0 z-50">
+    <nav class="p-4 glass border-b border-white/5 flex justify-between items-center px-6 lg:px-32 sticky top-0 z-50">
         <div class="flex items-center gap-3">
             <a href="../index.php" class="flex items-center gap-2">
                 <div class="p-1.5 bg-gradient-to-br from-yellow-400 to-orange-600 rounded-xl shadow-lg shadow-orange-500/20">
