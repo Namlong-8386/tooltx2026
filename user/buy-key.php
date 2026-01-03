@@ -81,7 +81,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     
                     // Store in session and redirect to avoid double post on F5
                     $_SESSION['last_purchase_success'] = [
-                        'msg' => "Mua thành công gói {$selectedPackage['name']}.",
+                        'msg' => "Mua key thành công thời gian {$selectedPackage['name']}.",
                         'code' => $newKey['key_code']
                     ];
                     header('Location: buy-key.php?success=1');
