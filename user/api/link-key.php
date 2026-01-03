@@ -14,10 +14,10 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 }
 
 $keyCode = trim($_POST['key_code'] ?? '');
-$account = trim($_POST['account'] ?? '');
+$account = $_SESSION['username'];
 
-if (empty($keyCode) || empty($account)) {
-    echo json_encode(['success' => false, 'message' => 'Vui lòng nhập đầy đủ thông tin.']);
+if (empty($keyCode)) {
+    echo json_encode(['success' => false, 'message' => 'Vui lòng nhập mã key.']);
     exit;
 }
 

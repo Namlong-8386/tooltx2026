@@ -220,32 +220,27 @@ if (!$currentUser) {
                     <h4 class="text-xl font-black mb-2">Liên Kết Tài Khoản Game</h4>
                     <p class="text-sm text-slate-400 mb-6 leading-relaxed">Mỗi key chỉ có thể liên kết với một tài khoản duy nhất. Sau khi liên kết sẽ không thể thay đổi.</p>
                     
-                    <div x-data="{ keyCode: '', account: '', loading: false, message: '', isError: false }" class="space-y-4">
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div x-data="{ keyCode: '', loading: false, message: '', isError: false }" class="space-y-4">
+                        <div class="grid grid-cols-1 gap-4">
                             <div>
                                 <label class="text-[10px] font-black text-slate-500 uppercase tracking-widest ml-1 mb-2 block">Mã Key</label>
                                 <input type="text" x-model="keyCode" placeholder="Nhập mã key của bạn" class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:border-blue-500/50 transition-all text-sm font-semibold">
-                            </div>
-                            <div>
-                                <label class="text-[10px] font-black text-slate-500 uppercase tracking-widest ml-1 mb-2 block">Tên Tài Khoản Game</label>
-                                <input type="text" x-model="account" placeholder="Nhập tên tài khoản game" class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:border-blue-500/50 transition-all text-sm font-semibold">
                             </div>
                         </div>
                         
                         <div x-show="message" x-transition :class="isError ? 'text-red-400 bg-red-400/10' : 'text-green-400 bg-green-400/10'" class="p-3 rounded-xl text-xs font-bold" x-text="message"></div>
 
                         <button @click="
-                            if(!keyCode || !account) { message = 'Vui lòng nhập đầy đủ thông tin'; isError = true; return; }
+                            if(!keyCode) { message = 'Vui lòng nhập mã key'; isError = true; return; }
                             loading = true;
                             const formData = new FormData();
                             formData.append('key_code', keyCode);
-                            formData.append('account', account);
                             fetch('/user/api/link-key.php', { method: 'POST', body: formData })
                             .then(r => r.json())
                             .then(data => {
                                 message = data.message;
                                 isError = !data.success;
-                                if(data.success) { keyCode = ''; account = ''; }
+                                if(data.success) { keyCode = ''; }
                             })
                             .finally(() => loading = false);
                         " :disabled="loading" class="w-full py-4 glass rounded-2xl text-sm font-black hover:bg-blue-500 hover:text-black transition-all border border-white/5 disabled:opacity-50">
