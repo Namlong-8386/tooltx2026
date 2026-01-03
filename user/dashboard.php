@@ -124,7 +124,7 @@ if (!$currentUser) {
                     <?php echo getIcon('history', 'w-5 h-5 text-purple-500'); ?>
                     Lịch sử
                 </a>
-                <a href="javascript:void(0)" @click="showLogoutConfirm = true" class="flex items-center gap-3 px-4 py-3 hover:bg-red-500/10 text-red-400 text-sm font-bold transition-all border-t border-white/5">
+                <a href="../logout.php" class="flex items-center gap-3 px-4 py-3 hover:bg-red-500/10 text-red-400 text-sm font-bold transition-all border-t border-white/5">
                     <?php echo getIcon('logout', 'w-5 h-5'); ?>
                     Đăng xuất
                 </a>
