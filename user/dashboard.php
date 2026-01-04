@@ -354,51 +354,59 @@ if (!$currentUser) {
                 </div>
 
                 <!-- Tai Xiu Tool -->
-                <div class="glass p-6 rounded-[2.5rem] border border-white/5 hover:border-yellow-500/20 transition-all group">
-                    <div class="w-20 h-20 mx-auto p-1 bg-gradient-to-br from-yellow-400 via-orange-500 to-yellow-600 rounded-3xl flex items-center justify-center mb-6 overflow-hidden group-hover:scale-110 group-hover:rotate-3 transition-all shadow-lg shadow-orange-500/20">
+                <div class="glass p-6 rounded-[2.5rem] border border-white/5 hover:border-yellow-500/20 transition-all group flex flex-col h-full min-h-[350px]">
+                    <div class="w-20 h-20 mx-auto p-1 bg-gradient-to-br from-yellow-400 via-orange-500 to-yellow-600 rounded-3xl flex items-center justify-center mb-6 overflow-hidden group-hover:scale-110 group-hover:rotate-3 transition-all shadow-lg shadow-orange-500/20 flex-shrink-0">
                         <div class="w-full h-full rounded-2xl overflow-hidden bg-black/50">
                             <img src="../assets/images/taixiu.png" alt="Tai Xiu Logo" class="w-full h-full object-cover">
                         </div>
                     </div>
                     <h4 class="text-lg font-black mb-2 text-center text-gradient">Tool Tài Xỉu</h4>
                     <p class="text-[10px] text-slate-400 mb-6 text-center leading-relaxed line-clamp-2">Dự đoán kết quả theo thời gian thực với độ chính xác vượt trội.</p>
-                    <button class="w-full py-3 glass rounded-xl text-xs font-black hover:bg-yellow-500 hover:text-black transition-all border border-white/5">KÍCH HOẠT</button>
+                    <div class="mt-auto">
+                        <button class="w-full py-3 glass rounded-xl text-xs font-black hover:bg-yellow-500 hover:text-black transition-all border border-white/5">KÍCH HOẠT</button>
+                    </div>
                 </div>
 
                 <!-- Sicbo Tool -->
-                <div class="glass p-6 rounded-[2.5rem] border border-white/5 hover:border-orange-500/20 transition-all group">
-                    <div class="w-20 h-20 mx-auto p-1 bg-gradient-to-br from-yellow-400 via-orange-500 to-yellow-600 rounded-3xl flex items-center justify-center mb-6 overflow-hidden group-hover:scale-110 group-hover:rotate-3 transition-all shadow-lg shadow-orange-500/20">
+                <div class="glass p-6 rounded-[2.5rem] border border-white/5 hover:border-orange-500/20 transition-all group flex flex-col h-full min-h-[350px]">
+                    <div class="w-20 h-20 mx-auto p-1 bg-gradient-to-br from-yellow-400 via-orange-500 to-yellow-600 rounded-3xl flex items-center justify-center mb-6 overflow-hidden group-hover:scale-110 group-hover:rotate-3 transition-all shadow-lg shadow-orange-500/20 flex-shrink-0">
                         <div class="w-full h-full rounded-2xl overflow-hidden bg-black/50">
                             <img src="../assets/images/sicbo.png" alt="Sicbo Logo" class="w-full h-full object-cover">
                         </div>
                     </div>
                     <h4 class="text-lg font-black mb-2 text-center text-gradient">Tool Sicbo</h4>
                     <p class="text-[10px] text-slate-400 mb-6 text-center leading-relaxed line-clamp-2">Phân tích xác suất các mặt xúc xắc chuyên sâu từ dữ liệu nhà cái.</p>
-                    <button class="w-full py-3 glass rounded-xl text-xs font-black hover:bg-orange-500 hover:text-black transition-all border border-white/5">KÍCH HOẠT</button>
+                    <div class="mt-auto">
+                        <button class="w-full py-3 glass rounded-xl text-xs font-black hover:bg-orange-500 hover:text-black transition-all border border-white/5">KÍCH HOẠT</button>
+                    </div>
                 </div>
 
                 <!-- Xoc Dia Tool -->
-                <div class="glass p-6 rounded-[2.5rem] border border-white/5 hover:border-blue-500/20 transition-all group">
-                    <div class="w-20 h-20 mx-auto p-1 bg-gradient-to-br from-yellow-400 via-orange-500 to-yellow-600 rounded-3xl flex items-center justify-center mb-6 overflow-hidden group-hover:scale-110 group-hover:rotate-3 transition-all shadow-lg shadow-blue-500/20">
+                <div class="glass p-6 rounded-[2.5rem] border border-white/5 hover:border-blue-500/20 transition-all group flex flex-col h-full min-h-[350px]">
+                    <div class="w-20 h-20 mx-auto p-1 bg-gradient-to-br from-yellow-400 via-orange-500 to-yellow-600 rounded-3xl flex items-center justify-center mb-6 overflow-hidden group-hover:scale-110 group-hover:rotate-3 transition-all shadow-lg shadow-blue-500/20 flex-shrink-0">
                         <div class="w-full h-full rounded-2xl overflow-hidden bg-black/50">
                             <img src="../assets/images/xocdia.png" alt="Xoc Dia Logo" class="w-full h-full object-cover">
                         </div>
                     </div>
                     <h4 class="text-lg font-black mb-2 text-center text-gradient">Tool Xóc Đĩa</h4>
                     <p class="text-[10px] text-slate-400 mb-6 text-center leading-relaxed line-clamp-2">Bắt vị chẵn lẻ, tứ tử cực chuẩn với AI nhận diện cầu.</p>
-                    <button class="w-full py-3 glass rounded-xl text-xs font-black hover:bg-blue-500 hover:text-black transition-all border border-white/5">KÍCH HOẠT</button>
+                    <div class="mt-auto">
+                        <button class="w-full py-3 glass rounded-xl text-xs font-black hover:bg-blue-500 hover:text-black transition-all border border-white/5">KÍCH HOẠT</button>
+                    </div>
                 </div>
 
                 <!-- Baccarat Tool -->
-                <div class="glass p-6 rounded-[2.5rem] border border-white/5 hover:border-yellow-500/20 transition-all group">
-                    <div class="w-20 h-20 mx-auto p-1 bg-gradient-to-br from-yellow-400 via-orange-500 to-yellow-600 rounded-3xl flex items-center justify-center mb-6 overflow-hidden group-hover:scale-110 group-hover:rotate-3 transition-all shadow-lg shadow-orange-500/20">
+                <div class="glass p-6 rounded-[2.5rem] border border-white/5 hover:border-yellow-500/20 transition-all group flex flex-col h-full min-h-[350px]">
+                    <div class="w-20 h-20 mx-auto p-1 bg-gradient-to-br from-yellow-400 via-orange-500 to-yellow-600 rounded-3xl flex items-center justify-center mb-6 overflow-hidden group-hover:scale-110 group-hover:rotate-3 transition-all shadow-lg shadow-orange-500/20 flex-shrink-0">
                         <div class="w-full h-full rounded-2xl overflow-hidden bg-black/50">
                             <img src="../assets/images/baccarat-logo.png" alt="Baccarat Logo" class="w-full h-full object-cover">
                         </div>
                     </div>
                     <h4 class="text-lg font-black mb-2 text-center text-gradient">Tool Baccarat</h4>
                     <p class="text-[10px] text-slate-400 mb-6 text-center leading-relaxed line-clamp-2">Hỗ trợ soi cầu Player/Banker và quản lý vốn thông minh.</p>
-                    <button class="w-full py-3 glass rounded-xl text-xs font-black hover:bg-yellow-500 hover:text-black transition-all border border-white/5">KÍCH HOẠT</button>
+                    <div class="mt-auto">
+                        <button class="w-full py-3 glass rounded-xl text-xs font-black hover:bg-yellow-500 hover:text-black transition-all border border-white/5">KÍCH HOẠT</button>
+                    </div>
                 </div>
             </div>
         </div>
