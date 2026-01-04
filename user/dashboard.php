@@ -249,24 +249,36 @@ if (!$currentUser) {
                 title: '',
                 message: '',
                 type: 'success',
+                close() {
+                    if (this.currentNotifId) {
+                        const readNotifs = JSON.parse(localStorage.getItem('read_notifications') || '[]');
+                        if (!readNotifs.includes(this.currentNotifId)) {
+                            readNotifs.push(this.currentNotifId);
+                            localStorage.setItem('read_notifications', JSON.stringify(readNotifs));
+                        }
+                    }
+                    this.show = false;
+                },
+                currentNotifId: null,
                 init() {
                     setInterval(async () => {
                         const r = await fetch('api/get-notifications.php');
                         const d = await r.json();
                         if(d.success && d.notifications.length > 0) {
-                            const latest = d.notifications.find(n => !n.is_read && (n.title.includes('Nạp tiền') || n.title.includes('Giao dịch')));
+                            const readNotifs = JSON.parse(localStorage.getItem('read_notifications') || '[]');
+                            const latest = d.notifications.find(n => 
+                                !readNotifs.includes(n.id) && 
+                                (n.title.includes('Nạp tiền') || n.title.includes('Giao dịch'))
+                            );
                             if(latest) {
+                                this.currentNotifId = latest.id;
                                 this.title = latest.title;
                                 this.message = latest.message;
                                 this.type = latest.title.includes('thành công') ? 'success' : 'error';
                                 this.show = true;
-                                // Mark as read via API if needed
                             }
                         }
                     }, 5000);
-                },
-                close() {
-                    this.show = false;
                 }
             }
         }
