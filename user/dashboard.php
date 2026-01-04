@@ -221,20 +221,56 @@ if (!$currentUser) {
         </script>
 
         <!-- Notifications Section -->
-        <div id="notifications-container" class="space-y-4 mb-8">
+        <div id="notifications-container" class="space-y-4 mb-8 hidden">
             <!-- Dynamic notifications will be loaded here -->
-            <div class="glass p-6 rounded-[2rem] border-l-4 border-blue-500 flex items-center justify-between group">
-                <div class="flex items-center gap-4">
-                    <div class="p-3 bg-blue-500/10 rounded-2xl text-blue-500">
-                        <?php echo getIcon('rocket', 'w-6 h-6'); ?>
-                    </div>
-                    <div>
-                        <p class="text-[10px] font-black text-blue-500 uppercase tracking-[0.2em] mb-1">Cập nhật hệ thống</p>
-                        <p class="text-sm font-bold text-slate-200">Chào mừng bạn trở lại! Chúc bạn một ngày làm việc hiệu quả.</p>
-                    </div>
+        </div>
+
+        <!-- Global Status Modal -->
+        <div x-data="statusMonitor()" x-init="init()" x-show="show" class="fixed inset-0 z-[200] flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm" x-cloak style="display: none;">
+            <div class="glass p-8 rounded-[2.5rem] max-w-sm w-full border border-white/10 text-center relative overflow-hidden shadow-2xl animate-fade-in">
+                <div :class="type === 'success' ? 'bg-green-500/10 text-green-500 border-green-500/20' : 'bg-red-500/10 text-red-500 border-red-500/20'" class="p-4 rounded-full w-20 h-20 mx-auto mb-6 flex items-center justify-center border">
+                    <template x-if="type === 'success'">
+                        <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg>
+                    </template>
+                    <template x-if="type === 'error'">
+                        <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"></path></svg>
+                    </template>
                 </div>
+                <h3 class="text-2xl font-black text-white mb-2 uppercase" x-text="title"></h3>
+                <p class="text-slate-400 text-sm font-semibold mb-8 leading-relaxed" x-text="message"></p>
+                <button @click="close()" class="w-full py-4 bg-white/5 border border-white/10 rounded-2xl text-white font-black hover:bg-white/10 transition-all">ĐÃ HIỂU</button>
             </div>
         </div>
+
+        <script>
+        function statusMonitor() {
+            return {
+                show: false,
+                title: '',
+                message: '',
+                type: 'success',
+                init() {
+                    setInterval(async () => {
+                        const r = await fetch('api/get-notifications.php');
+                        const d = await r.json();
+                        if(d.success && d.notifications.length > 0) {
+                            const latest = d.notifications.find(n => !n.is_read && (n.title.includes('Nạp tiền') || n.title.includes('Giao dịch')));
+                            if(latest) {
+                                this.title = latest.title;
+                                this.message = latest.message;
+                                this.type = latest.title.includes('thành công') ? 'success' : 'error';
+                                this.show = true;
+                                // Mark as read via API if needed
+                            }
+                        }
+                    }, 5000);
+                },
+                close() {
+                    this.show = false;
+                }
+            }
+        }
+        </script>
 
         <!-- Account Info Section -->
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12">

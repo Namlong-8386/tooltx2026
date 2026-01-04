@@ -190,7 +190,21 @@ if (isset($_GET['success']) && isset($_SESSION['current_deposit_order'])) {
         </div>
     </nav>
 
-    <main class="p-6 max-w-7xl mx-auto w-full mt-8 px-6 md:px-12">
+    <main class="p-6 max-w-7xl mx-auto w-full mt-8 px-6 md:px-12" x-init="
+        if(orderId) {
+            setInterval(async () => {
+                const r = await fetch('api/check-status.php?order_id=' + orderId);
+                const d = await r.json();
+                if(d.status === 'completed') {
+                    isSuccess = true;
+                    amount = d.amount_formatted;
+                } else if(d.status === 'cancelled' || d.status === 'expired') {
+                    isCancelled = true;
+                    cancelReason = d.status === 'expired' ? 'Giao dịch đã hết hạn' : 'Giao dịch đã bị từ chối';
+                }
+            }, 5000);
+        }
+    ">
         <!-- Logout Confirmation Modal -->
         <div class="fixed inset-0 z-[110] flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm" style="display: none;" x-show="showLogoutConfirm" x-transition:enter="animate-fade-in" x-transition:leave="animate-fade-out">
             <div class="glass p-8 rounded-[2.5rem] max-w-sm w-full border border-white/10 text-center relative overflow-hidden shadow-2xl">
