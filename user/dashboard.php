@@ -262,15 +262,12 @@ if (!$currentUser) {
                 currentNotifId: null,
                 init() {
                     setInterval(async () => {
-                        const r = await fetch('api/get-notifications.php');
+                        const r = await fetch('api/check-deposit-notifications.php');
                         const d = await r.json();
-                        if(d.success && d.notifications.length > 0) {
+                        if(d.success && d.notification) {
+                            const latest = d.notification;
                             const readNotifs = JSON.parse(localStorage.getItem('read_notifications') || '[]');
-                            const latest = d.notifications.find(n => 
-                                !readNotifs.includes(n.id) && 
-                                (n.title.includes('Nạp tiền') || n.title.includes('Giao dịch'))
-                            );
-                            if(latest) {
+                            if(!readNotifs.includes(latest.id)) {
                                 this.currentNotifId = latest.id;
                                 this.title = latest.title;
                                 this.message = latest.message;
