@@ -14,7 +14,7 @@ $notifications = readJSON('notifications');
 
 // Find unread deposit-related notifications
 $unread = array_filter($notifications, function($n) use ($user_id) {
-    return $n['user_id'] === $user_id && !$n['is_read'] && (str_contains($n['title'], 'Nạp tiền') || str_contains($n['title'], 'Giao dịch'));
+    return $n['user_id'] === $user_id && (str_contains($n['title'], 'Nạp tiền') || str_contains($n['title'], 'Giao dịch'));
 });
 
 // Sort by date desc

@@ -262,20 +262,24 @@ if (!$currentUser) {
                 currentNotifId: null,
                 init() {
                     setInterval(async () => {
-                        const r = await fetch('api/check-deposit-notifications.php');
-                        const d = await r.json();
-                        if(d.success && d.notification) {
-                            const latest = d.notification;
-                            const readNotifs = JSON.parse(localStorage.getItem('read_notifications') || '[]');
-                            if(!readNotifs.includes(latest.id)) {
-                                this.currentNotifId = latest.id;
-                                this.title = latest.title;
-                                this.message = latest.message;
-                                this.type = latest.title.includes('thành công') ? 'success' : 'error';
-                                this.show = true;
+                        try {
+                            const r = await fetch('api/check-deposit-notifications.php');
+                            const d = await r.json();
+                            if(d.success && d.notification) {
+                                const latest = d.notification;
+                                const readNotifs = JSON.parse(localStorage.getItem('read_notifications') || '[]');
+                                if(!readNotifs.includes(latest.id)) {
+                                    this.currentNotifId = latest.id;
+                                    this.title = latest.title;
+                                    this.message = latest.message;
+                                    this.type = (latest.title.toLowerCase().includes('thành công') || latest.message.toLowerCase().includes('thành công')) ? 'success' : 'error';
+                                    this.show = true;
+                                }
                             }
+                        } catch (e) {
+                            console.error('Notif error:', e);
                         }
-                    }, 5000);
+                    }, 3000);
                 }
             }
         }
