@@ -374,7 +374,7 @@ if (!$currentUser) {
                     </div>
                     <h4 class="text-lg font-black mb-2 text-center text-gradient">Tool Sicbo</h4>
                     <p class="text-[10px] text-slate-400 mb-6 text-center leading-relaxed line-clamp-2">Phân tích xác suất các mặt xúc xắc chuyên sâu.</p>
-                    <button class="w-full py-3 glass rounded-xl text-xs font-black hover:bg-orange-500 hover:text-black transition-all border border-white/5">KÍCH HOẠT</button>
+                    <button class="w-full py-3 glass rounded-xl text-xs font-black hover:bg-orange-500 hover:text-black transition-all border border-white/5 shadow-[0_0_15px_rgba(249,115,22,0.3)]">KÍCH HOẠT</button>
                 </div>
 
                 <!-- Xoc Dia Tool -->
