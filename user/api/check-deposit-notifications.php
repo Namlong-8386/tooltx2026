@@ -14,20 +14,21 @@ $user_id = $_SESSION['user_id'];
 $notifications = readJSON('notifications');
 $users = readJSON('users');
 
-// Tìm thông báo chưa đọc liên quan đến nạp tiền
-$unread = array_filter($notifications, function($n) use ($user_id) {
-    // Lọc các thông báo nạp tiền dựa trên type hoặc nội dung title
+// Tìm tất cả thông báo của user này chưa được đánh dấu là "đã xử lý bởi Dashboard"
+// Chúng ta sẽ dùng một cờ ảo hoặc so sánh với localStorage ở phía client
+$userNotifs = array_filter($notifications, function($n) use ($user_id) {
     $isDepositNotif = (isset($n['type']) && ($n['type'] === 'deposit_approved' || $n['type'] === 'deposit_cancelled')) || 
                       (isset($n['title']) && (strpos($n['title'], 'Nạp tiền') !== false));
-    return $n['user_id'] === $user_id && !($n['is_read'] ?? false) && $isDepositNotif;
+    return $n['user_id'] === $user_id && $isDepositNotif;
 });
 
 // Sắp xếp theo thời gian mới nhất
-usort($unread, function($a, $b) {
-    return strtotime($b['created_at']) - strtotime($a['created_at']);
+usort($userNotifs, function($a, $b) {
+    return strtotime($b['created_at'] ?? 0) - strtotime($a['created_at'] ?? 0);
 });
 
-$latest = !empty($unread) ? reset($unread) : null;
+// Lấy thông báo mới nhất (không quan tâm is_read vì admin có thể chưa set is_read=true cho mọi thông báo)
+$latest = !empty($userNotifs) ? reset($userNotifs) : null;
 
 // Lấy số dư mới nhất
 $freshBalance = 0;
@@ -42,6 +43,7 @@ echo json_encode([
     'success' => true,
     'notification' => $latest,
     'fresh_balance' => formatMoney($freshBalance),
-    'balance_raw' => $freshBalance
+    'balance_raw' => $freshBalance,
+    'server_time' => time()
 ]);
 ?>

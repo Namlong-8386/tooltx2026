@@ -261,40 +261,49 @@ if (!$currentUser) {
                 },
                 currentNotifId: null,
                 init() {
+                    console.log('Khởi tạo trình theo dõi trạng thái...');
                     setInterval(async () => {
                         try {
                             const r = await fetch('api/check-deposit-notifications.php');
+                            if (!r.ok) return;
                             const d = await r.json();
                             
-                            // Cập nhật số dư trực tiếp nếu có thay đổi mà không cần tải lại trang
+                            // 1. Cập nhật số dư trực tiếp ngay lập tức
                             const balanceEl = document.querySelector('.text-2xl.font-black.text-gradient');
                             if (balanceEl && d.fresh_balance) {
-                                if (balanceEl.innerText !== d.fresh_balance) {
+                                if (balanceEl.innerText.trim() !== d.fresh_balance.trim()) {
+                                    console.log('Cập nhật số dư mới:', d.fresh_balance);
                                     balanceEl.innerText = d.fresh_balance;
                                 }
                             }
 
+                            // 2. Xử lý hiển thị thông báo
                             if(d.success && d.notification) {
                                 const latest = d.notification;
-                                const readNotifs = JSON.parse(localStorage.getItem('read_notifications') || '[]');
+                                // Sử dụng danh sách các ID đã hiển thị từ localStorage
+                                let displayedNotifs = JSON.parse(localStorage.getItem('displayed_deposit_notifs') || '[]');
                                 
-                                // Chỉ hiển thị nếu thông báo này chưa được hiển thị trước đó và thông tin nạp tiền
-                                if(!readNotifs.includes(latest.id)) {
-                                    // Đánh dấu đã đọc trong localStorage NGAY LẬP TỨC để tránh lặp
-                                    readNotifs.push(latest.id);
-                                    localStorage.setItem('read_notifications', JSON.stringify(readNotifs));
+                                if(!displayedNotifs.includes(latest.id)) {
+                                    console.log('Phát hiện thông báo mới chưa hiển thị:', latest.id);
                                     
-                                    this.currentNotifId = latest.id;
-                                    this.title = latest.title;
+                                    // Hiển thị ngay lập tức
+                                    this.title = latest.title || 'Thông báo nạp tiền';
                                     this.message = latest.message;
-                                    this.type = (latest.title.toLowerCase().includes('thành công') || latest.message.toLowerCase().includes('thành công')) ? 'success' : 'error';
+                                    this.type = (latest.title.toLowerCase().includes('thành công') || 
+                                                 latest.message.toLowerCase().includes('thành công') ||
+                                                 latest.type === 'deposit_approved') ? 'success' : 'error';
+                                    this.currentNotifId = latest.id;
                                     this.show = true;
                                     
-                                    console.log('Đã hiển thị thông báo mới:', latest.id);
+                                    // Lưu vào danh sách đã hiển thị để không hiện lại
+                                    displayedNotifs.push(latest.id);
+                                    // Giới hạn dung lượng lưu trữ
+                                    if(displayedNotifs.length > 50) displayedNotifs.shift();
+                                    localStorage.setItem('displayed_deposit_notifs', JSON.stringify(displayedNotifs));
                                 }
                             }
                         } catch (e) {
-                            console.error('Lỗi kiểm tra thông báo:', e);
+                            console.error('Lỗi kiểm tra thông báo Dashboard:', e);
                         }
                     }, 3000);
                 }
