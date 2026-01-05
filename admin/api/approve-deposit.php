@@ -77,6 +77,32 @@ foreach ($deposits as &$d) {
         } else {
             $d['status'] = 'cancelled';
             $d['updated_at'] = date('Y-m-d H:i:s');
+            
+            // Send notification to user about cancellation
+            $targetUser = null;
+            foreach ($users as $u) {
+                if ($u['id'] == $d['user_id'] || $u['username'] == ($d['username'] ?? '')) {
+                    $targetUser = $u;
+                    break;
+                }
+            }
+            
+            if ($targetUser) {
+                $notification = [
+                    'id' => 'NOTIF' . generateRandomString(8),
+                    'user_id' => $targetUser['id'],
+                    'type' => 'deposit_cancelled',
+                    'title' => 'Nạp tiền bị từ chối',
+                    'message' => 'Yêu cầu nạp tiền ' . formatMoney($d['amount']) . ' của bạn đã bị từ chối hoặc hủy bỏ.',
+                    'amount' => $d['amount'],
+                    'deposit_id' => $d['id'],
+                    'is_read' => false,
+                    'created_at' => date('Y-m-d H:i:s')
+                ];
+                $notifications[] = $notification;
+                writeJSON('notifications', $notifications);
+            }
+            
             $statusMsg = 'Đã hủy yêu cầu nạp tiền.';
         }
         $found = true;
