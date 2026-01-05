@@ -266,7 +266,7 @@ if (!$currentUser) {
                             const r = await fetch('api/check-deposit-notifications.php');
                             const d = await r.json();
                             
-                            // Always update balance on UI if it changes, even without notification
+                            // Cập nhật số dư trực tiếp nếu có thay đổi mà không cần tải lại trang
                             const balanceEl = document.querySelector('.text-2xl.font-black.text-gradient');
                             if (balanceEl && d.fresh_balance) {
                                 if (balanceEl.innerText !== d.fresh_balance) {
@@ -277,16 +277,22 @@ if (!$currentUser) {
                             if(d.success && d.notification) {
                                 const latest = d.notification;
                                 const readNotifs = JSON.parse(localStorage.getItem('read_notifications') || '[]');
+                                
+                                // Chỉ hiển thị nếu thông báo này chưa được hiển thị trước đó
                                 if(!readNotifs.includes(latest.id)) {
                                     this.currentNotifId = latest.id;
                                     this.title = latest.title;
                                     this.message = latest.message;
                                     this.type = (latest.title.toLowerCase().includes('thành công') || latest.message.toLowerCase().includes('thành công')) ? 'success' : 'error';
                                     this.show = true;
+                                    
+                                    // Đánh dấu đã đọc trong localStorage để không hiện lại
+                                    readNotifs.push(latest.id);
+                                    localStorage.setItem('read_notifications', JSON.stringify(readNotifs));
                                 }
                             }
                         } catch (e) {
-                            console.error('Notif error:', e);
+                            console.error('Lỗi kiểm tra thông báo:', e);
                         }
                     }, 3000);
                 }
