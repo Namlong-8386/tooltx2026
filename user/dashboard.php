@@ -274,6 +274,27 @@ if (!$currentUser) {
                                     this.message = latest.message;
                                     this.type = (latest.title.toLowerCase().includes('thành công') || latest.message.toLowerCase().includes('thành công')) ? 'success' : 'error';
                                     this.show = true;
+                                    
+                                    // Auto update balance on UI if success
+                                    if (this.type === 'success' && latest.amount) {
+                                        const balanceEl = document.querySelector('.text-2xl.font-black.text-gradient');
+                                        if (balanceEl) {
+                                            fetch('api/check-session.php') // Re-use session check or any endpoint to get fresh data
+                                                .then(r => r.json())
+                                                .then(userData => {
+                                                    if (userData.status !== 'expired') {
+                                                        // We need fresh balance, let's fetch it specifically
+                                                        fetch('api/check-status.php?id=' + (latest.deposit_id || ''))
+                                                            .then(res => res.json())
+                                                            .then(statusData => {
+                                                                if (statusData.new_balance) {
+                                                                    balanceEl.innerText = statusData.new_balance;
+                                                                }
+                                                            });
+                                                    }
+                                                });
+                                        }
+                                    }
                                 }
                             }
                         } catch (e) {
