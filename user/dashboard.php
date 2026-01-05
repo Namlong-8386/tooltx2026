@@ -261,52 +261,52 @@ if (!$currentUser) {
                 },
                 currentNotifId: null,
                 init() {
-                    console.log('Status monitor initialized');
+                    console.log('Status monitor started...');
                     setInterval(async () => {
                         try {
-                            const r = await fetch('api/check-deposit-notifications.php?nocache=' + Date.now());
-                            if (!r.ok) return;
-                            const d = await r.json();
+                            const response = await fetch('api/check-deposit-notifications.php?_=' + Date.now());
+                            if (!response.ok) return;
+                            const data = await response.json();
                             
-                            // 1. Cập nhật số dư trực tiếp ngay lập tức
+                            // 1. Cập nhật số dư
                             const balanceEl = document.querySelector('.text-2xl.font-black.text-gradient');
-                            if (balanceEl && d.fresh_balance) {
-                                if (balanceEl.innerText.trim() !== d.fresh_balance.trim()) {
-                                    console.log('New balance detected:', d.fresh_balance);
-                                    balanceEl.innerText = d.fresh_balance;
+                            if (balanceEl && data.fresh_balance) {
+                                if (balanceEl.innerText.trim() !== data.fresh_balance.trim()) {
+                                    console.log('Balance updated to:', data.fresh_balance);
+                                    balanceEl.innerText = data.fresh_balance;
                                 }
                             }
 
                             // 2. Xử lý hiển thị thông báo
-                            if(d.success && d.notification) {
-                                const latest = d.notification;
-                                // Sử dụng khóa riêng biệt để tránh xung đột
-                                let displayedNotifs = JSON.parse(localStorage.getItem('dashboard_notified_ids') || '[]');
+                            if(data.success && data.notification) {
+                                const notif = data.notification;
+                                // Dùng mảng để lưu các ID đã hiển thị
+                                let history = JSON.parse(localStorage.getItem('notif_history') || '[]');
                                 
-                                if(!displayedNotifs.includes(latest.id)) {
-                                    console.log('SHOWING NOTIFICATION:', latest.id, latest.title);
+                                if(!history.includes(notif.id)) {
+                                    console.log('NEW NOTIFICATION TRIGGERED:', notif.id);
                                     
-                                    this.title = latest.title || 'Thông báo hệ thống';
-                                    this.message = latest.message;
+                                    this.title = notif.title || 'Thông báo';
+                                    this.message = notif.message || '';
                                     
-                                    const isSuccess = (latest.title && latest.title.toLowerCase().includes('thành công')) || 
-                                                    (latest.message && latest.message.toLowerCase().includes('thành công')) ||
-                                                    latest.type === 'deposit_approved';
+                                    const isSuccess = (notif.type === 'deposit_approved') || 
+                                                    (notif.title && notif.title.toLowerCase().includes('thành công')) || 
+                                                    (notif.message && notif.message.toLowerCase().includes('thành công'));
                                                     
                                     this.type = isSuccess ? 'success' : 'error';
-                                    this.currentNotifId = latest.id;
+                                    this.currentNotifId = notif.id;
                                     
-                                    // Bật modal
+                                    // Hiển thị modal
                                     this.show = true;
                                     
-                                    // Lưu vào danh sách đã hiển thị
-                                    displayedNotifs.push(latest.id);
-                                    if(displayedNotifs.length > 50) displayedNotifs.shift();
-                                    localStorage.setItem('dashboard_notified_ids', JSON.stringify(displayedNotifs));
+                                    // Lưu vào lịch sử để không hiện lại
+                                    history.push(notif.id);
+                                    if(history.length > 50) history.shift();
+                                    localStorage.setItem('notif_history', JSON.stringify(history));
                                 }
                             }
-                        } catch (e) {
-                            console.error('Monitor error:', e);
+                        } catch (err) {
+                            console.error('Polling error:', err);
                         }
                     }, 3000);
                 }
