@@ -261,10 +261,10 @@ if (!$currentUser) {
                 },
                 currentNotifId: null,
                 init() {
-                    console.log('Khởi tạo trình theo dõi trạng thái...');
+                    console.log('Status monitor initialized');
                     setInterval(async () => {
                         try {
-                            const r = await fetch('api/check-deposit-notifications.php');
+                            const r = await fetch('api/check-deposit-notifications.php?nocache=' + Date.now());
                             if (!r.ok) return;
                             const d = await r.json();
                             
@@ -272,7 +272,7 @@ if (!$currentUser) {
                             const balanceEl = document.querySelector('.text-2xl.font-black.text-gradient');
                             if (balanceEl && d.fresh_balance) {
                                 if (balanceEl.innerText.trim() !== d.fresh_balance.trim()) {
-                                    console.log('Cập nhật số dư mới:', d.fresh_balance);
+                                    console.log('New balance detected:', d.fresh_balance);
                                     balanceEl.innerText = d.fresh_balance;
                                 }
                             }
@@ -280,30 +280,29 @@ if (!$currentUser) {
                             // 2. Xử lý hiển thị thông báo
                             if(d.success && d.notification) {
                                 const latest = d.notification;
-                                // Sử dụng danh sách các ID đã hiển thị từ localStorage
                                 let displayedNotifs = JSON.parse(localStorage.getItem('displayed_deposit_notifs') || '[]');
                                 
                                 if(!displayedNotifs.includes(latest.id)) {
-                                    console.log('Phát hiện thông báo mới chưa hiển thị:', latest.id);
+                                    console.log('New notification found:', latest.id);
                                     
-                                    // Hiển thị ngay lập tức
                                     this.title = latest.title || 'Thông báo nạp tiền';
                                     this.message = latest.message;
-                                    this.type = (latest.title.toLowerCase().includes('thành công') || 
-                                                 latest.message.toLowerCase().includes('thành công') ||
-                                                 latest.type === 'deposit_approved') ? 'success' : 'error';
+                                    
+                                    const isSuccess = (latest.title && latest.title.toLowerCase().includes('thành công')) || 
+                                                    (latest.message && latest.message.toLowerCase().includes('thành công')) ||
+                                                    latest.type === 'deposit_approved';
+                                                    
+                                    this.type = isSuccess ? 'success' : 'error';
                                     this.currentNotifId = latest.id;
                                     this.show = true;
                                     
-                                    // Lưu vào danh sách đã hiển thị để không hiện lại
                                     displayedNotifs.push(latest.id);
-                                    // Giới hạn dung lượng lưu trữ
-                                    if(displayedNotifs.length > 50) displayedNotifs.shift();
+                                    if(displayedNotifs.length > 20) displayedNotifs.shift();
                                     localStorage.setItem('displayed_deposit_notifs', JSON.stringify(displayedNotifs));
                                 }
                             }
                         } catch (e) {
-                            console.error('Lỗi kiểm tra thông báo Dashboard:', e);
+                            console.error('Monitor error:', e);
                         }
                     }, 3000);
                 }

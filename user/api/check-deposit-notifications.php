@@ -14,36 +14,38 @@ $user_id = $_SESSION['user_id'];
 $notifications = readJSON('notifications');
 $users = readJSON('users');
 
-// Tìm tất cả thông báo của user này chưa được đánh dấu là "đã xử lý bởi Dashboard"
-// Chúng ta sẽ dùng một cờ ảo hoặc so sánh với localStorage ở phía client
+// 1. Tìm thông báo nạp tiền mới nhất của user này
 $userNotifs = array_filter($notifications, function($n) use ($user_id) {
     $isDepositNotif = (isset($n['type']) && ($n['type'] === 'deposit_approved' || $n['type'] === 'deposit_cancelled')) || 
-                      (isset($n['title']) && (strpos($n['title'], 'Nạp tiền') !== false));
-    return $n['user_id'] === $user_id && $isDepositNotif;
+                      (isset($n['title']) && (stripos($n['title'], 'Nạp tiền') !== false)) ||
+                      (isset($n['message']) && (stripos($n['message'], 'Nạp tiền') !== false));
+    return (string)$n['user_id'] === (string)$user_id && $isDepositNotif;
 });
 
-// Sắp xếp theo thời gian mới nhất
+// Sắp xếp theo thời gian mới nhất (id giảm dần cũng được nếu id có timestamp hoặc random nhưng được push vào cuối)
 usort($userNotifs, function($a, $b) {
-    return strtotime($b['created_at'] ?? 0) - strtotime($a['created_at'] ?? 0);
+    $timeA = isset($a['created_at']) ? strtotime($a['created_at']) : 0;
+    $timeB = isset($b['created_at']) ? strtotime($b['created_at']) : 0;
+    return $timeB - $timeA;
 });
 
-// Lấy thông báo mới nhất (không quan tâm is_read vì admin có thể chưa set is_read=true cho mọi thông báo)
-$latest = !empty($userNotifs) ? reset($userNotifs) : null;
+$latest = !empty($userNotifs) ? array_values($userNotifs)[0] : null;
 
-// Lấy số dư mới nhất
+// 2. Lấy số dư mới nhất
 $freshBalance = 0;
 foreach ($users as $u) {
-    if ($u['id'] === $user_id) {
+    if ((string)$u['id'] === (string)$user_id) {
         $freshBalance = $u['balance'] ?? 0;
         break;
     }
 }
 
+// 3. Trả về kết quả
 echo json_encode([
     'success' => true,
     'notification' => $latest,
     'fresh_balance' => formatMoney($freshBalance),
     'balance_raw' => $freshBalance,
-    'server_time' => time()
+    'debug_user_id' => $user_id
 ]);
-?>
+exit;
