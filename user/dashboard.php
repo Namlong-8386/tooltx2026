@@ -280,12 +280,13 @@ if (!$currentUser) {
                             // 2. Xử lý hiển thị thông báo
                             if(d.success && d.notification) {
                                 const latest = d.notification;
-                                let displayedNotifs = JSON.parse(localStorage.getItem('displayed_deposit_notifs') || '[]');
+                                // Sử dụng khóa riêng biệt để tránh xung đột
+                                let displayedNotifs = JSON.parse(localStorage.getItem('dashboard_notified_ids') || '[]');
                                 
                                 if(!displayedNotifs.includes(latest.id)) {
-                                    console.log('New notification found:', latest.id);
+                                    console.log('SHOWING NOTIFICATION:', latest.id, latest.title);
                                     
-                                    this.title = latest.title || 'Thông báo nạp tiền';
+                                    this.title = latest.title || 'Thông báo hệ thống';
                                     this.message = latest.message;
                                     
                                     const isSuccess = (latest.title && latest.title.toLowerCase().includes('thành công')) || 
@@ -294,11 +295,14 @@ if (!$currentUser) {
                                                     
                                     this.type = isSuccess ? 'success' : 'error';
                                     this.currentNotifId = latest.id;
+                                    
+                                    // Bật modal
                                     this.show = true;
                                     
+                                    // Lưu vào danh sách đã hiển thị
                                     displayedNotifs.push(latest.id);
-                                    if(displayedNotifs.length > 20) displayedNotifs.shift();
-                                    localStorage.setItem('displayed_deposit_notifs', JSON.stringify(displayedNotifs));
+                                    if(displayedNotifs.length > 50) displayedNotifs.shift();
+                                    localStorage.setItem('dashboard_notified_ids', JSON.stringify(displayedNotifs));
                                 }
                             }
                         } catch (e) {

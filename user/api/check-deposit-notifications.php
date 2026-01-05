@@ -14,19 +14,26 @@ $user_id = $_SESSION['user_id'];
 $notifications = readJSON('notifications');
 $users = readJSON('users');
 
-// 1. Tìm thông báo nạp tiền mới nhất của user này
+// 1. Tìm thông báo nạp tiền của user này
 $userNotifs = array_filter($notifications, function($n) use ($user_id) {
+    // Ép kiểu về string để so sánh chính xác ID
+    $target_uid = (string)$user_id;
+    $notif_uid = (string)($n['user_id'] ?? '');
+    
     $isDepositNotif = (isset($n['type']) && ($n['type'] === 'deposit_approved' || $n['type'] === 'deposit_cancelled')) || 
                       (isset($n['title']) && (stripos($n['title'], 'Nạp tiền') !== false)) ||
                       (isset($n['message']) && (stripos($n['message'], 'Nạp tiền') !== false));
-    return (string)$n['user_id'] === (string)$user_id && $isDepositNotif;
+                      
+    return $notif_uid === $target_uid && $isDepositNotif;
 });
 
 // Sắp xếp theo thời gian mới nhất (id giảm dần cũng được nếu id có timestamp hoặc random nhưng được push vào cuối)
 usort($userNotifs, function($a, $b) {
     $timeA = isset($a['created_at']) ? strtotime($a['created_at']) : 0;
     $timeB = isset($b['created_at']) ? strtotime($b['created_at']) : 0;
-    return $timeB - $timeA;
+    // Nếu trùng thời gian, so sánh ID hoặc vị trí (giả định cái sau mới hơn)
+    if ($timeA === $timeB) return 0;
+    return ($timeA < $timeB) ? 1 : -1;
 });
 
 $latest = !empty($userNotifs) ? array_values($userNotifs)[0] : null;
@@ -40,12 +47,16 @@ foreach ($users as $u) {
     }
 }
 
-// 3. Trả về kết quả
+// 3. Trả về kết quả kèm debug
 echo json_encode([
     'success' => true,
     'notification' => $latest,
     'fresh_balance' => formatMoney($freshBalance),
     'balance_raw' => $freshBalance,
-    'debug_user_id' => $user_id
+    'debug' => [
+        'user_id' => $user_id,
+        'notifs_count' => count($userNotifs),
+        'latest_id' => $latest ? $latest['id'] : null
+    ]
 ]);
 exit;
