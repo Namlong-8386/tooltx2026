@@ -16,7 +16,10 @@ $users = readJSON('users');
 
 // Tìm thông báo chưa đọc liên quan đến nạp tiền
 $unread = array_filter($notifications, function($n) use ($user_id) {
-    return $n['user_id'] === $user_id && !($n['is_read'] ?? false);
+    // Lọc các thông báo nạp tiền dựa trên type hoặc nội dung title
+    $isDepositNotif = (isset($n['type']) && ($n['type'] === 'deposit_approved' || $n['type'] === 'deposit_cancelled')) || 
+                      (isset($n['title']) && (strpos($n['title'], 'Nạp tiền') !== false));
+    return $n['user_id'] === $user_id && !($n['is_read'] ?? false) && $isDepositNotif;
 });
 
 // Sắp xếp theo thời gian mới nhất

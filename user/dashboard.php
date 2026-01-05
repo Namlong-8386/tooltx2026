@@ -278,17 +278,19 @@ if (!$currentUser) {
                                 const latest = d.notification;
                                 const readNotifs = JSON.parse(localStorage.getItem('read_notifications') || '[]');
                                 
-                                // Chỉ hiển thị nếu thông báo này chưa được hiển thị trước đó
+                                // Chỉ hiển thị nếu thông báo này chưa được hiển thị trước đó và thông tin nạp tiền
                                 if(!readNotifs.includes(latest.id)) {
+                                    // Đánh dấu đã đọc trong localStorage NGAY LẬP TỨC để tránh lặp
+                                    readNotifs.push(latest.id);
+                                    localStorage.setItem('read_notifications', JSON.stringify(readNotifs));
+                                    
                                     this.currentNotifId = latest.id;
                                     this.title = latest.title;
                                     this.message = latest.message;
                                     this.type = (latest.title.toLowerCase().includes('thành công') || latest.message.toLowerCase().includes('thành công')) ? 'success' : 'error';
                                     this.show = true;
                                     
-                                    // Đánh dấu đã đọc trong localStorage để không hiện lại
-                                    readNotifs.push(latest.id);
-                                    localStorage.setItem('read_notifications', JSON.stringify(readNotifs));
+                                    console.log('Đã hiển thị thông báo mới:', latest.id);
                                 }
                             }
                         } catch (e) {
