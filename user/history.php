@@ -34,17 +34,17 @@ usort($userKeys, function($a, $b) {
     <style>
         html { zoom: 0.9; }
         body { 
-            background-color: #0f172a; 
+            background-color: #020617; 
             color: #f8fafc; 
             font-family: 'Plus Jakarta Sans', sans-serif;
             background-image: 
-                radial-gradient(at 0% 0%, rgba(234, 179, 8, 0.04) 0px, transparent 50%),
-                radial-gradient(at 100% 100%, rgba(249, 115, 22, 0.04) 0px, transparent 50%);
+                radial-gradient(at 0% 0%, rgba(234, 179, 8, 0.08) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(249, 115, 22, 0.08) 0px, transparent 50%);
         }
         .glass { 
-            background: rgba(255, 255, 255, 0.05); 
-            backdrop-filter: blur(16px); 
-            border: 1px solid rgba(255, 255, 255, 0.1); 
+            background: rgba(255, 255, 255, 0.03); 
+            backdrop-filter: blur(12px); 
+            border: 1px solid rgba(255, 255, 255, 0.08); 
         }
         .text-gradient {
             background: linear-gradient(135deg, #fbbf24 0%, #f97316 100%);
@@ -53,7 +53,16 @@ usort($userKeys, function($a, $b) {
         }
         .tab-active {
             background: linear-gradient(135deg, #fbbf24 0%, #f97316 100%);
-            color: #000;
+            color: #000 !important;
+            font-weight: 800;
+        }
+        .status-badge {
+            padding: 4px 10px;
+            border-radius: 10px;
+            font-size: 10px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
         }
     </style>
 </head>
@@ -94,157 +103,82 @@ usort($userKeys, function($a, $b) {
         </div>
     </nav>
 
-    <main class="p-6 max-w-7xl mx-auto w-full mt-8 px-6 md:px-12">
-        <!-- Logout Confirmation Modal -->
-        <div class="fixed inset-0 z-[110] flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm" style="display: none;" x-show="showLogoutConfirm" x-transition:enter="animate-fade-in" x-transition:leave="animate-fade-out">
-            <div class="glass p-8 rounded-[2.5rem] max-w-sm w-full border border-white/10 text-center relative overflow-hidden shadow-2xl">
-                <div class="absolute -top-24 -left-24 w-48 h-48 bg-orange-500/10 rounded-full blur-3xl opacity-20"></div>
-                <div class="p-4 bg-orange-500/10 rounded-full w-20 h-20 mx-auto mb-6 flex items-center justify-center text-orange-500 border border-orange-500/20">
-                    <?php echo getIcon('logout', 'w-10 h-10'); ?>
-                </div>
-                <h3 class="text-2xl font-black text-white mb-2 uppercase">ĐĂNG XUẤT?</h3>
-                <p class="text-slate-400 text-sm font-semibold mb-8 leading-relaxed">
-                    Bạn có chắc chắn muốn thoát khỏi phiên làm việc hiện tại không?
-                </p>
-                <div class="flex gap-4">
-                    <button @click="showLogoutConfirm = false" class="flex-1 py-4 bg-white/5 border border-white/10 rounded-2xl text-white font-black hover:bg-white/10 transition-all">
-                        HỦY
-                    </button>
-                    <button @click="logout()" class="flex-1 py-4 bg-gradient-to-r from-red-500 to-orange-600 rounded-2xl text-white font-black hover:scale-[1.02] active:scale-[0.98] transition-all shadow-lg shadow-red-500/20">
-                        XÁC NHẬN
-                    </button>
-                </div>
-            </div>
-        </div>
-
-        <script>
-        async function logout() {
-            const confirmBox = document.querySelector('[x-show="showLogoutConfirm"] .glass');
-            if (confirmBox) {
-                confirmBox.innerHTML = `
-                    <div class="flex flex-col items-center py-6">
-                        <div class="relative mb-6">
-                            <div class="absolute inset-0 bg-green-500/20 rounded-full blur-xl animate-pulse"></div>
-                            <div class="relative p-5 bg-green-500/10 rounded-full border border-green-500/20 text-green-500">
-                                <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path>
-                                </svg>
-                            </div>
-                        </div>
-                        <h3 class="text-2xl font-black text-white mb-2 tracking-tight">HẸN GẶP LẠI!</h3>
-                        <p class="text-slate-400 text-sm font-medium">Bạn đã đăng xuất thành công.</p>
-                        <div class="mt-8 flex gap-1 justify-center">
-                            <div class="w-2 h-2 bg-green-500 rounded-full animate-bounce" style="animation-delay: 0.1s"></div>
-                            <div class="w-2 h-2 bg-green-500 rounded-full animate-bounce" style="animation-delay: 0.2s"></div>
-                            <div class="w-2 h-2 bg-green-500 rounded-full animate-bounce" style="animation-delay: 0.3s"></div>
-                        </div>
-                    </div>
-                `;
-            }
-            setTimeout(() => { window.location.href = '../logout.php'; }, 2000);
-        }
-        </script>
-        <!-- Session Monitor -->
-        <div x-data="sessionMonitor()" x-init="init()" class="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm" style="display: none;" x-show="showLogoutModal">
-            <div class="glass p-8 rounded-[2.5rem] max-w-sm w-full border border-white/10 text-center relative overflow-hidden">
-                <div class="absolute -top-24 -left-24 w-48 h-48 bg-red-500/10 rounded-full blur-3xl"></div>
-                <div class="p-4 bg-red-500/10 rounded-full w-20 h-20 mx-auto mb-6 flex items-center justify-center text-red-500 border border-red-500/20">
-                    <?php echo getIcon('alert-triangle', 'w-10 h-10'); ?>
-                </div>
-                <h3 class="text-2xl font-black text-white mb-2">PHIÊN ĐĂNG NHẬP HẾT HẠN</h3>
-                <p class="text-slate-400 text-sm font-semibold mb-8 leading-relaxed">
-                    Tài khoản của bạn đã được đăng nhập từ một thiết bị khác. Vui lòng đăng nhập lại để tiếp tục.
-                </p>
-                <button @click="window.location.href='../logout.php'" class="w-full py-4 bg-gradient-to-r from-red-500 to-orange-600 rounded-2xl text-white font-black hover:scale-[1.02] active:scale-[0.98] transition-all shadow-lg shadow-red-500/20">
-                    ĐĂNG NHẬP LẠI
-                </button>
-            </div>
-        </div>
-
-        <script>
-        function sessionMonitor() {
-            return {
-                showLogoutModal: false,
-                init() {
-                    setInterval(() => {
-                        fetch('api/check-session.php')
-                            .then(response => response.json())
-                            .then(data => {
-                                if (data.status === 'expired') {
-                                    this.showLogoutModal = true;
-                                }
-                            });
-                    }, 5000);
-                }
-            }
-        }
-        </script>
-
+    <main class="p-6 max-w-7xl mx-auto w-full mt-4 px-4 md:px-12 flex-1">
+        <!-- Header Section -->
         <div class="glass p-8 rounded-[2.5rem] border border-white/5 mb-8 relative overflow-hidden">
-            <div class="flex flex-col md:flex-row md:items-center justify-between gap-6">
+            <div class="absolute -right-24 -top-24 w-64 h-64 bg-yellow-500/5 rounded-full blur-3xl"></div>
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-6 relative">
                 <div class="flex items-center gap-4">
-                    <div class="p-3 bg-yellow-500/10 rounded-xl text-yellow-500">
-                        <?php echo getIcon('history', 'w-6 h-6'); ?>
+                    <div class="p-4 bg-gradient-to-br from-yellow-500/10 to-orange-500/10 rounded-2xl text-yellow-500 border border-yellow-500/20">
+                        <?php echo getIcon('history', 'w-7 h-7'); ?>
                     </div>
                     <div>
-                        <h2 class="text-2xl font-black">Lịch Sử</h2>
-                        <p class="text-xs text-slate-400 uppercase tracking-widest font-bold">Quản lý giao dịch của bạn</p>
+                        <h2 class="text-3xl font-black tracking-tight">Lịch Sử</h2>
+                        <p class="text-[10px] text-slate-500 uppercase tracking-[0.2em] font-black">QUẢN LÝ GIAO DỊCH CỦA BẠN</p>
                     </div>
                 </div>
                 
-                <div class="flex bg-white/5 p-1.5 rounded-2xl border border-white/10">
-                    <button @click="activeTab = 'deposit'" :class="activeTab === 'deposit' ? 'tab-active shadow-lg shadow-orange-500/20' : 'text-slate-400 hover:text-white'" class="px-6 py-2.5 rounded-xl font-black text-xs uppercase tracking-widest transition-all">
-                        Lịch sử nạp
+                <div class="flex bg-black/40 p-1.5 rounded-[1.25rem] border border-white/5 self-start md:self-center">
+                    <button @click="activeTab = 'deposit'" :class="activeTab === 'deposit' ? 'tab-active shadow-lg shadow-orange-500/20' : 'text-slate-400 hover:text-white'" class="px-6 py-2.5 rounded-xl font-black text-[10px] uppercase tracking-widest transition-all">
+                        LỊCH SỬ NẠP
                     </button>
-                    <button @click="activeTab = 'key'" :class="activeTab === 'key' ? 'tab-active shadow-lg shadow-orange-500/20' : 'text-slate-400 hover:text-white'" class="px-6 py-2.5 rounded-xl font-black text-xs uppercase tracking-widest transition-all">
-                        Lịch sử mua key
+                    <button @click="activeTab = 'key'" :class="activeTab === 'key' ? 'tab-active shadow-lg shadow-orange-500/20' : 'text-slate-400 hover:text-white'" class="px-6 py-2.5 rounded-xl font-black text-[10px] uppercase tracking-widest transition-all ml-1">
+                        LỊCH SỬ MUA KEY
                     </button>
                 </div>
             </div>
         </div>
 
         <!-- Filters & Search -->
-        <div class="mb-6 flex flex-col md:flex-row gap-4">
-            <div class="relative flex-grow">
-                <div class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500">
-                    <?php echo getIcon('search', 'w-5 h-5'); ?>
-                </div>
-                <input type="text" x-model="search" placeholder="Tìm kiếm mã giao dịch, số tiền..." class="w-full bg-white/5 border border-white/10 rounded-2xl pl-12 pr-4 py-3.5 focus:outline-none focus:border-yellow-500/50 focus:bg-white/10 transition-all font-semibold text-sm">
+        <div class="mb-8 relative group">
+            <div class="absolute left-5 top-1/2 -translate-y-1/2 text-slate-500 group-focus-within:text-yellow-500 transition-colors">
+                <?php echo getIcon('search', 'w-5 h-5'); ?>
             </div>
+            <input type="text" x-model="search" placeholder="Tìm kiếm mã giao dịch, số tiền..." 
+                class="w-full bg-white/5 border border-white/10 rounded-[1.5rem] pl-14 pr-6 py-4.5 focus:outline-none focus:border-yellow-500/50 focus:bg-white/10 transition-all font-semibold text-base shadow-inner">
         </div>
 
         <!-- Deposit History Tab -->
         <div x-show="activeTab === 'deposit'" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 translate-y-4" x-transition:enter-end="opacity-100 translate-y-0">
-            <div class="glass rounded-[2.5rem] border border-white/5 overflow-hidden">
+            <div class="glass rounded-[2.5rem] border border-white/5 overflow-hidden shadow-2xl">
                 <div class="overflow-x-auto">
-                    <table class="w-full text-left">
+                    <table class="w-full text-left border-collapse">
                         <thead>
-                            <tr class="bg-white/5 border-b border-white/10">
-                                <th class="px-8 py-5 text-xs font-black uppercase tracking-widest text-slate-500">Mã đơn</th>
-                                <th class="px-8 py-5 text-xs font-black uppercase tracking-widest text-slate-500">Số tiền</th>
-                                <th class="px-8 py-5 text-xs font-black uppercase tracking-widest text-slate-500">Trạng thái</th>
-                                <th class="px-8 py-5 text-xs font-black uppercase tracking-widest text-slate-500">Thời gian</th>
+                            <tr class="bg-white/[0.02] border-b border-white/5">
+                                <th class="px-8 py-6 text-[10px] font-black uppercase tracking-widest text-slate-500">MÃ ĐƠN</th>
+                                <th class="px-8 py-6 text-[10px] font-black uppercase tracking-widest text-slate-500">SỐ TIỀN</th>
+                                <th class="px-8 py-6 text-[10px] font-black uppercase tracking-widest text-slate-500 text-center">TRẠNG THÁI</th>
+                                <th class="px-8 py-6 text-[10px] font-black uppercase tracking-widest text-slate-500 text-right">THỜI GIAN</th>
                             </tr>
                         </thead>
-                        <tbody class="divide-y divide-white/5">
+                        <tbody class="divide-y divide-white/[0.03]">
                             <?php if (empty($userDeposits)): ?>
-                                <tr><td colspan="4" class="px-8 py-12 text-center text-slate-500 font-bold">Chưa có giao dịch nạp tiền nào.</td></tr>
+                                <tr><td colspan="4" class="px-8 py-20 text-center text-slate-500 font-bold italic">Chưa có giao dịch nạp tiền nào.</td></tr>
                             <?php else: ?>
                                 <?php foreach ($userDeposits as $d): ?>
-                                    <tr class="hover:bg-white/[0.02] transition-colors" 
-                                        x-show="'<?php echo strtolower($d['order_id'] . $d['amount']); ?>'.includes(search.toLowerCase())">
-                                        <td class="px-8 py-5 font-mono text-yellow-500 font-bold"><?php echo $d['order_id']; ?></td>
-                                        <td class="px-8 py-5 font-black text-white"><?php echo formatMoney($d['amount']); ?></td>
-                                        <td class="px-8 py-5">
+                                    <tr class="hover:bg-white/[0.03] transition-all duration-300 group" 
+                                        x-show="'<?php echo strtolower(($d['id'] ?? $d['order_id']) . $d['amount']); ?>'.includes(search.toLowerCase())">
+                                        <td class="px-8 py-6">
+                                            <span class="font-black text-yellow-500/80 group-hover:text-yellow-500 transition-colors tracking-tight"><?php echo $d['id'] ?? $d['order_id']; ?></span>
+                                        </td>
+                                        <td class="px-8 py-6 font-black text-white text-lg"><?php echo formatMoney($d['amount']); ?></td>
+                                        <td class="px-8 py-6 text-center">
                                             <?php if ($d['status'] === 'pending'): ?>
-                                                <span class="px-3 py-1 bg-yellow-500/10 text-yellow-500 rounded-lg text-xs font-black border border-yellow-500/20">CHỜ DUYỆT</span>
+                                                <span class="status-badge bg-yellow-500/10 text-yellow-500 border border-yellow-500/20">CHỜ DUYỆT</span>
                                             <?php elseif ($d['status'] === 'completed'): ?>
-                                                <span class="px-3 py-1 bg-green-500/10 text-green-500 rounded-lg text-xs font-black border border-green-500/20">THÀNH CÔNG</span>
+                                                <span class="status-badge bg-green-500/10 text-green-500 border border-green-500/20">THÀNH CÔNG</span>
+                                            <?php elseif ($d['status'] === 'expired'): ?>
+                                                <span class="status-badge bg-slate-500/10 text-slate-500 border border-slate-500/20">HẾT HẠN</span>
                                             <?php else: ?>
-                                                <span class="px-3 py-1 bg-red-500/10 text-red-500 rounded-lg text-xs font-black border border-red-500/20">ĐÃ HỦY</span>
+                                                <span class="status-badge bg-red-500/10 text-red-500 border border-red-500/20">ĐÃ HỦY</span>
                                             <?php endif; ?>
                                         </td>
-                                        <td class="px-8 py-5 text-slate-400 text-sm font-semibold"><?php echo date('H:i d/m/Y', strtotime($d['created_at'])); ?></td>
+                                        <td class="px-8 py-6 text-right">
+                                            <div class="flex flex-col items-end">
+                                                <span class="text-white font-black text-sm"><?php echo date('H:i', strtotime($d['created_at'])); ?></span>
+                                                <span class="text-[10px] text-slate-500 font-bold uppercase tracking-tighter"><?php echo date('d/m/Y', strtotime($d['created_at'])); ?></span>
+                                            </div>
+                                        </td>
                                     </tr>
                                 <?php endforeach; ?>
                             <?php endif; ?>
@@ -255,51 +189,56 @@ usort($userKeys, function($a, $b) {
         </div>
 
         <!-- Key History Tab -->
-        <div x-show="activeTab === 'key'" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 translate-y-4" x-transition:enter-end="opacity-100 translate-y-0">
-            <div class="glass rounded-[2.5rem] border border-white/5 overflow-hidden">
+        <div x-show="activeTab === 'key'" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 translate-y-4" x-transition:enter-end="opacity-100 translate-y-0" style="display: none;">
+            <div class="glass rounded-[2.5rem] border border-white/5 overflow-hidden shadow-2xl">
                 <div class="overflow-x-auto">
-                    <table class="w-full text-left">
+                    <table class="w-full text-left border-collapse">
                         <thead>
-                            <tr class="bg-white/5 border-b border-white/10">
-                                <th class="px-8 py-5 text-xs font-black uppercase tracking-widest text-slate-500">Mã Key</th>
-                                <th class="px-8 py-5 text-xs font-black uppercase tracking-widest text-slate-500">Gói dịch vụ</th>
-                                <th class="px-8 py-5 text-xs font-black uppercase tracking-widest text-slate-500">Liên kết</th>
-                                <th class="px-8 py-5 text-xs font-black uppercase tracking-widest text-slate-500">Tổng tiền</th>
-                                <th class="px-8 py-5 text-xs font-black uppercase tracking-widest text-slate-500">Thời gian</th>
+                            <tr class="bg-white/[0.02] border-b border-white/5">
+                                <th class="px-8 py-6 text-[10px] font-black uppercase tracking-widest text-slate-500">MÃ KEY</th>
+                                <th class="px-8 py-6 text-[10px] font-black uppercase tracking-widest text-slate-500">GÓI DỊCH VỤ</th>
+                                <th class="px-8 py-6 text-[10px] font-black uppercase tracking-widest text-slate-500">LIÊN KẾT</th>
+                                <th class="px-8 py-6 text-[10px] font-black uppercase tracking-widest text-slate-500">TỔNG TIỀN</th>
+                                <th class="px-8 py-6 text-[10px] font-black uppercase tracking-widest text-slate-500 text-right">THỜI GIAN</th>
                             </tr>
                         </thead>
-                        <tbody class="divide-y divide-white/5">
+                        <tbody class="divide-y divide-white/[0.03]">
                             <?php if (empty($userKeys)): ?>
-                                <tr><td colspan="4" class="px-8 py-12 text-center text-slate-500 font-bold">Chưa có giao dịch mua key nào.</td></tr>
+                                <tr><td colspan="5" class="px-8 py-20 text-center text-slate-500 font-bold italic">Chưa có giao dịch mua key nào.</td></tr>
                             <?php else: ?>
                                 <?php foreach ($userKeys as $k): ?>
-                                    <tr class="hover:bg-white/[0.02] transition-colors"
+                                    <tr class="hover:bg-white/[0.03] transition-all duration-300 group"
                                         x-show="'<?php echo strtolower($k['key_code'] . $k['package_name']); ?>'.includes(search.toLowerCase())">
-                                        <td class="px-8 py-5">
-                                            <div class="flex items-center gap-2">
-                                                <span class="font-mono text-orange-500 font-bold"><?php echo $k['key_code']; ?></span>
-                                                <button onclick="navigator.clipboard.writeText('<?php echo $k['key_code']; ?>')" class="p-1.5 hover:bg-white/10 rounded-md transition-colors text-slate-500 hover:text-white" title="Copy key">
-                                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7v8a2 2 0 002 2h6M8 7V5a2 2 0 012-2h4.586a1 1 0 01.707.293l4.414 4.414a1 1 0 01.293.707V15a2 2 0 01-2 2h-2M8 7H6a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2v-2"></path></svg>
+                                        <td class="px-8 py-6">
+                                            <div class="flex items-center gap-3">
+                                                <span class="font-black text-orange-500/80 group-hover:text-orange-500 transition-colors tracking-tight"><?php echo $k['key_code']; ?></span>
+                                                <button onclick="copy('<?php echo $k['key_code']; ?>', this)" class="p-2 hover:bg-orange-500/10 rounded-xl transition-all text-slate-500 hover:text-orange-500 border border-transparent hover:border-orange-500/20">
+                                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M8 7v8a2 2 0 002 2h6M8 7V5a2 2 0 012-2h4.586a1 1 0 01.707.293l4.414 4.414a1 1 0 01.293.707V15a2 2 0 01-2 2h-2M8 7H6a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2v-2"></path></svg>
                                                 </button>
                                             </div>
                                         </td>
-                                        <td class="px-8 py-5">
-                                            <span class="px-3 py-1 bg-blue-500/10 text-blue-400 rounded-lg text-xs font-black border border-blue-500/20">
+                                        <td class="px-8 py-6">
+                                            <span class="status-badge bg-blue-500/10 text-blue-400 border border-blue-500/20 font-black">
                                                 <?php echo strtoupper($k['package_name']); ?>
                                             </span>
                                         </td>
-                                        <td class="px-8 py-5">
+                                        <td class="px-8 py-6">
                                             <?php if (!empty($k['linked_account'])): ?>
                                                 <div class="flex flex-col">
-                                                    <span class="text-xs font-bold text-green-400"><?php echo htmlspecialchars($k['linked_account']); ?></span>
-                                                    <span class="text-[9px] text-slate-500"><?php echo date('H:i d/m', strtotime($k['linked_at'])); ?></span>
+                                                    <span class="text-xs font-black text-green-400"><?php echo htmlspecialchars($k['linked_account']); ?></span>
+                                                    <span class="text-[9px] text-slate-500 font-bold uppercase tracking-tighter"><?php echo date('H:i d/m', strtotime($k['linked_at'])); ?></span>
                                                 </div>
                                             <?php else: ?>
-                                                <span class="text-xs font-bold text-slate-500 italic">Chưa liên kết</span>
+                                                <span class="text-[10px] font-black text-slate-600 uppercase tracking-widest">CHƯA LIÊN KẾT</span>
                                             <?php endif; ?>
                                         </td>
-                                        <td class="px-8 py-5 font-black text-white"><?php echo formatMoney($k['total_price']); ?></td>
-                                        <td class="px-8 py-5 text-slate-400 text-sm font-semibold"><?php echo date('H:i d/m/Y', strtotime($k['created_at'])); ?></td>
+                                        <td class="px-8 py-6 font-black text-white"><?php echo formatMoney($k['total_price']); ?></td>
+                                        <td class="px-8 py-6 text-right">
+                                            <div class="flex flex-col items-end">
+                                                <span class="text-white font-black text-sm"><?php echo date('H:i', strtotime($k['created_at'])); ?></span>
+                                                <span class="text-[10px] text-slate-500 font-bold uppercase tracking-tighter"><?php echo date('d/m/Y', strtotime($k['created_at'])); ?></span>
+                                            </div>
+                                        </td>
                                     </tr>
                                 <?php endforeach; ?>
                             <?php endif; ?>
@@ -309,6 +248,15 @@ usort($userKeys, function($a, $b) {
             </div>
         </div>
     </main>
+
+    <script>
+        function copy(text, btn) {
+            navigator.clipboard.writeText(text);
+            const originalHTML = btn.innerHTML;
+            btn.innerHTML = '<svg class="w-4 h-4 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>';
+            setTimeout(() => { btn.innerHTML = originalHTML; }, 2000);
+        }
+    </script>
     <script src="../assets/js/transitions.js"></script>
 </body>
 </html>
