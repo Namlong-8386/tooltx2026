@@ -29,7 +29,7 @@ if (!isset($_GET['success'])) {
             $rem = strtotime($d['expires_at']) - time();
             if ($rem > 0) {
                 $_SESSION['current_deposit_order'] = $d;
-                header('Location: deposit.php?success=1');
+                header('Location: ../pay.php?id=' . ($d['id'] ?? $d['order_id']));
                 exit;
             }
         }
@@ -92,7 +92,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['amount'])) {
     }
 }
 
-if (isset($_GET['success']) && isset($_SESSION['current_deposit_order'])) {
+// This part is removed as we use pay.php now
+if (false && isset($_GET['success'])) {
     $order = $_SESSION['current_deposit_order'];
     $deposits = readJSON('deposits');
     $found = false;
