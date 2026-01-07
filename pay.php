@@ -211,10 +211,14 @@ $qr_url = "https://img.vietqr.io/image/" . urlencode($order['bank_name'] ?? '') 
                 <?php endif; ?>
             </div>
 
-            <div class="mt-8 text-center">
-                <a href="user/deposit.php" class="text-slate-500 hover:text-white transition-all text-sm font-bold flex items-center justify-center gap-2">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
-                    Quay lại trang nạp tiền
+            <div class="mt-6 flex items-center justify-center gap-4">
+                <a href="index.php" class="flex items-center gap-1.5 text-[10px] font-black text-slate-500 hover:text-yellow-500 transition-colors bg-white/5 px-4 py-2 rounded-xl border border-white/5 hover:border-yellow-500/30">
+                    <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+                    TRANG CHỦ
+                </a>
+                <a href="user/history.php" class="flex items-center gap-1.5 text-[10px] font-black text-slate-500 hover:text-orange-500 transition-colors bg-white/5 px-4 py-2 rounded-xl border border-white/5 hover:border-orange-500/30">
+                    <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    LỊCH SỬ
                 </a>
             </div>
         </div>
