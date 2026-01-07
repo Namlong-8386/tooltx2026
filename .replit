@@ -1,4 +1,4 @@
-modules = ["php-8.2", "nodejs-20", "web"]
+modules = ["php-8.2", "nodejs-20", "web", "php-8.4"]
 [agent]
 expertMode = true
 
@@ -21,13 +21,13 @@ args = "Web Server"
 name = "Web Server"
 author = "agent"
 
+[workflows.workflow.metadata]
+outputType = "webview"
+
 [[workflows.workflow.tasks]]
 task = "shell.exec"
 args = "php -S 0.0.0.0:5000"
 waitForPort = 5000
-
-[workflows.workflow.metadata]
-outputType = "webview"
 
 [[ports]]
 localPort = 5000
