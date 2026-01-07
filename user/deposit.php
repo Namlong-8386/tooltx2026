@@ -83,7 +83,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['amount'])) {
                 writeJSON('deposits', $deposits);
                 
                 $_SESSION['current_deposit_order'] = $order;
-                header('Location: deposit.php?success=1');
+                header('Location: ../pay.php?id=' . $order_id);
                 exit;
             } else {
                 $error = 'Vui lòng chọn ngân hàng hợp lệ.';
