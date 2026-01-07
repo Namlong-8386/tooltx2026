@@ -107,9 +107,17 @@ $qr_url = "https://img.vietqr.io/image/" . urlencode($order['bank_name'] ?? '') 
         </div>
         
         <div class="flex items-center gap-6">
-            <div class="hidden md:block">
-                <p class="text-slate-500 text-[10px] font-black uppercase tracking-widest mb-0.5">Số dư hiện tại</p>
-                <p class="text-lg font-black text-gradient leading-none"><?php echo formatMoney($currentUser['balance']); ?></p>
+            <div class="flex items-center gap-3">
+                <div class="p-2 bg-yellow-500/10 rounded-xl text-yellow-500 border border-yellow-500/20">
+                    <?php echo getIcon('wallet', 'w-5 h-5'); ?>
+                </div>
+                <div class="hidden md:block">
+                    <p class="text-slate-500 text-[10px] font-black uppercase tracking-widest mb-0.5">Số dư hiện tại</p>
+                    <p class="text-lg font-black text-gradient leading-none"><?php echo formatMoney($currentUser['balance']); ?></p>
+                </div>
+                <div class="md:hidden">
+                    <p class="text-sm font-black text-gradient"><?php echo formatMoney($currentUser['balance']); ?></p>
+                </div>
             </div>
             <a href="user/deposit.php" class="p-2.5 bg-slate-800/80 backdrop-blur-md rounded-xl text-slate-400 hover:bg-slate-700/80 hover:text-white transition-all border border-white/10 shadow-lg group">
                 <svg class="w-6 h-6 transition-transform group-hover:-translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
