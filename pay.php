@@ -254,7 +254,7 @@ $qr_url = "https://img.vietqr.io/image/" . urlencode($order['bank_name'] ?? '') 
 
         // Check status polling
         setInterval(async () => {
-            const r = await fetch('user/api/check-status.php?order_id=<?php echo $order['id']; ?>');
+            const r = await fetch('user/api/check-status.php?id=<?php echo $order['id']; ?>');
             const d = await r.json();
             if(d.status === 'completed' || d.status === 'cancelled' || d.status === 'expired') {
                 location.reload();
