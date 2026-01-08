@@ -141,8 +141,8 @@ $games = [
                     
                     <h3 class="text-xl font-black text-slate-100 mb-1 tracking-tight"><?php echo $game['name']; ?></h3>
                     <div class="flex items-center gap-2 mb-8">
-                        <span class="w-2 h-2 rounded-full bg-blue-500 animate-pulse"></span>
-                        <span class="text-[10px] font-black text-blue-500 uppercase tracking-widest"><?php echo $game['status']; ?></span>
+                        <span class="w-2 h-2 rounded-full bg-green-500 shadow-[0_0_10px_rgba(34,197,94,0.8)] animate-pulse"></span>
+                        <span class="text-[10px] font-black text-green-500 uppercase tracking-widest drop-shadow-[0_0_5px_rgba(34,197,94,0.5)]"><?php echo $game['status']; ?></span>
                     </div>
 
                     <button onclick="alert('Đang chuyển hướng tới Tool cho <?php echo $game['name']; ?>...')" class="w-full py-4 glass rounded-2xl text-xs font-black hover:bg-yellow-500 hover:text-black transition-all border border-white/5 shadow-lg active:scale-95 uppercase tracking-widest">
