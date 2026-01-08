@@ -60,8 +60,12 @@ $games = [
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../assets/css/transitions.css">
     <style>
-        html {
-            zoom: 0.9;
+        html, body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
         }
         body { 
             background-color: #1e293b; 
@@ -70,7 +74,12 @@ $games = [
             background-image: 
                 radial-gradient(at 0% 0%, rgba(234, 179, 8, 0.15) 0px, transparent 50%),
                 radial-gradient(at 100% 100%, rgba(249, 115, 22, 0.15) 0px, transparent 50%);
-            min-height: screen;
+        }
+        .main-content {
+            height: 100vh;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+            zoom: 0.9;
         }
         .glass { 
             background: rgba(255, 255, 255, 0.08); 
@@ -93,6 +102,7 @@ $games = [
             z-index: 9999;
             cursor: move;
         }
+        /* Rest of style content remains same */
 
         #robotInner {
             display: flex;
@@ -179,7 +189,8 @@ $games = [
     <script src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs" type="module"></script>
 </head>
 <body class="min-h-screen">
-    <div class="max-w-7xl mx-auto px-6 md:px-12 py-8">
+    <div class="main-content">
+        <div class="max-w-7xl mx-auto px-6 md:px-12 py-8">
         <div class="flex items-center justify-between mb-12">
             <div class="flex items-center gap-6">
                 <div class="relative">
@@ -247,6 +258,7 @@ $games = [
             <?php endforeach; ?>
         </div>
     </div>
+</div>
 
     <!-- Robot Prediction with Lottie Animation -->
     <div id="robotContainer">
@@ -281,7 +293,9 @@ $games = [
             const iframe = document.getElementById('iframeGame');
             const robotContainer = document.getElementById('robotContainer');
             const logoutBtn = document.getElementById('gameLogoutBtn');
+            const mainContent = document.querySelector('.main-content');
             
+            mainContent.style.display = 'none';
             iframe.src = gameUrl;
             iframe.style.display = 'block';
             robotContainer.style.display = 'block';
@@ -295,7 +309,9 @@ $games = [
             const iframe = document.getElementById('iframeGame');
             const robotContainer = document.getElementById('robotContainer');
             const logoutBtn = document.getElementById('gameLogoutBtn');
+            const mainContent = document.querySelector('.main-content');
             
+            mainContent.style.display = 'block';
             iframe.src = '';
             iframe.style.display = 'none';
             robotContainer.style.display = 'none';
