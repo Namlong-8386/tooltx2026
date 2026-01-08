@@ -82,7 +82,100 @@ $games = [
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
+
+        /* Robot Prediction Styles */
+        #robotContainer {
+            position: fixed;
+            top: 50%;
+            left: 20px;
+            transform: translateY(-50%);
+            display: none;
+            z-index: 9999;
+            cursor: move;
+        }
+
+        #robotInner {
+            display: flex;
+            align-items: center;
+            transform: rotate(90deg);
+            transform-origin: left center;
+        }
+
+        #robotIcon {
+            width: 95px;
+            height: 95px;
+            margin-right: 8px;
+            pointer-events: none;
+        }
+
+        #robotText {
+            background: rgba(50, 50, 50, 0.7);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            color: #fff;
+            padding: 6px 10px;
+            border-radius: 10px;
+            font-size: 12px;
+            line-height: 1.4;
+            box-shadow: 0 0 12px rgba(0, 0, 0, 0.3);
+            white-space: nowrap;
+            max-width: 200px;
+            position: relative;
+            font-family: 'Inter', sans-serif;
+            font-weight: 600;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        #robotText #line1 {
+            font-size: 17px;
+            color: #fff;
+        }
+
+        #robotText #line2 {
+            font-size: 17px;
+            color: #fff;
+            font-weight: 500;
+        }
+
+        /* Iframe Styles */
+        #iframeGame {
+            display: none; 
+            width: 100vw; 
+            height: 100vh; 
+            border: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+        }
+
+        /* Logout Button in Game */
+        .game-logout-btn {
+            position: fixed;
+            top: 12px;
+            right: 12px;
+            background: rgba(239, 68, 68, 0.8);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            font-size: 16px;
+            cursor: pointer;
+            z-index: 1002;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 3px 8px rgba(239, 68, 68, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .game-logout-btn:hover {
+            background: rgba(239, 68, 68, 1);
+            transform: translateY(-2px);
+        }
     </style>
+    <script src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs" type="module"></script>
 </head>
 <body class="min-h-screen">
     <div class="max-w-7xl mx-auto px-6 md:px-12 py-8">
@@ -145,7 +238,7 @@ $games = [
                         <span class="text-[10px] font-black text-green-500 uppercase tracking-widest drop-shadow-[0_0_5px_rgba(34,197,94,0.5)]"><?php echo $game['status']; ?></span>
                     </div>
 
-                    <button onclick="alert('Đang chuyển hướng tới Tool cho <?php echo $game['name']; ?>...')" class="w-full py-4 glass rounded-2xl text-xs font-black hover:bg-yellow-500 hover:text-black transition-all border border-white/5 shadow-lg active:scale-95 uppercase tracking-widest">
+                    <button onclick="startGame('<?php echo $game['name']; ?>', 'https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=<?php echo urlencode($game['name']); ?>')" class="w-full py-4 glass rounded-2xl text-xs font-black hover:bg-yellow-500 hover:text-black transition-all border border-white/5 shadow-lg active:scale-95 uppercase tracking-widest">
                         VÀO GAME
                     </button>
                 </div>
@@ -153,6 +246,137 @@ $games = [
             <?php endforeach; ?>
         </div>
     </div>
+
+    <!-- Robot Prediction with Lottie Animation -->
+    <div id="robotContainer">
+        <div id="robotInner">
+            <dotlottie-player 
+                id="robotIcon" 
+                src="https://lottie.host/55ab9688-9a63-4f35-93f8-b40bd7fb8058/4n00MLJLZk.lottie" 
+                background="transparent" 
+                speed="1" 
+                loop 
+                autoplay>
+            </dotlottie-player>
+            <div id="robotText">
+                <div id="line1"><strong>Đang tải...</strong></div>
+                <div id="line2"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Logout Button in Game -->
+    <button class="game-logout-btn" id="gameLogoutBtn" onclick="backToMenu()" style="display: none;">
+        <?php echo getIcon('logout', 'w-6 h-6'); ?>
+    </button>
+
+    <!-- Game Iframe -->
+    <iframe id="iframeGame" src=""></iframe>
+
+    <script>
+        let predictionInterval = null;
+
+        function startGame(gameName, gameUrl) {
+            const iframe = document.getElementById('iframeGame');
+            const robotContainer = document.getElementById('robotContainer');
+            const logoutBtn = document.getElementById('gameLogoutBtn');
+            
+            iframe.src = gameUrl;
+            iframe.style.display = 'block';
+            robotContainer.style.display = 'block';
+            logoutBtn.style.display = 'flex';
+            
+            // Start mock predictions
+            startPredictions(gameName);
+        }
+
+        function backToMenu() {
+            const iframe = document.getElementById('iframeGame');
+            const robotContainer = document.getElementById('robotContainer');
+            const logoutBtn = document.getElementById('gameLogoutBtn');
+            
+            iframe.src = '';
+            iframe.style.display = 'none';
+            robotContainer.style.display = 'none';
+            logoutBtn.style.display = 'none';
+            
+            if (predictionInterval) {
+                clearInterval(predictionInterval);
+            }
+        }
+
+        function startPredictions(gameName) {
+            if (predictionInterval) clearInterval(predictionInterval);
+            
+            const outcomes = ['TÀI', 'XỈU'];
+            const robotText = document.getElementById('line1');
+            const robotSubText = document.getElementById('line2');
+
+            predictionInterval = setInterval(() => {
+                const outcome = outcomes[Math.floor(Math.random() * outcomes.length)];
+                const percentage = Math.floor(Math.random() * 20) + 75; // 75-95%
+                
+                robotText.innerHTML = `<strong>DỰ ĐOÁN: ${outcome}</strong>`;
+                robotSubText.innerHTML = `Độ chính xác: ${percentage}%`;
+            }, 5000);
+        }
+
+        // Draggable Robot
+        const robot = document.getElementById('robotContainer');
+        let isDragging = false;
+        let currentX;
+        let currentY;
+        let initialX;
+        let initialY;
+        let xOffset = 0;
+        let yOffset = 0;
+
+        function dragStart(e) {
+            if (e.type === 'touchstart') {
+                initialX = e.touches[0].clientX - xOffset;
+                initialY = e.touches[0].clientY - yOffset;
+            } else {
+                initialX = e.clientX - xOffset;
+                initialY = e.clientY - yOffset;
+            }
+            if (e.target === robot || robot.contains(e.target)) {
+                isDragging = true;
+            }
+        }
+
+        function dragEnd(e) {
+            initialX = currentX;
+            initialY = currentY;
+            isDragging = false;
+        }
+
+        function drag(e) {
+            if (isDragging) {
+                e.preventDefault();
+                if (e.type === 'touchmove') {
+                    currentX = e.touches[0].clientX - initialX;
+                    currentY = e.touches[0].clientY - initialY;
+                } else {
+                    currentX = e.clientX - initialX;
+                    currentY = e.clientY - initialY;
+                }
+                xOffset = currentX;
+                yOffset = currentY;
+                setTranslate(currentX, currentY, robot);
+            }
+        }
+
+        function setTranslate(xPos, yPos, el) {
+            el.style.transform = `translate3d(${xPos}px, ${yPos}px, 0) translateY(-50%)`;
+        }
+
+        robot.addEventListener('touchstart', dragStart, false);
+        robot.addEventListener('touchend', dragEnd, false);
+        robot.addEventListener('touchmove', drag, false);
+        robot.addEventListener('mousedown', dragStart, false);
+        robot.addEventListener('mouseup', dragEnd, false);
+        robot.addEventListener('mousemove', drag, false);
+    </script>
     <script src="../assets/js/transitions.js"></script>
 </body>
 </html>

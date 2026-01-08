@@ -1,0 +1,1469 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="HandheldFriendly" content="true">
+  <title>Hoàng Phúc 68 - Cổng Game Bài Bàn Xanh, Sicbo, Baccarat Chính Chủ</title>
+  <meta name="description" content="Hoàng Phúc 68 - Hệ sinh thái Game Bài Bàn Xanh, Sicbo, Baccarat, MD5 chính chủ. Cổng game uy tín, AI hỗ trợ cược chính xác, cập nhật nhanh nhất 2025.">
+
+  <!-- ✅ Logo favicon -->
+  <link rel="icon" href="https://i.postimg.cc/ZnNdvPzf/wedicon.png" type="image/png" sizes="256x256">
+  <link rel="apple-touch-icon" href="https://i.postimg.cc/ZnNdvPzf/wedicon.png" sizes="512x512">
+  <link rel="preload" href="https://i.postimg.cc/ZnNdvPzf/wedicon.png" as="image" type="image/png">
+
+  <!-- ✅ Open Graph (Facebook, Zalo, Telegram) -->
+  <meta property="og:title" content="Hoàng Phúc 68 - Cổng Game Bài Bàn Xanh, Sicbo, Baccarat Chính Chủ">
+  <meta property="og:description" content="Cổng game uy tín, AI hỗ trợ cược chính xác, cập nhật nhanh nhất 2025.">
+  <meta property="og:image" content="https://i.postimg.cc/ZnNdvPzf/wedicon.png">
+  <meta property="og:url" content="https://hoangphuc68.site">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Hoàng Phúc 68">
+
+  <!-- ✅ Twitter Card (hiển thị đẹp trên Telegram / X) -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Hoàng Phúc 68 - Cổng Game Bài Bàn Xanh, Sicbo, Baccarat Chính Chủ">
+  <meta name="twitter:description" content="AI hỗ trợ cược chính xác, cập nhật nhanh nhất 2025.">
+  <meta name="twitter:image" content="https://i.postimg.cc/ZnNdvPzf/wedicon.png">
+    <!-- ✅ Structured Data for SEO -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Hoàng Phúc 68",
+    "url": "https://hoangphuc68.site",
+    "logo": "https://i.postimg.cc/ZnNdvPzf/wedicon.png",
+    "description": "Hệ sinh thái Game Bài Bàn Xanh, Sicbo, Baccarat, MD5 chính chủ. Cổng game uy tín, AI hỗ trợ cược chính xác, cập nhật nhanh nhất 2025.",
+    "sameAs": [
+      "https://facebook.com/hphucthetu3779",
+      "https://t.me/PhucTheTu3779"
+    ]
+  }
+  </script>
+
+  <!-- ✅ SEO Keywords (tùy chọn, giúp Google dễ tìm hơn) -->
+  <meta name="keywords" content="Hoàng Phúc 68, HP68, Bàn Xanh, Sicbo, Baccarat, MD5, cổng game bài, tool AI, dự đoán Baccarat, tool Hoàng Phúc 68">
+
+  <!-- Font & Icon -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+  <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
+
+  <!-- Lottie Animation -->
+  <script src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs" type="module"></script>
+  
+  <!-- ✅ Security Meta -->
+  <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
+  <meta http-equiv="X-Content-Type-Options" content="nosniff">
+  <meta http-equiv="Referrer-Policy" content="no-referrer-when-downgrade">
+
+  <style>
+    :root {
+      --primary-color: #6366f1;
+      --secondary-color: #8b5cf6;
+      --accent-color: #a78bfa;
+      --light-color: rgba(255, 255, 255, 0.9);
+      --dark-color: #1e293b;
+      --success-color: #10b981;
+      --error-color: #ef4444;
+      --warning-color: #f59e0b;
+      --glass-blur: 10px;
+    }
+    
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+      font-family: 'Inter', sans-serif;
+    }
+    
+    body {
+      font-family: 'Inter', sans-serif;
+      background: url('https://i.postimg.cc/4NmxT7QN/hinh-nen-giang-sinh-202.jpg') no-repeat center center fixed;
+      background-size: cover;
+      margin: 0;
+      touch-action: manipulation;
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    
+    /* Particle Canvas */
+    #particleCanvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      pointer-events: none;
+      background: rgba(0, 0, 0, 0.4);
+    }
+    
+    /* Main Container */
+    .main-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      height: 100%;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Game Menu Styles */
+    #gameMenu {
+      background: rgba(0, 0, 0, 0);
+      backdrop-filter: blur(15px);
+      -webkit-backdrop-filter: blur(15px);
+      border: 1px solid rgba(255, 255, 255, 0.0);
+      border-radius: 16px;
+      width: 340px;
+      color: #fff;
+      overflow: hidden;
+      position: relative;
+      z-index: 10;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+      padding: 20px 25px;
+      min-height: 500px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .header-box {
+      text-align: center;
+      margin-bottom: 15px;
+      position: relative;
+    }
+
+    .header-box::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60px;
+      height: 3px;
+      background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+      border-radius: 3px;
+    }
+
+    .header-box h1 {
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 5px;
+      background: linear-gradient(90deg, #ff00cc, #3333ff, #00ccff);
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: neonGlow 3s linear infinite;
+    }
+
+    @keyframes neonGlow {
+      0% { background-position: 0% center; }
+      100% { background-position: 200% center; }
+    }
+
+    .header-box p {
+      font-size: 12px;
+      color: rgba(255, 255, 255, 0.7);
+      font-weight: 300;
+    }
+
+    /* Phần giới thiệu */
+    .intro-section {
+      text-align: center;
+      margin-bottom: 20px;
+      padding: 0 10px;
+    }
+
+    .intro-section p {
+      font-size: 14px;
+      color: rgba(255, 255, 255, 0.9);
+      line-height: 1.5;
+      margin-bottom: 15px;
+      font-weight: 500;
+      text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+    }
+
+    /* Grid game icon - 3 hàng 2 cột */
+    .game-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+      margin-bottom: 20px;
+      padding: 0 10px;
+      justify-items: center;
+    }
+
+    .game-icon {
+      width: 80px;
+      height: 80px;
+      object-fit: contain;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      background: rgba(255, 255, 255, 0.1);
+      padding: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .game-icon:hover {
+      transform: scale(1.1);
+      background: rgba(255, 255, 255, 0.2);
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+    }
+
+    .action-buttons {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      width: 100%;
+      padding: 0 10px;
+      margin-top: auto;
+      margin-bottom: 10px;
+    }
+
+    .action-btn {
+      padding: 12px 15px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border: none;
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .action-btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+      transition: 0.5s;
+    }
+
+    .action-btn:hover::before {
+      left: 100%;
+    }
+
+    .action-btn i {
+      font-size: 14px;
+    }
+
+    .pricing-btn {
+      background: linear-gradient(145deg, var(--primary-color), var(--secondary-color));
+      color: white;
+    }
+
+    .pricing-btn:hover {
+      background: linear-gradient(145deg, #584bff, #3d34d1);
+      transform: translateY(-2px);
+    }
+
+    .contact-btn {
+      background: linear-gradient(145deg, var(--success-color), #059669);
+      color: white;
+    }
+
+    .contact-btn:hover {
+      background: linear-gradient(145deg, #0d9f72, #047857);
+      transform: translateY(-2px);
+    }
+
+    /* NEW IMPROVED LOGIN CONTAINER */
+    .login-container {
+      display: none;
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 16px;
+      width: 340px;
+      color: #fff;
+      overflow: hidden;
+      position: relative;
+      z-index: 10;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+      padding: 25px;
+    }
+
+    .login-header {
+      text-align: center;
+      margin-bottom: 25px;
+    }
+
+    .login-header h2 {
+      font-size: 22px;
+      font-weight: 600;
+      margin-bottom: 5px;
+      background: linear-gradient(90deg, #ff00cc, #3333ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .login-header p {
+      font-size: 14px;
+      color: rgba(255, 255, 255, 0.8);
+    }
+
+    .login-form {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .form-group {
+      position: relative;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 14px;
+      color: rgba(255, 255, 255, 0.8);
+      font-weight: 500;
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: 12px 15px;
+      border: none;
+      border-radius: 8px;
+      background: rgba(0, 0, 0, 0.3);
+      color: #fff;
+      font-size: 14px;
+      outline: none;
+      transition: all 0.3s ease;
+      box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .form-group input:focus {
+      border-color: var(--accent-color);
+      box-shadow: 0 0 0 3px rgba(167, 139, 250, 0.2);
+    }
+
+    .login-btn {
+      width: 100%;
+      padding: 12px;
+      background: linear-gradient(145deg, var(--primary-color), var(--secondary-color));
+      color: #fff;
+      font-weight: 600;
+      border: none;
+      border-radius: 8px;
+      font-size: 15px;
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(108, 99, 255, 0.4);
+      transition: all 0.3s ease;
+      margin-top: 10px;
+    }
+
+    .login-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(108, 99, 255, 0.6);
+    }
+
+    .login-footer {
+      margin-top: 20px;
+      text-align: center;
+      font-size: 13px;
+      color: rgba(255, 255, 255, 0.6);
+    }
+
+    .login-footer a {
+      color: var(--accent-color);
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .back-btn {
+      position: absolute;
+      top: 15px;
+      left: 15px;
+      background: rgba(255, 255, 255, 0.1);
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 32px;
+      height: 32px;
+      font-size: 14px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+      z-index: 2;
+    }
+
+    .back-btn:hover {
+      background: rgba(255, 255, 255, 0.2);
+      transform: rotate(-90deg);
+    }
+
+    .message {
+      margin-top: 10px;
+      font-size: 13px;
+      color: #ff6b6b;
+      text-align: center;
+      min-height: 18px;
+    }
+
+    /* Rest of your existing CSS remains the same */
+    /* Price Menu Styles */
+    .menu-container {
+      position: fixed;
+      top: 0;
+      right: -100%;
+      width: 100%;
+      height: 100%;
+      background: rgba(10, 10, 25, 0.96);
+      backdrop-filter: blur(8px);
+      padding: 20px 12px;
+      transition: right 0.4s ease;
+      z-index: 15;
+      display: flex;
+      flex-direction: column;
+      color: #fff;
+    }
+
+    .menu-container.active {
+      right: 0;
+    }
+
+    .menu-container h2 {
+      font-size: 16px;
+      margin-bottom: 15px;
+      text-align: center;
+      color: #fff;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+      padding-bottom: 6px;
+    }
+
+    .menu-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .menu-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 6px 10px;
+      background: rgba(255, 255, 255, 0.06);
+      border-radius: 6px;
+      font-size: 13px;
+      box-shadow: 0 2px 8px rgba(125, 88, 255, 0.2);
+      transition: all 0.3s ease;
+    }
+
+    .menu-item:hover {
+      transform: translateX(5px);
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .menu-item .left {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-weight: 500;
+    }
+
+    .menu-item .right {
+      color: #ffd966;
+      font-weight: bold;
+    }
+
+    .menu-note {
+      margin-top: 15px;
+      font-size: 11px;
+      text-align: center;
+      color: #ccc;
+    }
+
+    /* Robot Prediction Styles - UPDATED */
+    #robotContainer {
+      position: fixed;
+      top: 50%;
+      left: 20px;
+      transform: translateY(-50%);
+      display: block;
+      z-index: 9999;
+      cursor: move;
+    }
+
+    #robotInner {
+      display: flex;
+      align-items: center;
+      transform: rotate(90deg);
+      transform-origin: left center;
+    }
+
+    #robotIcon {
+      width: 95px;
+      height: 95px;
+      margin-right: 8px;
+      pointer-events: none;
+    }
+
+    #robotText {
+      background: rgba(50, 50, 50, 0.7);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      color: #fff;
+      padding: 6px 10px;
+      border-radius: 10px;
+      font-size: 12px;
+      line-height: 1.4;
+      box-shadow: 0 0 12px rgba(0, 0, 0, 0.3);
+      white-space: nowrap;
+      max-width: 200px;
+      position: relative;
+      font-family: 'Inter', sans-serif;
+      font-weight: 600;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    #robotText #line1 {
+      font-size: 17px;
+      color: #fff;
+    }
+
+    #robotText #line2 {
+      font-size: 17px;
+      color: #fff;
+      font-weight: 500;
+    }
+
+    /* Rotate Button */
+    #rotateRobotBtn {
+      position: fixed;
+      bottom: 15px;
+      right: 15px;
+      background: rgba(255, 255, 255, 0.1);
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      font-size: 16px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 10000;
+      transition: all 0.3s ease;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    #rotateRobotBtn:hover {
+      background: rgba(255, 255, 255, 0.2);
+      transform: scale(1.1);
+    }
+
+    /* Alert Box Styles */
+    .alert-box {
+      position: fixed;
+      top: 12px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(255, 255, 255, 0.95);
+      padding: 8px 14px;
+      border-radius: 6px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      max-width: 90%;
+      color: var(--dark-color);
+      font-size: 12px;
+      animation: slideIn 0.3s ease-out;
+    }
+
+    @keyframes slideIn {
+      from {
+        opacity: 0;
+        transform: translate(-50%, -15px);
+      }
+      to {
+        opacity: 1;
+        transform: translate(-50%, 0);
+      }
+    }
+    
+    .alert-box i {
+      margin-right: 6px;
+      font-size: 14px;
+    }
+
+    .alert-box.success {
+      background: rgba(16, 185, 129, 0.9);
+      color: white;
+    }
+
+    .alert-box.error {
+      background: rgba(239, 68, 68, 0.9);
+      color: white;
+    }
+
+    .alert-box.warning {
+      background: rgba(245, 158, 11, 0.9);
+      color: white;
+    }
+
+    /* Iframe Styles */
+    #iframeGame {
+      display: none; 
+      width: 100vw; 
+      height: 100vh; 
+      border: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 1000;
+    }
+
+    /* Logout Button in Game */
+    .game-logout-btn {
+      position: fixed;
+      top: 12px;
+      right: 12px;
+      background: rgba(239, 68, 68, 0.8);
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 36px;
+      height: 36px;
+      font-size: 14px;
+      cursor: pointer;
+      z-index: 1002;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 3px 8px rgba(239, 68, 68, 0.3);
+      transition: all 0.3s ease;
+    }
+
+    .game-logout-btn:hover {
+      background: rgba(239, 68, 68, 1);
+      transform: translateY(-2px);
+      box-shadow: 0 5px 12px rgba(239, 68, 68, 0.4);
+    }
+
+    /* Popup Overlay */
+    .popup-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.8);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 99999;
+      backdrop-filter: blur(5px);
+      display: none;
+    }
+
+    .popup-content {
+      background: rgba(0, 0, 0, 0.9);
+      border-radius: 10px;
+      padding: 15px;
+      max-width: 90%;
+      width: 320px;
+      text-align: center;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+    }
+
+    .popup-content h3 {
+      color: #fff;
+      margin-bottom: 10px;
+      font-size: 16px;
+    }
+
+    .popup-content p {
+      color: rgba(255, 255, 255, 0.8);
+      margin-bottom: 15px;
+      font-size: 13px;
+    }
+
+    .popup-btn {
+      background: linear-gradient(145deg, var(--primary-color), var(--secondary-color));
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 6px;
+      font-size: 13px;
+      cursor: pointer;
+      margin: 4px;
+      transition: all 0.3s ease;
+    }
+
+    .popup-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 10px rgba(108, 99, 255, 0.3);
+    }
+
+    /* Loading Overlay */
+    #loadingOverlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.8);
+      z-index: 9999;
+      display: none;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .loading-spinner {
+      width: 50px;
+      height: 50px;
+      border: 5px solid rgba(255, 255, 255, 0.3);
+      border-radius: 50%;
+      border-top-color: var(--primary-color);
+      animation: spin 1s ease-in-out infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    /* Responsive Adjustments */
+    @media (max-width: 400px) {
+      #gameMenu, .login-container {
+        width: 300px;
+        padding: 15px;
+      }
+      
+      .game-icon {
+        width: 86px;
+        height: 86px;
+      }
+      
+      .action-btn {
+        padding: 10px 12px;
+        font-size: 12px;
+      }
+      
+      #robotContainer {
+        left: 8px;
+      }
+      
+      #robotIcon {
+        width: 130px;
+        height: 130px;
+      }
+      
+      #robotText {
+        font-size: 14px;
+        padding: 5px 8px;
+        max-width: 180px;
+      }
+    }
+
+    /* Prevent zoom on input focus */
+    @media screen and (-webkit-min-device-pixel-ratio:0) {
+      select:focus,
+      textarea:focus,
+      input:focus {
+        font-size: 16px;
+      }
+    }
+
+    /* Disable zoom on mobile */
+    @media (max-width: 768px) {
+      input,
+      select,
+      textarea {
+        font-size: 16px !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Particle Background -->
+  <canvas id="particleCanvas"></canvas>
+
+  <!-- Main Container -->
+  <div class="main-container">
+    <!-- Game Menu -->
+    <div class="login-container" id="gameMenu">
+      <div class="header-box">
+        <h1>HOÀNG PHÚC 68</h1>
+        <p>Chào mừng đến với TOOL AI HOÀNG PHÚC</p>
+      </div>
+
+      <!-- Phần giới thiệu -->
+      <div class="intro-section">
+        <p>⚡ CÔNG CỤ HỖ TRỢ CHƠI GAME CHÍNH XÁC NHẤT ⚡</p>
+        <p>AI Được Phát Triển Bởi Hoàng Phúc</p>
+      </div>
+
+      <!-- Grid game icon - 3 hàng 2 cột -->
+      <div class="game-grid">
+        <img src="media/xanhlogo5.png" class="game-icon" alt="68 Game Bài Bàn Xanh" onclick="selectGame('68banxanh')"> 
+        <img src="media/md5logo.png" class="game-icon" alt="68 Game Bài MD5" onclick="selectGame('68gb')">
+        <img src="media/logo68.png" class="game-icon" alt="68 Sicbo" onclick="selectGame('68sicbo')"> 
+        <img src="media/bcr.png" class="game-icon" alt="Bacarat Sexy" onclick="selectGame('BCR')">
+        <img src="https://hitclub.com/wp-content/uploads/2024/05/hit-club.webp" class="game-icon" alt="Hit Club" onclick="selectGame('hitclub')">
+        <img src="https://i.postimg.cc/BQDYRXr1/CDF2EA1E-C8BA-4EEB-922D-365A330F8995-removebg-preview.png" class="game-icon" alt="Sunwin" onclick="selectGame('sunwin')">
+        <img src="https://b52.club/images/logo.png?v=11.0.1" class="game-icon" alt="B52 Club" onclick="selectGame('b52')"style="display:none;">
+      </div>
+      
+      <div class="action-buttons">
+        <button class="action-btn pricing-btn" onclick="toggleMenu()">
+          <i class="fas fa-tags"></i> Facebook
+        </button>
+        <button class="action-btn contact-btn" onclick="window.open('https://t.me/PhucTheTu3779', '_blank')">
+          <i class="fab fa-telegram"></i> Telegram
+        </button>
+      </div>
+
+      <!-- Price Menu -->
+      <div class="menu-container" id="menuContainer">
+        <button class="back-btn" onclick="toggleMenu()" style="position: absolute; top: 15px; left: 15px;">
+          <i class="fas fa-arrow-left"></i>
+        </button>
+        <h2>Thông Tin Liên Hệ</h2>
+        <div class="menu-list">
+          <div class="menu-item">
+            <div class="left"><i class="fas fa-comment"></i> Telegram</div>
+            <a href="https://t.me/PhucTheTu3779" target="_blank">Ấn Vào Đây</a>
+          </div>
+          <div class="menu-item">
+            <div class="left"><i class="fab fa-facebook"></i> Facebook</div>
+            <a href="https://facebook.com/hphucthetu3779" target="_blank">Ấn Vào Đây</a>
+          </div>
+          <div class="menu-item">
+            <div class="left"><i class="fas fa-phone"></i> Zalo</div>
+            <a href="https://zalo.me/0586951284" target="_blank">Ấn Vào Đây</a>
+          </div>
+        </div>
+        <div class="menu-note">
+          Anh Em Cần Key Để Test Tool Liên Hệ TeleGram @PhucTheTu3779
+        </div>
+      </div>
+    </div>
+
+    <!-- Login Container -->
+    <div class="login-container" id="loginContainer">
+      <button class="back-btn" onclick="backToGameMenu()"><i class="fas fa-arrow-left"></i></button>
+      
+      <div class="login-header">
+        <h2>NHẬP KEY</h2>
+        <p>Để sử dụng tool <span id="gameName"></span></p>
+      </div>
+
+      <div class="login-form">
+        <div class="form-group">
+          <label for="key">Mã Key của bạn</label>
+          <input type="text" name="access_key" id="key" placeholder="Nhập key đã được cấp..." required>
+        </div>
+        
+        <button type="button" class="login-btn" onclick="submitKey()">XÁC NHẬN</button>
+        
+        <div class="message" id="error"></div>
+      </div>
+
+      <div class="login-footer">
+        Chưa có key? <a href="https://t.me/PhucTheTu3779" target="_blank">Liên hệ admin</a>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Loading Overlay -->
+  <div id="loadingOverlay">
+    <div class="loading-spinner"></div>
+  </div>
+  
+  <!-- Robot Prediction with Lottie Animation -->
+  <div id="robotContainer" style="display: none;">
+    <div id="robotInner">
+      <dotlottie-player 
+        id="robotIcon" 
+        src="https://lottie.host/55ab9688-9a63-4f35-93f8-b40bd7fb8058/4n00MLJLZk.lottie" 
+        background="transparent" 
+        speed="1" 
+        loop 
+        autoplay>
+      </dotlottie-player>
+      <div id="robotText">
+        <div id="line1"><strong>Đang tải...</strong></div>
+        <div id="line2"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Rotate Robot Button -->
+  <button id="rotateRobotBtn" onclick="rotateRobot()" style="display: none;">
+    <i class="fas fa-sync-alt"></i>
+  </button>
+
+  <!-- Logout Button in Game -->
+  <button class="game-logout-btn" id="gameLogoutBtn" onclick="backToMenu()" style="display: none;">
+    <i class="fas fa-sign-out-alt"></i>
+  </button>
+
+  <!-- Game Iframe -->
+  <iframe id="iframeGame" src=""></iframe>
+
+  <!-- Popup Overlay (Hidden by default) -->
+  <div id="popupOverlay" class="popup-overlay">
+    <div class="popup-content">
+      <h3>Cho phép mở cửa sổ mới</h3>
+      <p>Hệ thống cần mở cửa sổ mới để chạy game. Vui lòng nhấn "Đồng ý" để tiếp tục.</p>
+      <button class="popup-btn" onclick="confirmPopup()">Đồng ý</button>
+      <button class="popup-btn" style="background: #ef4444;" onclick="closePopup()">Hủy bỏ</button>
+    </div>
+  </div>
+
+  <script>
+    // Game Config - Updated with correct 68 Sicbo path
+    const gameConfig = {
+      sunwin: {
+        name: "Sunwin",
+        url: "https://web.sun.win",
+        api: "api/apisun.php",
+        available: true,
+        useIframe: true
+      },
+      '68gb': {
+        name: "68 Game Bài MD5",
+        url: "https://68gbvn88.biz/?code=17171422",
+        api: "api/api68gb.php",
+        available: true,
+        useIframe: true
+      },
+      '68sicbo': {
+        name: "SicBo 68GB",
+        url: "games/68gbsic.html", 
+        api: "api/api68sic.php",
+        available: true,
+        useIframe: false,
+        secure: true
+      },
+      hitclub: {
+        name: "Hit Club",
+        url: "games/hitdudoan.html",
+        api: "api/apihitclub.php",
+        available: true,
+        useIframe: false,
+        secure: true
+      },
+      b52: {
+        name: "B52 Club",
+        url: "games/b52dudoan.html",
+        api: "api/apib52.php",
+        available: true,
+        useIframe: false,
+        secure: true
+      },
+        BCR: {
+        name: "Bacarat Sexy",
+        url: "https://68gbvn88.biz/?code=17171422",
+        api: "api/apixanhrobot.php",
+        available: true,
+        useIframe: true
+      },
+      '68banxanh': {
+        name: "68 Game Bài Bàn Xanh",
+        url: "games/xanh68gb.html",
+        api: "api/68hpapixanh.php",
+        available: true,
+        useIframe: false,
+        secure: true
+      }
+    };
+
+    // Global variables
+    let currentGame = null;
+    let currentDeviceId = localStorage.getItem("device_id") || "";
+    let currentKey = localStorage.getItem("tool_key") || "";
+    let lastPhien = null;
+    let lastPhienTime = 0;
+    let predictionInterval = null;
+    let popupWindow = null;
+    let menuOpen = false;
+    let robotRotation = 90; // Default rotation
+
+    // DOM Elements
+    const gameMenu = document.getElementById("gameMenu");
+    const loginContainer = document.getElementById("loginContainer");
+    const robotContainer = document.getElementById("robotContainer");
+    const iframe = document.getElementById("iframeGame");
+    const errorEl = document.getElementById("error");
+    const menu = document.getElementById('menuContainer');
+    const gameLogoutBtn = document.getElementById('gameLogoutBtn');
+    const popupOverlay = document.getElementById('popupOverlay');
+    const loadingOverlay = document.getElementById('loadingOverlay');
+    const rotateRobotBtn = document.getElementById('rotateRobotBtn');
+    const robotInner = document.getElementById('robotInner');
+
+    // Initialize
+    document.addEventListener('DOMContentLoaded', function() {
+      gameMenu.style.display = "block";
+      loginContainer.style.display = "none";
+      
+      // Initialize particle background
+      initParticles();
+      
+      // Prevent unwanted zoom on mobile
+      document.addEventListener('dblclick', function(e) {
+        e.preventDefault();
+      }, { passive: false });
+
+      document.addEventListener('touchstart', function(e) {
+        if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') {
+          document.body.style.zoom = "1.0";
+        }
+      }, { passive: true });
+
+      // Prevent zoom on input focus
+      document.querySelectorAll('input').forEach(input => {
+        input.addEventListener('focus', function() {
+          window.scrollTo(0, 0);
+          document.body.style.zoom = "1.0";
+        });
+      });
+    });
+
+    // Particle Background
+    function initParticles() {
+      const canvas = document.getElementById('particleCanvas');
+      const ctx = canvas.getContext('2d');
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+
+      const particles = [];
+      const particleCount = window.innerWidth < 768 ? 30 : 80;
+
+      for (let i = 0; i < particleCount; i++) {
+        particles.push({
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height,
+          size: Math.random() * 3 + 1,
+          speedX: Math.random() * 1 - 0.5,
+          speedY: Math.random() * 1 - 0.5,
+          color: `rgba(${Math.floor(Math.random() * 100 + 155)}, ${Math.floor(Math.random() * 100 + 155)}, 255, ${Math.random() * 0.5 + 0.1})`
+        });
+      }
+
+      function animateParticles() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        
+        particles.forEach(particle => {
+          ctx.beginPath();
+          ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
+          ctx.fillStyle = particle.color;
+          ctx.fill();
+          
+          particle.x += particle.speedX;
+          particle.y += particle.speedY;
+          
+          if (particle.x > canvas.width || particle.x < 0) particle.speedX *= -1;
+          if (particle.y > canvas.height || particle.y < 0) particle.speedY *= -1;
+        });
+      
+        requestAnimationFrame(animateParticles);
+      }
+
+      animateParticles();
+
+      window.addEventListener('resize', () => {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+      });
+    }
+
+    function toggleMenu() {
+      menuOpen = !menuOpen;
+      if (menuOpen) {
+        menu.classList.add('active');
+      } else {
+        menu.classList.remove('active');
+      }
+    }
+
+    // Select game function - show login form
+    function selectGame(game) {
+      if (!gameConfig[game]?.available) {
+        showAlert("Game tạm thời không khả dụng!", 'error');
+        return;
+      }
+
+      // Show loading
+      loadingOverlay.style.display = 'flex';
+      
+      setTimeout(() => {
+        currentGame = game;
+        document.getElementById('gameName').textContent = gameConfig[game].name;
+        
+        // Switch to login container
+        gameMenu.style.display = "none";
+        loginContainer.style.display = "block";
+        document.getElementById('key').focus();
+        
+        // Hide loading
+        loadingOverlay.style.display = 'none';
+      }, 800);
+    }
+
+    // Back to game menu from login
+    function backToGameMenu() {
+      loginContainer.style.display = "none";
+      gameMenu.style.display = "block";
+      currentGame = null;
+    }
+
+    // Key submission function
+    async function submitKey() {
+      const key = document.getElementById('key').value.trim();
+      if (!key) {
+        errorEl.textContent = "Vui lòng nhập KEY!";
+        return;
+      }
+      
+      try {
+        const device_id = currentDeviceId || generateDeviceId();
+        const res = await fetch("check_key.php?key=" + encodeURIComponent(key) + "&device_id=" + encodeURIComponent(device_id));
+        const data = await res.json();
+        
+        if (data.status === "success") {
+          localStorage.setItem("device_id", data.device_id);
+          localStorage.setItem("tool_key", key);
+          currentDeviceId = data.device_id;
+          currentKey = key;
+          
+          if (data.expired) {
+            localStorage.setItem('tool_expired', data.expired);
+          }
+          
+          loginContainer.style.display = "none";
+          errorEl.textContent = "";
+          
+          // Start the selected game
+          startGame();
+        } else {
+          errorEl.textContent = data.message || "Key không hợp lệ!";
+        }
+      } catch (err) {
+        errorEl.textContent = "Lỗi kết nối tới server!";
+        console.error('Error:', err);
+      }
+    }
+
+    // Start the selected game - Updated with better robot initialization
+    function startGame() {
+      if (!currentGame || !gameConfig[currentGame]) {
+        console.error("Invalid game selection");
+        return;
+      }
+      
+      const game = gameConfig[currentGame];
+      console.log("Starting game:", game.name);
+      
+      if (game.useIframe) {
+        console.log("Loading iframe game");
+        iframe.src = game.url;
+        iframe.style.display = 'block';
+        
+        // Force show robot and controls
+        robotContainer.style.display = 'block';
+        rotateRobotBtn.style.display = 'flex';
+        gameLogoutBtn.style.display = 'flex';
+        
+        // Start prediction after slight delay
+        setTimeout(() => {
+          console.log("Starting prediction system");
+          startPrediction();
+        }, 500);
+      } else {
+        // For HitClub and B52 - enhanced security
+        if (game.secure) {
+          showPopup(game.url);
+        } else {
+          window.open(game.url, '_blank');
+        }
+      }
+    }
+
+    // Back to menu function
+    function backToMenu() {
+      iframe.style.display = 'none';
+      gameMenu.style.display = 'block';
+      robotContainer.style.display = 'none';
+      rotateRobotBtn.style.display = 'none';
+      gameLogoutBtn.style.display = 'none';
+      
+      if (predictionInterval) {
+        clearInterval(predictionInterval);
+        predictionInterval = null;
+      }
+
+      // Close popup window if exists
+      if (popupWindow && !popupWindow.closed) {
+        popupWindow.close();
+      }
+    }
+
+    // Generate a device ID
+    function generateDeviceId() {
+      return 'device-' + Math.random().toString(36).substr(2, 9) + '-' + Date.now().toString(36);
+    }
+
+    // Show alert message
+    function showAlert(message, type = 'error') {
+      const alertBox = document.createElement('div');
+      alertBox.className = `alert-box ${type}`;
+      alertBox.innerHTML = `
+        <i class="fas ${type === 'error' ? 'fa-exclamation-circle' : type === 'success' ? 'fa-check-circle' : 'fa-exclamation-triangle'}"></i>
+        <span>${message}</span>
+      `;
+      
+      document.body.appendChild(alertBox);
+      
+      setTimeout(() => {
+        alertBox.style.opacity = '0';
+        setTimeout(() => alertBox.remove(), 300);
+      }, 3000);
+    }
+
+    // Make robot draggable
+    let isRobotDragging = false, robotOffsetX = 0, robotOffsetY = 0;
+    robotContainer.addEventListener("mousedown", e => {
+      isRobotDragging = true;
+      robotOffsetX = e.clientX - robotContainer.offsetLeft;
+      robotOffsetY = e.clientY - robotContainer.offsetTop;
+      e.preventDefault();
+    });
+    document.addEventListener("mousemove", e => {
+      if (isRobotDragging) {
+        robotContainer.style.left = (e.clientX - robotOffsetX) + "px";
+        robotContainer.style.top = (e.clientY - robotOffsetY) + "px";
+      }
+    });
+    document.addEventListener("mouseup", () => isRobotDragging = false);
+
+    robotContainer.addEventListener("touchstart", e => {
+      isRobotDragging = true;
+      const touch = e.touches[0];
+      robotOffsetX = touch.clientX - robotContainer.offsetLeft;
+      robotOffsetY = touch.clientY - robotContainer.offsetTop;
+      e.preventDefault();
+    });
+    document.addEventListener("touchmove", e => {
+      if (isRobotDragging) {
+        const touch = e.touches[0];
+        robotContainer.style.left = (touch.clientX - robotOffsetX) + "px";
+        robotContainer.style.top = (touch.clientY - robotOffsetY) + "px";
+      }
+    });
+    document.addEventListener("touchend", () => isRobotDragging = false);
+
+    // Rotate robot function
+    function rotateRobot() {
+      robotRotation += 90;
+      if (robotRotation >= 360) robotRotation = 0;
+      robotInner.style.transform = `rotate(${robotRotation}deg)`;
+      robotInner.style.transformOrigin = 'left center';
+    }
+
+    // Improved API fetch function
+    async function fetchPredictionData() {
+      if (!currentGame) return null;
+      
+      try {
+        const key = currentKey;
+        const response = await fetch(`${gameConfig[currentGame].api}?key=${encodeURIComponent(key)}&device_id=${encodeURIComponent(currentDeviceId)}`);
+        
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        
+        const data = await response.json();
+        return {
+          phien_hien_tai: data.phien_hien_tai || "...",
+          du_doan: data.du_doan || "...",
+          do_tin_cay: data.do_tin_cay || "...",
+          ket_qua: data.ket_qua || null
+        };
+      } catch (error) {
+        console.error('Error fetching prediction:', error);
+        return null;
+      }
+    }
+
+    // Prediction function - Updated with better error handling
+    async function startPrediction() {
+      console.log("Starting prediction system for", currentGame);
+      
+      if (predictionInterval) {
+        clearInterval(predictionInterval);
+      }
+      
+      // Initial fetch
+      await updatePrediction();
+      
+      // Set interval for updates
+      predictionInterval = setInterval(updatePrediction, 2000);
+    }
+
+    async function updatePrediction() {
+      console.log("Updating prediction data...");
+      const prediction = await fetchPredictionData();
+      
+      if (!prediction) {
+        document.getElementById("line1").innerHTML = "<strong>Lỗi kết nối</strong>";
+        document.getElementById("line2").innerHTML = "";
+        return;
+      }
+
+      if (prediction.phien_hien_tai !== lastPhien) {
+        lastPhien = prediction.phien_hien_tai;
+        lastPhienTime = Date.now();
+      }
+
+      const delay = Date.now() - lastPhienTime;
+      if (delay < 10000) {
+        document.getElementById("line1").innerHTML = "<strong>⏳ Chờ phiên mới...</strong>";
+        document.getElementById("line2").innerHTML = "";
+        return;
+      }
+
+      document.getElementById("line1").innerHTML = `🤖 #${prediction.phien_hien_tai}: <strong>${prediction.du_doan}</strong>`;
+      document.getElementById("line2").innerHTML = `<strong>✅ Độ tin cậy: ${prediction.do_tin_cay}%</strong>`;
+    }
+
+    // Popup functions
+    function showPopup(url) {
+      popupOverlay.style.display = 'flex';
+      popupOverlay.dataset.url = url;
+    }
+
+    function closePopup() {
+      popupOverlay.style.display = 'none';
+      popupOverlay.dataset.url = '';
+    }
+
+    function confirmPopup() {
+      const url = popupOverlay.dataset.url;
+      if (!url) return;
+      
+      const key = currentKey;
+      const deviceId = currentDeviceId;
+      
+      if (!key || !deviceId) {
+        showAlert("Vui lòng đăng nhập lại!", 'error');
+        return;
+      }
+      
+      // Generate a one-time token with timestamp
+      const timestamp = Date.now();
+      const token = btoa(encodeURIComponent(`${key}|${deviceId}|${timestamp}|${Math.random().toString(36).substr(2, 8)}`));
+      
+      // Create URL with token
+      const gameUrl = `${url}?token=${token}`;
+      
+      // Open popup window
+      popupWindow = window.open(gameUrl, '_blank', 'width=1024,height=768,scrollbars=yes,resizable=yes');
+      
+      if (!popupWindow || popupWindow.closed || typeof popupWindow.closed == 'undefined') {
+        showAlert("Vui lòng cho phép mở cửa sổ popup!", 'error');
+      } else {
+        // Focus the popup window
+        popupWindow.focus();
+      }
+      
+      closePopup();
+    }
+
+    // DevTools detection
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'F12' || (e.ctrlKey && e.shiftKey && ['I', 'J', 'C'].includes(e.key)) || (e.ctrlKey && e.key === 'U')) {
+        e.preventDefault();
+        e.stopPropagation();
+      }
+    });
+    
+    document.addEventListener('contextmenu', function (e) {
+      e.preventDefault();
+    });
+    
+    const detectDevTools = () => {
+      const start = performance.now();
+      debugger;
+      const time = performance.now() - start;
+      if (time > 160) document.documentElement.innerHTML = '';
+      else requestAnimationFrame(detectDevTools);
+    };
+    
+    requestAnimationFrame(detectDevTools);
+    
+    setInterval(() => {
+      const before = new Date();
+      debugger;
+      const after = new Date();
+      if (after - before > 200) document.documentElement.innerHTML = '';
+    }, 1000);
+// ==========================
+// 🔐 KIỂM TRA KEY ĐỊNH KỲ 5 PHÚT/LẦN
+// ==========================
+(function() {
+  const CHECK_INTERVAL = 5 * 60 * 1000; // 5 phút
+  const API_URL = "https://hoangphuc68.site/keys.php";
+
+  async function checkKeyStatus() {
+    // 🟢 Đổi "user_key" → "tool_key" để trùng với index.html
+    const key = localStorage.getItem("tool_key");
+    const device = localStorage.getItem("device_id");
+    if (!key) return;
+
+    try {
+      const res = await fetch(`${API_URL}?key=${encodeURIComponent(key)}&device_id=${encodeURIComponent(device)}`, {
+        method: "GET",
+        headers: { "Cache-Control": "no-cache" }
+      });
+      const data = await res.json();
+
+      if (data.status !== "success") {
+        alert("🔒 Key của bạn đã hết hạn.\nVui lòng liên hệ Admin Hoàng Phúc để gia hạn.");
+        // 🟢 Xóa cùng tên key
+        localStorage.removeItem("tool_key");
+        localStorage.removeItem("device_id");
+        // ⏱ Sau 2 giây (2000ms) tự động reload trang
+        setTimeout(() => {
+            window.location.reload();
+        }, 2000);
+      }
+    } catch (err) {
+      console.warn("⚠️ Lỗi khi kiểm tra key:", err);
+    }
+  }
+
+  setInterval(checkKeyStatus, CHECK_INTERVAL);
+  checkKeyStatus();
+})();
+</script>
+</body>
+</html>
