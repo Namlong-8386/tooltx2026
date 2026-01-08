@@ -15,6 +15,31 @@ foreach ($users as $user) {
     }
 }
 
+// Lấy thông tin Key của người dùng
+$keys = readJSON('keys');
+$activeKey = null;
+foreach ($keys as $key) {
+    if ($key['user_id'] === $currentUser['id']) {
+        // Ưu tiên key còn hạn
+        $created_at = strtotime($key['created_at']);
+        $package = $key['package_name'];
+        $duration = 0;
+        if (strpos($package, 'Giờ') !== false) {
+            $hours = (int)filter_var($package, FILTER_SANITIZE_NUMBER_INT);
+            $duration = $hours * 3600;
+        } elseif (strpos($package, 'Ngày') !== false) {
+            $days = (int)filter_var($package, FILTER_SANITIZE_NUMBER_INT);
+            $duration = $days * 86400;
+        }
+        $expiry_time = $created_at + $duration;
+        if (time() < $expiry_time) {
+            $activeKey = $key;
+            $activeKey['expiry_at'] = $expiry_time;
+            break;
+        }
+    }
+}
+
 $games = [
     ['name' => 'Go88', 'image' => 'https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=Go88', 'status' => 'Hoạt động'],
     ['name' => 'Sunwin', 'image' => 'https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=Sunwin', 'status' => 'Hoạt động'],
@@ -72,12 +97,27 @@ $games = [
                 </div>
             </div>
             <div class="glass px-6 py-3 rounded-2xl flex items-center gap-4">
-                <div class="p-2 bg-yellow-500/10 rounded-xl text-yellow-500">
-                    <?php echo getIcon('wallet', 'w-6 h-6'); ?>
+                <div class="p-2 bg-blue-500/10 rounded-xl text-blue-500">
+                    <?php echo getIcon('clock', 'w-6 h-6'); ?>
                 </div>
                 <div>
-                    <p class="text-[10px] text-slate-500 font-black uppercase tracking-widest">Số dư</p>
-                    <span class="font-bold text-yellow-500"><?php echo formatMoney($currentUser['balance']); ?></span>
+                    <p class="text-[10px] text-slate-500 font-black uppercase tracking-widest">Thời gian Key</p>
+                    <span class="font-bold text-blue-400">
+                        <?php 
+                        if ($activeKey) {
+                            $remaining = $activeKey['expiry_at'] - time();
+                            if ($remaining > 86400) {
+                                echo ceil($remaining / 86400) . ' Ngày';
+                            } elseif ($remaining > 3600) {
+                                echo ceil($remaining / 3600) . ' Giờ';
+                            } else {
+                                echo ceil($remaining / 60) . ' Phút';
+                            }
+                        } else {
+                            echo 'Chưa có Key';
+                        }
+                        ?>
+                    </span>
                 </div>
             </div>
         </div>
