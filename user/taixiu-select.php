@@ -146,7 +146,7 @@ $games = [
                     </div>
 
                     <button onclick="alert('Đang chuyển hướng tới Tool cho <?php echo $game['name']; ?>...')" class="w-full py-4 glass rounded-2xl text-xs font-black hover:bg-yellow-500 hover:text-black transition-all border border-white/5 shadow-lg active:scale-95 uppercase tracking-widest">
-                        Bắt đầu Hack
+                        VÀO GAME
                     </button>
                 </div>
             </div>
