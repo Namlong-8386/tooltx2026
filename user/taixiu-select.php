@@ -97,12 +97,12 @@ $games = [
                 </div>
             </div>
             <div class="glass px-6 py-3 rounded-2xl flex items-center gap-4">
-                <div class="p-2 bg-blue-500/10 rounded-xl text-blue-500">
+                <div class="p-2 bg-green-500/10 rounded-xl text-green-500">
                     <?php echo getIcon('clock', 'w-6 h-6'); ?>
                 </div>
                 <div>
-                    <p class="text-[10px] text-slate-500 font-black uppercase tracking-widest">Thời gian Key</p>
-                    <span class="font-bold text-gradient">
+                    <p class="text-[10px] text-gradient font-black uppercase tracking-widest">Thời gian Key</p>
+                    <span class="font-bold text-white">
                         <?php 
                         if ($activeKey) {
                             $remaining = $activeKey['expiry_at'] - time();
