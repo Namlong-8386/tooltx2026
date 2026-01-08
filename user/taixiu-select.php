@@ -88,12 +88,14 @@ $games = [
     <div class="max-w-7xl mx-auto px-6 md:px-12 py-8">
         <div class="flex items-center justify-between mb-12">
             <div class="flex items-center gap-6">
-                <a href="dashboard.php" class="p-3 bg-white/5 border border-white/10 rounded-2xl text-slate-400 hover:text-white hover:bg-white/10 transition-all shadow-lg">
-                    <?php echo getIcon('arrow-left', 'w-6 h-6'); ?>
-                </a>
+                <div class="relative">
+                    <a href="dashboard.php" class="p-3 bg-white/5 border border-white/10 rounded-2xl text-slate-400 hover:text-white hover:bg-white/10 transition-all shadow-lg block">
+                        <?php echo getIcon('arrow-left', 'w-6 h-6'); ?>
+                    </a>
+                    <div class="absolute -right-2 top-1/2 -translate-y-1/2 w-4 h-4 bg-green-500 rounded-full shadow-[0_0_20px_rgba(34,197,94,1)] animate-pulse border-2 border-[#1e293b] z-10"></div>
+                </div>
                 <div>
                     <div class="flex items-center gap-2 mb-1">
-                        <span class="w-2 h-2 rounded-full bg-green-500 shadow-[0_0_10px_rgba(34,197,94,0.8)] animate-pulse"></span>
                         <p class="text-white text-[10px] font-black uppercase tracking-[0.3em]">Hệ thống Tool AI</p>
                     </div>
                     <h1 class="text-3xl font-black text-gradient uppercase tracking-tight">Chọn Game Tool Tài Xỉu</h1>
