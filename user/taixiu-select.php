@@ -147,6 +147,7 @@ $games = [
             top: 0;
             left: 0;
             z-index: 1000;
+            background: #000;
         }
 
         /* Logout Button in Game */
