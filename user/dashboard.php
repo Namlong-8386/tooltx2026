@@ -441,7 +441,7 @@ if (!$currentUser) {
                     <h4 class="text-lg font-black mb-2 text-center text-gradient">Tool Tài Xỉu</h4>
                     <p class="text-[10px] text-slate-400 mb-6 text-center leading-relaxed line-clamp-2">Dự đoán kết quả theo thời gian thực với độ chính xác vượt trội.</p>
                     <div class="mt-auto">
-                        <button class="w-full py-3 glass rounded-xl text-xs font-black hover:bg-yellow-500 hover:text-black transition-all border border-white/5">KÍCH HOẠT</button>
+                        <a href="taixiu-select.php" class="block w-full py-3 glass rounded-xl text-xs font-black hover:bg-yellow-500 hover:text-black transition-all border border-white/5 text-center">MỞ NGAY</a>
                     </div>
                 </div>
 
