@@ -97,7 +97,7 @@ $games = [
                 </div>
             </div>
             <div class="glass px-6 py-3 rounded-2xl flex items-center gap-4">
-                <div class="p-2 bg-emerald-600/10 rounded-xl text-emerald-600">
+                <div class="p-2 bg-green-500 rounded-xl text-white shadow-[0_0_15px_rgba(34,197,94,0.5)]">
                     <?php echo getIcon('clock', 'w-6 h-6'); ?>
                 </div>
                 <div>
