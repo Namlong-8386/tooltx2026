@@ -102,7 +102,7 @@ $games = [
                 </div>
                 <div>
                     <p class="text-[10px] text-slate-500 font-black uppercase tracking-widest">Thời gian Key</p>
-                    <span class="font-bold text-white">
+                    <span class="font-bold text-gradient">
                         <?php 
                         if ($activeKey) {
                             $remaining = $activeKey['expiry_at'] - time();
