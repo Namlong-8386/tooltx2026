@@ -41,12 +41,12 @@ foreach ($keys as $key) {
 }
 
 $games = [
-    ['name' => 'Go88', 'image' => 'https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=Go88', 'status' => 'Hoạt động'],
-    ['name' => 'Sunwin', 'image' => 'https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=Sunwin', 'status' => 'Hoạt động'],
-    ['name' => '789Club', 'image' => 'https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=789Club', 'status' => 'Hoạt động'],
-    ['name' => 'B52', 'image' => 'https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=B52', 'status' => 'Hoạt động'],
-    ['name' => 'Rikvip', 'image' => 'https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=Rikvip', 'status' => 'Hoạt động'],
-    ['name' => 'Manclub', 'image' => 'https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=Manclub', 'status' => 'Hoạt động'],
+    ['name' => 'Go88', 'image' => 'https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=Go88', 'url' => 'https://play.go88.vin/', 'status' => 'Hoạt động'],
+    ['name' => 'Sunwin', 'image' => 'https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=Sunwin', 'url' => 'https://web.sun.me/?affId=Sunwin', 'status' => 'Hoạt động'],
+    ['name' => '789Club', 'image' => 'https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=789Club', 'url' => 'https://789.club/', 'status' => 'Hoạt động'],
+    ['name' => 'B52', 'image' => 'https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=B52', 'url' => 'https://b52.club/', 'status' => 'Hoạt động'],
+    ['name' => 'Rikvip', 'image' => 'https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=Rikvip', 'url' => 'https://rik.vip/', 'status' => 'Hoạt động'],
+    ['name' => 'Manclub', 'image' => 'https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=Manclub', 'url' => 'https://man.club/', 'status' => 'Hoạt động'],
 ];
 
 ?>
@@ -238,7 +238,7 @@ $games = [
                         <span class="text-[10px] font-black text-green-500 uppercase tracking-widest drop-shadow-[0_0_5px_rgba(34,197,94,0.5)]"><?php echo $game['status']; ?></span>
                     </div>
 
-                    <button onclick="startGame('<?php echo $game['name']; ?>', 'https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=<?php echo urlencode($game['name']); ?>')" class="w-full py-4 glass rounded-2xl text-xs font-black hover:bg-yellow-500 hover:text-black transition-all border border-white/5 shadow-lg active:scale-95 uppercase tracking-widest">
+                    <button onclick="startGame('<?php echo $game['name']; ?>', '<?php echo $game['url']; ?>')" class="w-full py-4 glass rounded-2xl text-xs font-black hover:bg-yellow-500 hover:text-black transition-all border border-white/5 shadow-lg active:scale-95 uppercase tracking-widest">
                         VÀO GAME
                     </button>
                 </div>
