@@ -3,7 +3,7 @@
         "id": "USER713191",
         "username": "Nam1411",
         "password": "$2y$10$a7ZEEuiEgZp9ZKL7C2f81eiHl\/gHXQxlivAyw3P94Awo\/KHrm8e2u",
-        "balance": 203455000,
+        "balance": 203955000,
         "role": "admin",
         "created_at": "2025-12-28 13:24:49",
         "session_token": "d7d89d13a6a588155470a540e6e8aa2c7eca47869cdf8abff9fb2a9a15299fc7"
@@ -12,9 +12,9 @@
         "id": "USER454954",
         "username": "zipxeom123",
         "password": "$2y$10$4AekexlsN7Gu4N1pVe\/hmO4QhDc2WpvWU5p0dUqAtjx.0a1oBhk\/y",
-        "balance": 32330000,
+        "balance": 32830000,
         "role": "user",
         "created_at": "2025-12-29 16:34:47",
-        "session_token": "b443ed1b758913ae4346a3dcba4334d0ebd4f2f8ba22a6fc256fc408102fd575"
+        "session_token": "e0704ef26af69fdbfb2a5d3533577c2c9c93a4e5ed6baff0b9b5d2724f7bd757"
     }
 ]
