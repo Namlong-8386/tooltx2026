@@ -92,7 +92,10 @@ $games = [
                     <?php echo getIcon('arrow-left', 'w-6 h-6'); ?>
                 </a>
                 <div>
-                    <p class="text-slate-500 text-[10px] font-black uppercase tracking-[0.3em] mb-1">Hệ thống Tool AI</p>
+                    <div class="flex items-center gap-2 mb-1">
+                        <span class="w-2 h-2 rounded-full bg-green-500 shadow-[0_0_10px_rgba(34,197,94,0.8)] animate-pulse"></span>
+                        <p class="text-white text-[10px] font-black uppercase tracking-[0.3em]">Hệ thống Tool AI</p>
+                    </div>
                     <h1 class="text-3xl font-black text-gradient uppercase tracking-tight">Chọn Game Tool Tài Xỉu</h1>
                 </div>
             </div>
