@@ -26,49 +26,81 @@ $games = [
 
 ?>
 <!DOCTYPE html>
-<html lang="vi" class="dark">
+<html lang="vi">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chọn Game Tài Xỉu - TOOLTX2026</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../assets/css/transitions.css">
+    <style>
+        html {
+            zoom: 0.9;
+        }
+        body { 
+            background-color: #1e293b; 
+            color: #f8fafc; 
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(234, 179, 8, 0.15) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(249, 115, 22, 0.15) 0px, transparent 50%);
+            min-height: screen;
+        }
+        .glass { 
+            background: rgba(255, 255, 255, 0.08); 
+            backdrop-filter: blur(16px); 
+            border: 1px solid rgba(255, 255, 255, 0.15); 
+        }
+        .text-gradient {
+            background: linear-gradient(135deg, #fbbf24 0%, #f97316 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+    </style>
 </head>
-<body class="bg-[#0f172a] text-slate-200 font-['Inter'] min-h-screen">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div class="flex items-center justify-between mb-8">
-            <div class="flex items-center gap-4">
-                <a href="dashboard.php" class="p-2 hover:bg-slate-800 rounded-full transition-colors">
+<body class="min-h-screen">
+    <div class="max-w-7xl mx-auto px-6 md:px-12 py-8">
+        <div class="flex items-center justify-between mb-12">
+            <div class="flex items-center gap-6">
+                <a href="dashboard.php" class="p-3 bg-white/5 border border-white/10 rounded-2xl text-slate-400 hover:text-white hover:bg-white/10 transition-all shadow-lg">
                     <?php echo getIcon('arrow-left', 'w-6 h-6'); ?>
                 </a>
-                <h1 class="text-2xl font-bold bg-gradient-to-r from-blue-400 to-indigo-400 bg-clip-text text-transparent">Chọn Game Tài Xỉu</h1>
-            </div>
-            <div class="flex items-center gap-3 px-4 py-2 bg-slate-800/50 rounded-2xl border border-slate-700/50">
-                <div class="p-1.5 bg-yellow-500/10 rounded-lg text-yellow-500">
-                    <?php echo getIcon('wallet', 'w-5 h-5'); ?>
+                <div>
+                    <p class="text-slate-500 text-[10px] font-black uppercase tracking-[0.3em] mb-1">Hệ thống Tool AI</p>
+                    <h1 class="text-3xl font-black text-gradient uppercase tracking-tight">Chọn Game Tài Xỉu</h1>
                 </div>
-                <span class="font-bold text-yellow-500"><?php echo formatMoney($currentUser['balance']); ?></span>
+            </div>
+            <div class="glass px-6 py-3 rounded-2xl flex items-center gap-4">
+                <div class="p-2 bg-yellow-500/10 rounded-xl text-yellow-500">
+                    <?php echo getIcon('wallet', 'w-6 h-6'); ?>
+                </div>
+                <div>
+                    <p class="text-[10px] text-slate-500 font-black uppercase tracking-widest">Số dư</p>
+                    <span class="font-bold text-yellow-500"><?php echo formatMoney($currentUser['balance']); ?></span>
+                </div>
             </div>
         </div>
 
-        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
             <?php foreach ($games as $game): ?>
-            <div class="group relative bg-slate-800/40 rounded-3xl p-6 border border-slate-700/50 hover:border-blue-500/50 transition-all duration-300 hover:shadow-2xl hover:shadow-blue-500/10 overflow-hidden">
-                <div class="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+            <div class="group relative glass rounded-[2.5rem] p-8 hover:border-yellow-500/30 transition-all duration-500 hover:shadow-2xl hover:shadow-yellow-500/10 flex flex-col items-center">
+                <div class="absolute inset-0 bg-gradient-to-br from-yellow-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity rounded-[2.5rem]"></div>
                 
-                <div class="relative flex flex-col items-center">
-                    <div class="w-24 h-24 mb-4 rounded-2xl bg-slate-900/80 p-2 flex items-center justify-center border border-slate-700/50 group-hover:scale-105 transition-transform duration-300">
-                        <img src="<?php echo $game['image']; ?>" alt="<?php echo $game['name']; ?>" class="w-full h-full object-contain rounded-xl">
+                <div class="relative flex flex-col items-center w-full">
+                    <div class="w-24 h-24 mb-6 p-1 bg-gradient-to-br from-yellow-400 to-orange-600 rounded-3xl flex items-center justify-center group-hover:scale-110 group-hover:rotate-3 transition-all duration-500 shadow-xl shadow-orange-500/20">
+                        <div class="w-full h-full rounded-2xl bg-slate-900/90 p-2 flex items-center justify-center overflow-hidden">
+                            <img src="<?php echo $game['image']; ?>" alt="<?php echo $game['name']; ?>" class="w-full h-full object-contain rounded-xl">
+                        </div>
                     </div>
                     
-                    <h3 class="text-lg font-bold text-slate-100 mb-1"><?php echo $game['name']; ?></h3>
-                    <div class="flex items-center gap-1.5 mb-6">
+                    <h3 class="text-xl font-black text-slate-100 mb-1 tracking-tight"><?php echo $game['name']; ?></h3>
+                    <div class="flex items-center gap-2 mb-8">
                         <span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
-                        <span class="text-xs font-medium text-green-500"><?php echo $game['status']; ?></span>
+                        <span class="text-[10px] font-black text-green-500 uppercase tracking-widest"><?php echo $game['status']; ?></span>
                     </div>
 
-                    <button onclick="alert('Đang chuyển hướng tới Tool cho <?php echo $game['name']; ?>...')" class="w-full py-2.5 bg-blue-600 hover:bg-blue-500 text-white rounded-xl font-bold text-sm transition-all shadow-lg shadow-blue-600/20 active:scale-95">
+                    <button onclick="alert('Đang chuyển hướng tới Tool cho <?php echo $game['name']; ?>...')" class="w-full py-4 glass rounded-2xl text-xs font-black hover:bg-yellow-500 hover:text-black transition-all border border-white/5 shadow-lg active:scale-95 uppercase tracking-widest">
                         Bắt đầu Hack
                     </button>
                 </div>
