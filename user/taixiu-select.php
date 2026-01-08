@@ -30,7 +30,7 @@ $games = [
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chọn Game Tài Xỉu - TOOLTX2026</title>
+    <title>Chọn Game Tool Tài Xỉu - TOOLTX2026</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../assets/css/transitions.css">
@@ -68,7 +68,7 @@ $games = [
                 </a>
                 <div>
                     <p class="text-slate-500 text-[10px] font-black uppercase tracking-[0.3em] mb-1">Hệ thống Tool AI</p>
-                    <h1 class="text-3xl font-black text-gradient uppercase tracking-tight">Chọn Game Tài Xỉu</h1>
+                    <h1 class="text-3xl font-black text-gradient uppercase tracking-tight">Chọn Game Tool Tài Xỉu</h1>
                 </div>
             </div>
             <div class="glass px-6 py-3 rounded-2xl flex items-center gap-4">
