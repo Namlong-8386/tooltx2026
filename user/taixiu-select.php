@@ -185,6 +185,32 @@ $games = [
             background: rgba(239, 68, 68, 1);
             transform: translateY(-2px);
         }
+
+        /* Rotate Button */
+        #rotateRobotBtn {
+            position: fixed;
+            bottom: 15px;
+            right: 65px;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            font-size: 16px;
+            cursor: pointer;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        #rotateRobotBtn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: scale(1.1);
+        }
     </style>
     <script src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs" type="module"></script>
 </head>
@@ -286,13 +312,26 @@ $games = [
     <!-- Game Iframe -->
     <iframe id="iframeGame" src=""></iframe>
 
+    <!-- Rotate Robot Button -->
+    <button id="rotateRobotBtn" onclick="rotateRobot()" style="display: none;">
+        <?php echo getIcon('refresh', 'w-6 h-6'); ?>
+    </button>
+
     <script>
         let predictionInterval = null;
+        let robotRotation = 90;
+
+        function rotateRobot() {
+            const robotInner = document.getElementById('robotInner');
+            robotRotation = (robotRotation === 90) ? 0 : 90;
+            robotInner.style.transform = `rotate(${robotRotation}deg)`;
+        }
 
         function startGame(gameName, gameUrl) {
             const iframe = document.getElementById('iframeGame');
             const robotContainer = document.getElementById('robotContainer');
             const logoutBtn = document.getElementById('gameLogoutBtn');
+            const rotateBtn = document.getElementById('rotateRobotBtn');
             const mainContent = document.querySelector('.main-content');
             
             mainContent.style.display = 'none';
@@ -300,6 +339,7 @@ $games = [
             iframe.style.display = 'block';
             robotContainer.style.display = 'block';
             logoutBtn.style.display = 'flex';
+            rotateBtn.style.display = 'flex';
             
             // Start mock predictions
             startPredictions(gameName);
@@ -309,6 +349,7 @@ $games = [
             const iframe = document.getElementById('iframeGame');
             const robotContainer = document.getElementById('robotContainer');
             const logoutBtn = document.getElementById('gameLogoutBtn');
+            const rotateBtn = document.getElementById('rotateRobotBtn');
             const mainContent = document.querySelector('.main-content');
             
             mainContent.style.display = 'block';
@@ -316,6 +357,7 @@ $games = [
             iframe.style.display = 'none';
             robotContainer.style.display = 'none';
             logoutBtn.style.display = 'none';
+            rotateBtn.style.display = 'none';
             
             if (predictionInterval) {
                 clearInterval(predictionInterval);
