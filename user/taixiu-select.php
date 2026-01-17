@@ -223,7 +223,9 @@ $games = [
             <div class="flex items-center gap-6">
                 <div class="relative">
                     <a href="dashboard.php" class="p-3 bg-white/5 border border-white/10 rounded-2xl text-slate-400 hover:text-white hover:bg-white/10 transition-all shadow-lg block">
-                        <?php echo getIcon('arrow-left', 'w-6 h-6'); ?>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-6 h-6">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
+                        </svg>
                     </a>
                 </div>
                 <div>
