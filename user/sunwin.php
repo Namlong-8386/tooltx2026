@@ -129,26 +129,6 @@ $gameUrl = "https://web.sun.me/?affId=Sunwin";
             transition: all 0.3s ease;
         }
         .game-logout-btn:hover { background: rgba(239, 68, 68, 1); transform: translateY(-2px); }
-        #rotateRobotBtn {
-            position: fixed;
-            bottom: 15px;
-            right: 65px;
-            background: rgba(255, 255, 255, 0.1);
-            color: white;
-            border: none;
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            font-size: 16px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 10000;
-            transition: all 0.3s ease;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-        }
-        #rotateRobotBtn:hover { background: rgba(255, 255, 255, 0.2); transform: scale(1.1); }
     </style>
     <script src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs" type="module"></script>
 </head>
@@ -162,16 +142,41 @@ $gameUrl = "https://web.sun.me/?affId=Sunwin";
             </div>
         </div>
     </div>
-    <a href="taixiu-select.php" class="game-logout-btn">
-        <?php echo getIcon('logout', 'w-6 h-6'); ?>
-    </a>
-    <iframe id="iframeGame" src="<?php echo $gameUrl; ?>"></iframe>
-    <button id="rotateRobotBtn" onclick="rotateRobot()" title="Xoay Robot">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0 3.181 3.183a8.25 8.25 0 0 0 13.803-3.7M4.031 9.865a8.25 8.25 0 0 1 13.803-3.7l3.181 3.182m0-4.991v4.99" />
-        </svg>
-    </button>
+    <div id="menuContainer" class="fixed top-3 right-3 z-[10002]">
+        <button onclick="toggleMenu()" class="p-2 bg-white/10 backdrop-blur-md border border-white/20 rounded-xl text-white hover:bg-white/20 transition-all shadow-lg">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+            </svg>
+        </button>
+        <div id="dropdownMenu" class="hidden absolute top-full right-0 mt-2 w-48 bg-slate-900/90 backdrop-blur-xl border border-white/10 rounded-2xl shadow-2xl overflow-hidden">
+            <button onclick="rotateRobot()" class="w-full px-4 py-3 text-left text-sm text-slate-300 hover:bg-white/10 hover:text-white transition-all flex items-center gap-3">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0 3.181 3.183a8.25 8.25 0 0 0 13.803-3.7M4.031 9.865a8.25 8.25 0 0 1 13.803-3.7l3.181 3.182m0-4.991v4.99" />
+                </svg>
+                Xoay Robot
+            </button>
+            <a href="taixiu-select.php" class="w-full px-4 py-3 text-left text-sm text-red-400 hover:bg-red-500/10 hover:text-red-300 transition-all flex items-center gap-3 border-t border-white/5">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15M12 9l-3 3m0 0l3 3m-3-3h12.75" />
+                </svg>
+                Thoát Game
+            </a>
+        </div>
+    </div>
     <script>
+        function toggleMenu() {
+            const menu = document.getElementById('dropdownMenu');
+            menu.classList.toggle('hidden');
+        }
+        // Close menu when clicking outside
+        document.addEventListener('click', (e) => {
+            const container = document.getElementById('menuContainer');
+            const menu = document.getElementById('dropdownMenu');
+            if (!container.contains(e.target)) {
+                menu.classList.add('hidden');
+            }
+        });
+
         let robotRotation = 90;
         function rotateRobot() {
             const robotInner = document.getElementById('robotInner');
