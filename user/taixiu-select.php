@@ -236,7 +236,7 @@ $games = [
                 <div class="game-card flex flex-col group" onclick="location.href='<?php echo $game['url']; ?>'">
                     <div class="flex items-start justify-between mb-4 md:mb-8">
                         <div class="w-12 h-12 md:w-16 md:h-16 rounded-xl md:rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center group-hover:bg-yellow-500/10 group-hover:border-yellow-500/20 transition-all duration-500 overflow-hidden">
-                            <img src="<?php echo $game['image']; ?>" class="w-8 h-8 md:w-10 md:h-10 object-contain group-hover:scale-110 transition-transform duration-500" alt="<?php echo $game['name']; ?>">
+                            <img src="<?php echo $game['image']; ?>" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" alt="<?php echo $game['name']; ?>">
                         </div>
                         <div class="status-badge hidden sm:flex">
                             <div class="status-dot"></div>
