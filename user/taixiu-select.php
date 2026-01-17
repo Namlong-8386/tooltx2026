@@ -57,21 +57,18 @@ $games = [
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         body {
-            background-color: #050505;
-            color: #ffffff;
+            background-color: #1e293b;
+            color: #f8fafc;
             font-family: 'Space Grotesk', sans-serif;
             margin: 0;
             overflow-x: hidden;
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(234, 179, 8, 0.15) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(249, 115, 22, 0.15) 0px, transparent 50%);
         }
 
         .animated-bg {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            background: radial-gradient(circle at 50% 50%, #111 0%, #000 100%);
+            display: none;
         }
 
         .blob {
