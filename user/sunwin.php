@@ -48,7 +48,7 @@ $gameUrl = "https://web.sun.me/?affId=Sunwin";
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dự Đoán Sunwin - Hệ Thống AI Tài Xỉu</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../assets/css/transitions.css">
     <style>
         html, body {
@@ -58,6 +58,7 @@ $gameUrl = "https://web.sun.me/?affId=Sunwin";
             height: 100%;
             overflow: hidden;
             background: #000;
+            font-family: 'Plus Jakarta Sans', sans-serif;
         }
         #robotContainer {
             position: fixed;
@@ -94,7 +95,7 @@ $gameUrl = "https://web.sun.me/?affId=Sunwin";
             white-space: nowrap;
             max-width: 200px;
             position: relative;
-            font-family: 'Inter', sans-serif;
+            font-family: 'Plus Jakarta Sans', sans-serif;
             font-weight: 600;
             border: 1px solid rgba(255, 255, 255, 0.2);
         }
