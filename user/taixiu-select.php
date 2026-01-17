@@ -101,6 +101,8 @@ $games = [
             display: none;
             z-index: 9999;
             cursor: move;
+            will-change: transform;
+            transition: transform 0.05s linear;
         }
         /* Rest of style content remains same */
 
@@ -415,16 +417,24 @@ $games = [
         function drag(e) {
             if (isDragging) {
                 e.preventDefault();
+                let clientX, clientY;
                 if (e.type === 'touchmove') {
-                    currentX = e.touches[0].clientX - initialX;
-                    currentY = e.touches[0].clientY - initialY;
+                    clientX = e.touches[0].clientX;
+                    clientY = e.touches[0].clientY;
                 } else {
-                    currentX = e.clientX - initialX;
-                    currentY = e.clientY - initialY;
+                    clientX = e.clientX;
+                    clientY = e.clientY;
                 }
+                
+                currentX = clientX - initialX;
+                currentY = clientY - initialY;
+                
                 xOffset = currentX;
                 yOffset = currentY;
-                setTranslate(currentX, currentY, robot);
+                
+                requestAnimationFrame(() => {
+                    setTranslate(currentX, currentY, robot);
+                });
             }
         }
 
