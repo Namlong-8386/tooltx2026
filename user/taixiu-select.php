@@ -136,7 +136,7 @@ $games = [
                             <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
                             <span class="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
                         </span>
-                        <p class="text-slate-400 text-[10px] font-black uppercase tracking-[0.3em]">Hệ thống AI Prediction</p>
+                        <p class="text-slate-400 text-[10px] font-black uppercase tracking-[0.3em]">Hệ thống AI Tài Xỉu</p>
                     </div>
                     <h1 class="text-3xl md:text-4xl font-black text-gradient uppercase tracking-tight">Chọn Game Tool</h1>
                 </div>
