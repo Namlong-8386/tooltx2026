@@ -39,7 +39,7 @@ foreach ($keys as $key) {
 }
 
 $games = [
-    ['name' => 'Go88', 'image' => 'https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=Go88', 'url' => 'go88.php', 'status' => 'Premium', 'color' => '#1e40af'],
+    ['name' => 'HitClub', 'image' => 'https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=HitClub', 'url' => 'hitclub.php', 'status' => 'Premium', 'color' => '#1e40af'],
     ['name' => 'Sunwin', 'image' => '../assets/images/sunwin-logo.png', 'url' => 'sunwin.php', 'status' => 'VIP 1', 'color' => '#b45309'],
     ['name' => '789Club', 'image' => 'https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=789Club', 'url' => '789club.php', 'status' => 'Hot', 'color' => '#7e22ce'],
     ['name' => 'B52', 'image' => 'https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=B52', 'url' => 'b52.php', 'status' => 'Active', 'color' => '#be123c'],
