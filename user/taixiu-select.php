@@ -280,7 +280,7 @@ $games = [
                         <span class="text-[10px] font-black text-green-500 uppercase tracking-widest drop-shadow-[0_0_5px_rgba(34,197,94,0.5)]"><?php echo $game['status']; ?></span>
                     </div>
 
-                    <button onclick="startGame('<?php echo $game['name']; ?>', '<?php echo $game['url']; ?>')" class="w-full py-4 glass rounded-2xl text-xs font-black hover:bg-yellow-500 hover:text-black transition-all border border-white/5 shadow-lg active:scale-95 uppercase tracking-widest">
+                    <button onclick="location.href='sunwin.php'" class="w-full py-4 glass rounded-2xl text-xs font-black hover:bg-yellow-500 hover:text-black transition-all border border-white/5 shadow-lg active:scale-95 uppercase tracking-widest">
                         VÀO GAME
                     </button>
                 </div>
