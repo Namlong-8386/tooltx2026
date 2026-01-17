@@ -278,6 +278,7 @@ if (!$currentUser) {
                             }
 
                             // 2. Xử lý hiển thị thông báo
+                            /* 
                             if(data.success && data.notification) {
                                 const notif = data.notification;
                                 // Dùng mảng để lưu các ID đã hiển thị
@@ -305,6 +306,7 @@ if (!$currentUser) {
                                     localStorage.setItem('notif_history', JSON.stringify(history));
                                 }
                             }
+                            */
                         } catch (err) {
                             console.error('Polling error:', err);
                         }
