@@ -73,50 +73,73 @@ $games = [
                 radial-gradient(at 100% 100%, rgba(249, 115, 22, 0.1) 0px, transparent 50%);
         }
         .glass-card { 
-            background: rgba(30, 41, 59, 0.5); 
-            backdrop-filter: blur(12px); 
-            border: 1px solid rgba(255, 255, 255, 0.05); 
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        .glass-card:hover {
-            transform: translateY(-8px) scale(1.02);
-            background: rgba(30, 41, 59, 0.8);
-            border-color: rgba(251, 191, 36, 0.3);
-            box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.5);
-        }
-        .text-gradient {
-            background: linear-gradient(135deg, #fbbf24 0%, #f97316 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        .btn-gradient {
-            background: linear-gradient(135deg, #fbbf24 0%, #f97316 100%);
-            transition: all 0.3s ease;
-        }
-        .btn-gradient:hover {
-            filter: brightness(1.1);
-            transform: translateY(-2px);
-            box-shadow: 0 10px 20px -5px rgba(249, 115, 22, 0.4);
-        }
-        .game-icon-container {
+            background: rgba(30, 41, 59, 0.4); 
+            backdrop-filter: blur(20px); 
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.08); 
+            transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
             position: relative;
             overflow: hidden;
         }
-        .game-icon-container::after {
+        .glass-card::before {
             content: '';
             position: absolute;
             inset: 0;
-            background: linear-gradient(0deg, rgba(0,0,0,0.4) 0%, transparent 100%);
+            background: radial-gradient(circle at top right, rgba(251, 191, 36, 0.1), transparent 60%);
             opacity: 0;
-            transition: opacity 0.3s ease;
+            transition: opacity 0.5s ease;
         }
-        .glass-card:hover .game-icon-container::after {
+        .glass-card:hover::before {
             opacity: 1;
         }
+        .glass-card:hover {
+            transform: translateY(-12px) scale(1.03);
+            background: rgba(30, 41, 59, 0.7);
+            border-color: rgba(251, 191, 36, 0.4);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7), 0 0 20px -5px rgba(251, 191, 36, 0.2);
+        }
+        .text-gradient {
+            background: linear-gradient(135deg, #fcd34d 0%, #fbbf24 50%, #f97316 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 0 8px rgba(251, 191, 36, 0.3));
+        }
+        .btn-gradient {
+            background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 50%, #ea580c 100%);
+            box-shadow: 0 4px 15px -3px rgba(249, 115, 22, 0.3);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .btn-gradient:hover {
+            filter: brightness(1.2);
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 15px 30px -8px rgba(249, 115, 22, 0.5);
+        }
+        .game-icon-container {
+            position: relative;
+            z-index: 1;
+            box-shadow: 0 15px 30px -10px rgba(0, 0, 0, 0.5);
+        }
         .status-badge {
-            background: rgba(34, 197, 94, 0.1);
-            border: 1px solid rgba(34, 197, 94, 0.2);
-            color: #22c55e;
+            background: rgba(34, 197, 94, 0.15);
+            backdrop-filter: blur(4px);
+            border: 1px solid rgba(34, 197, 94, 0.3);
+            color: #4ade80;
+            box-shadow: 0 0 15px rgba(34, 197, 94, 0.2);
+        }
+        .key-card {
+            background: linear-gradient(135deg, rgba(30, 41, 59, 0.7) 0%, rgba(15, 23, 42, 0.8) 100%);
+            border: 1px solid rgba(251, 191, 36, 0.2);
+            box-shadow: 0 15px 35px -10px rgba(0, 0, 0, 0.5);
+        }
+        .back-btn {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+        .back-btn:hover {
+            background: rgba(251, 191, 36, 0.1);
+            border-color: rgba(251, 191, 36, 0.4);
+            color: #fbbf24;
         }
         /* Optimization for different screen sizes */
         @media (max-width: 768px) {
@@ -161,8 +184,8 @@ $games = [
         <!-- Header Section -->
         <header class="flex flex-col md:flex-row items-center justify-between gap-6 mb-16">
             <div class="flex items-center gap-6">
-                <a href="dashboard.php" class="group p-4 bg-slate-800/50 border border-white/5 rounded-2xl hover:bg-slate-700/50 hover:border-yellow-500/50 transition-all duration-300">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-6 h-6 text-slate-400 group-hover:text-yellow-500 transition-colors">
+                <a href="dashboard.php" class="group p-4 back-btn rounded-2xl transition-all duration-300">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-6 h-6 transition-colors">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
                     </svg>
                 </a>
@@ -172,22 +195,23 @@ $games = [
                             <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
                             <span class="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
                         </span>
-                        <p class="text-slate-400 text-[10px] font-black uppercase tracking-[0.3em]">Hệ thống AI Tài Xỉu</p>
+                        <p class="text-slate-400 text-[10px] font-black uppercase tracking-[0.3em] opacity-80">Hệ thống AI Tài Xỉu</p>
                     </div>
-                    <h1 class="text-3xl md:text-4xl font-black text-gradient uppercase tracking-tight">Chọn Game</h1>
+                    <h1 class="text-4xl md:text-5xl font-black text-gradient uppercase tracking-tight drop-shadow-2xl">Chọn Game</h1>
                 </div>
             </div>
 
             <!-- Key Status -->
-            <div class="glass-card px-8 py-4 rounded-3xl flex items-center gap-5">
-                <div class="w-12 h-12 bg-gradient-to-tr from-green-500/20 to-emerald-500/20 rounded-2xl flex items-center justify-center border border-green-500/30">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6 text-green-500">
+            <div class="key-card px-8 py-5 rounded-[2rem] flex items-center gap-5 relative group overflow-hidden">
+                <div class="absolute inset-0 bg-gradient-to-r from-yellow-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                <div class="relative w-12 h-12 bg-gradient-to-tr from-yellow-500/20 to-orange-500/20 rounded-2xl flex items-center justify-center border border-yellow-500/30 group-hover:scale-110 transition-transform duration-500">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-6 h-6 text-yellow-500">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
                 </div>
-                <div>
-                    <p class="text-[10px] text-slate-400 font-bold uppercase tracking-widest mb-0.5">Thời gian Key còn lại</p>
-                    <span class="text-xl font-black text-white">
+                <div class="relative">
+                    <p class="text-[10px] text-slate-500 font-bold uppercase tracking-widest mb-0.5">Thời gian Key còn lại</p>
+                    <span class="text-2xl font-black text-white tracking-tight">
                         <?php 
                         if ($activeKey) {
                             $remaining = $activeKey['expiry_at'] - time();
