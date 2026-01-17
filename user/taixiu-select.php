@@ -15,7 +15,6 @@ foreach ($users as $user) {
     }
 }
 
-// Lấy thông tin Key của người dùng
 $keys = readJSON('keys');
 $activeKey = null;
 foreach ($keys as $key) {
@@ -40,234 +39,268 @@ foreach ($keys as $key) {
 }
 
 $games = [
-    ['name' => 'Go88', 'image' => 'https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=Go88', 'url' => 'go88.php', 'status' => 'Hoạt động', 'color' => 'from-blue-600 to-indigo-600'],
-    ['name' => 'Sunwin', 'image' => 'https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=Sunwin', 'url' => 'sunwin.php', 'status' => 'Hoạt động', 'color' => 'from-yellow-500 to-orange-600'],
-    ['name' => '789Club', 'image' => 'https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=789Club', 'url' => '789club.php', 'status' => 'Hoạt động', 'color' => 'from-purple-600 to-pink-600'],
-    ['name' => 'B52', 'image' => 'https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=B52', 'url' => 'b52.php', 'status' => 'Hoạt động', 'color' => 'from-red-600 to-orange-600'],
-    ['name' => 'Rikvip', 'image' => 'https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=Rikvip', 'url' => 'rikvip.php', 'status' => 'Hoạt động', 'color' => 'from-emerald-600 to-teal-600'],
-    ['name' => 'Manclub', 'image' => 'https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=Manclub', 'url' => 'manclub.php', 'status' => 'Hoạt động', 'color' => 'from-slate-700 to-slate-900'],
+    ['name' => 'Go88', 'image' => 'https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=Go88', 'url' => 'go88.php', 'status' => 'Premium', 'color' => '#1e40af'],
+    ['name' => 'Sunwin', 'image' => 'https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=Sunwin', 'url' => 'sunwin.php', 'status' => 'VIP 1', 'color' => '#b45309'],
+    ['name' => '789Club', 'image' => 'https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=789Club', 'url' => '789club.php', 'status' => 'Hot', 'color' => '#7e22ce'],
+    ['name' => 'B52', 'image' => 'https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=B52', 'url' => 'b52.php', 'status' => 'Active', 'color' => '#be123c'],
+    ['name' => 'Rikvip', 'image' => 'https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=Rikvip', 'url' => 'rikvip.php', 'status' => 'Hoạt động', 'color' => '#047857'],
+    ['name' => 'Manclub', 'image' => 'https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=Manclub', 'url' => 'manclub.php', 'status' => 'Ổn định', 'color' => '#334155'],
 ];
-
 ?>
 <!DOCTYPE html>
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chọn Game Tool Tài Xỉu - TOOLTX2026</title>
+    <title>Hệ Thống AI Tài Xỉu - Chuyên Nghiệp</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../assets/css/transitions.css">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --primary: #fbbf24;
-            --secondary: #f97316;
+        body {
+            background-color: #050505;
+            color: #ffffff;
+            font-family: 'Space Grotesk', sans-serif;
+            margin: 0;
+            overflow-x: hidden;
         }
-        body { 
-            background-color: #0f172a; 
-            color: #f8fafc; 
-            font-family: 'Plus Jakarta Sans', sans-serif;
+
+        .animated-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: radial-gradient(circle at 50% 50%, #111 0%, #000 100%);
+        }
+
+        .blob {
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            background: linear-gradient(135deg, rgba(251, 191, 36, 0.1) 0%, rgba(249, 115, 22, 0.05) 100%);
+            filter: blur(80px);
+            border-radius: 50%;
+            z-index: -1;
+            animation: move 20s infinite alternate;
+        }
+
+        @keyframes move {
+            from { transform: translate(-10%, -10%); }
+            to { transform: translate(20%, 20%); }
+        }
+
+        .sidebar {
+            width: 280px;
+            background: rgba(10, 10, 10, 0.8);
+            backdrop-filter: blur(20px);
+            border-right: 1px solid rgba(255, 255, 255, 0.05);
+            height: 100vh;
+            position: fixed;
+            left: 0;
+            top: 0;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            z-index: 50;
+        }
+
+        .main-content {
+            margin-left: 280px;
+            padding: 3rem;
             min-height: 100vh;
-            background-image: 
-                radial-gradient(at 0% 0%, rgba(234, 179, 8, 0.1) 0px, transparent 50%),
-                radial-gradient(at 100% 100%, rgba(249, 115, 22, 0.1) 0px, transparent 50%);
         }
-        .glass-card { 
-            background: rgba(30, 41, 59, 0.4); 
-            backdrop-filter: blur(20px); 
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.08); 
-            transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+
+        .game-card {
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.03) 0%, rgba(255, 255, 255, 0.01) 100%);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 24px;
+            padding: 1.5rem;
+            transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+            cursor: pointer;
             position: relative;
             overflow: hidden;
         }
-        .glass-card::before {
+
+        .game-card:hover {
+            background: rgba(255, 255, 255, 0.07);
+            border-color: rgba(251, 191, 36, 0.3);
+            transform: translateY(-10px);
+        }
+
+        .game-card::before {
             content: '';
             position: absolute;
-            inset: 0;
-            background: radial-gradient(circle at top right, rgba(251, 191, 36, 0.1), transparent 60%);
-            opacity: 0;
-            transition: opacity 0.5s ease;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.05), transparent);
+            transition: 0.5s;
         }
-        .glass-card:hover::before {
-            opacity: 1;
+
+        .game-card:hover::before {
+            left: 100%;
         }
-        .glass-card:hover {
-            transform: translateY(-12px) scale(1.03);
-            background: rgba(30, 41, 59, 0.7);
-            border-color: rgba(251, 191, 36, 0.4);
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7), 0 0 20px -5px rgba(251, 191, 36, 0.2);
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #22c55e;
+            box-shadow: 0 0 10px #22c55e;
         }
-        .text-gradient {
-            background: linear-gradient(135deg, #fcd34d 0%, #fbbf24 50%, #f97316 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            filter: drop-shadow(0 0 8px rgba(251, 191, 36, 0.3));
+
+        .btn-play {
+            background: #ffffff;
+            color: #000000;
+            font-weight: 700;
+            padding: 0.75rem;
+            border-radius: 12px;
+            text-align: center;
+            transition: 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.8rem;
         }
-        .btn-gradient {
-            background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 50%, #ea580c 100%);
-            box-shadow: 0 4px 15px -3px rgba(249, 115, 22, 0.3);
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+
+        .game-card:hover .btn-play {
+            background: #fbbf24;
         }
-        .btn-gradient:hover {
-            filter: brightness(1.2);
-            transform: translateY(-3px) scale(1.02);
-            box-shadow: 0 15px 30px -8px rgba(249, 115, 22, 0.5);
-        }
-        .game-icon-container {
-            position: relative;
-            z-index: 1;
-            box-shadow: 0 15px 30px -10px rgba(0, 0, 0, 0.5);
-        }
-        .status-badge {
-            background: rgba(34, 197, 94, 0.15);
-            backdrop-filter: blur(4px);
-            border: 1px solid rgba(34, 197, 94, 0.3);
-            color: #4ade80;
-            box-shadow: 0 0 15px rgba(34, 197, 94, 0.2);
-        }
-        .key-card {
-            background: linear-gradient(135deg, rgba(30, 41, 59, 0.7) 0%, rgba(15, 23, 42, 0.8) 100%);
-            border: 1px solid rgba(251, 191, 36, 0.2);
-            box-shadow: 0 15px 35px -10px rgba(0, 0, 0, 0.5);
-        }
-        .back-btn {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: all 0.3s ease;
-        }
-        .back-btn:hover {
-            background: rgba(251, 191, 36, 0.1);
-            border-color: rgba(251, 191, 36, 0.4);
-            color: #fbbf24;
-        }
-        /* Optimization for different screen sizes */
-        @media (max-width: 768px) {
-            .main-container {
-                padding: 1rem !important;
+
+        @media (max-width: 1024px) {
+            .sidebar {
+                display: none;
             }
-            header {
-                flex-direction: column !important;
-                align-items: flex-start !important;
-                gap: 1.5rem !important;
-                margin-bottom: 2rem !important;
-            }
-            .glass-card {
-                padding: 1.25rem !important;
-            }
-            .game-icon-container {
-                width: 5rem !important;
-                height: 5rem !important;
-            }
-            h1 {
-                font-size: 1.75rem !important;
-            }
-            h3 {
-                font-size: 1.25rem !important;
+            .main-content {
+                margin-left: 0;
+                padding: 1.5rem;
             }
         }
 
-        @media (min-width: 1024px) {
-            .games-grid {
-                grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
-            }
+        .custom-scroll::-webkit-scrollbar {
+            width: 4px;
         }
-        @media (min-width: 1280px) {
-            .games-grid {
-                grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
-            }
+        .custom-scroll::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
         }
     </style>
 </head>
-<body class="p-4 md:p-8">
-    <div class="max-w-7xl mx-auto main-container">
-        <!-- Header Section -->
-        <header class="flex flex-col md:flex-row items-center justify-between gap-6 mb-16">
-            <div class="flex items-center gap-6">
-                <a href="dashboard.php" class="group p-4 back-btn rounded-2xl transition-all duration-300">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-6 h-6 transition-colors">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
-                    </svg>
-                </a>
+<body>
+    <div class="animated-bg">
+        <div class="blob"></div>
+    </div>
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="flex items-center gap-3 mb-12">
+            <div class="w-10 h-10 bg-yellow-500 rounded-xl flex items-center justify-center font-bold text-black text-xl italic shadow-lg shadow-yellow-500/20">A</div>
+            <span class="text-xl font-bold tracking-tight">AI SYSTEM</span>
+        </div>
+
+        <nav class="flex-1 space-y-2">
+            <a href="dashboard.php" class="flex items-center gap-4 px-4 py-3 rounded-xl bg-white/5 text-white font-medium hover:bg-white/10 transition-all">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
+                Dashboard
+            </a>
+            <a href="#" class="flex items-center gap-4 px-4 py-3 rounded-xl text-slate-400 font-medium hover:bg-white/5 hover:text-white transition-all">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                Lịch sử
+            </a>
+            <a href="#" class="flex items-center gap-4 px-4 py-3 rounded-xl text-slate-400 font-medium hover:bg-white/5 hover:text-white transition-all">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"></path></svg>
+                Nạp tiền
+            </a>
+        </nav>
+
+        <div class="pt-6 border-t border-white/5 mt-auto">
+            <div class="flex items-center gap-3 px-2">
+                <div class="w-10 h-10 rounded-full bg-slate-800 border border-white/10 flex items-center justify-center font-bold text-slate-400">
+                    <?php echo strtoupper(substr($currentUser['username'], 0, 1)); ?>
+                </div>
                 <div>
-                    <div class="flex items-center gap-2 mb-1">
-                        <span class="relative flex h-2 w-2">
-                            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-                            <span class="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
-                        </span>
-                        <p class="text-slate-400 text-[10px] font-black uppercase tracking-[0.3em] opacity-80">Hệ thống AI Tài Xỉu</p>
-                    </div>
-                    <h1 class="text-4xl md:text-5xl font-black text-gradient uppercase tracking-tight drop-shadow-2xl">Chọn Game</h1>
+                    <p class="text-sm font-bold text-white"><?php echo htmlspecialchars($currentUser['username']); ?></p>
+                    <p class="text-[10px] text-slate-500">Member Plan</p>
                 </div>
             </div>
+        </div>
+    </aside>
 
-            <!-- Key Status -->
-            <div class="key-card px-8 py-5 rounded-[2rem] flex items-center gap-5 relative group overflow-hidden">
-                <div class="absolute inset-0 bg-gradient-to-r from-yellow-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                <div class="relative w-12 h-12 bg-gradient-to-tr from-yellow-500/20 to-orange-500/20 rounded-2xl flex items-center justify-center border border-yellow-500/30 group-hover:scale-110 transition-transform duration-500">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-6 h-6 text-yellow-500">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
+    <main class="main-content">
+        <!-- Top Nav (Mobile) -->
+        <div class="lg:hidden flex items-center justify-between mb-8">
+            <div class="flex items-center gap-2">
+                <div class="w-8 h-8 bg-yellow-500 rounded-lg flex items-center justify-center font-bold text-black italic">A</div>
+                <span class="text-lg font-bold">AI SYSTEM</span>
+            </div>
+            <button class="p-2 bg-white/5 rounded-lg">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"></path></svg>
+            </button>
+        </div>
+
+        <!-- Header -->
+        <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
+            <div>
+                <p class="text-yellow-500 text-xs font-bold uppercase tracking-[0.2em] mb-2">Hệ thống phân tích cao cấp</p>
+                <h1 class="text-4xl md:text-5xl font-bold tracking-tight mb-2">Chọn Game</h1>
+                <p class="text-slate-400 max-w-lg">Vui lòng chọn cổng game bạn đang chơi để hệ thống bắt đầu phân tích dữ liệu và đưa ra kết quả dự đoán chính xác.</p>
+            </div>
+
+            <div class="flex items-center gap-4 bg-white/5 p-4 rounded-2xl border border-white/5 backdrop-blur-md">
+                <div class="w-12 h-12 bg-white/5 rounded-xl flex items-center justify-center text-yellow-500">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                 </div>
-                <div class="relative">
+                <div>
                     <p class="text-[10px] text-slate-500 font-bold uppercase tracking-widest mb-0.5">Thời gian Key còn lại</p>
-                    <span class="text-2xl font-black text-white tracking-tight">
+                    <p class="text-xl font-bold text-white">
                         <?php 
                         if ($activeKey) {
                             $remaining = $activeKey['expiry_at'] - time();
-                            if ($remaining > 86400) {
-                                echo ceil($remaining / 86400) . ' <span class="text-sm font-medium text-slate-400">Ngày</span>';
-                            } elseif ($remaining > 3600) {
-                                echo ceil($remaining / 3600) . ' <span class="text-sm font-medium text-slate-400">Giờ</span>';
-                            } else {
-                                echo ceil($remaining / 60) . ' <span class="text-sm font-medium text-slate-400">Phút</span>';
-                            }
+                            if ($remaining > 86400) echo ceil($remaining / 86400) . ' <span class="text-xs font-normal text-slate-500">Ngày</span>';
+                            elseif ($remaining > 3600) echo ceil($remaining / 3600) . ' <span class="text-xs font-normal text-slate-500">Giờ</span>';
+                            else echo ceil($remaining / 60) . ' <span class="text-xs font-normal text-slate-500">Phút</span>';
                         } else {
-                            echo '<span class="text-red-500">Hết hạn</span>';
+                            echo '<span class="text-red-500 text-sm">Hết hạn</span>';
                         }
                         ?>
-                    </span>
+                    </p>
                 </div>
             </div>
-        </header>
+        </div>
 
-        <!-- Games Grid -->
-        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-8 games-grid">
+        <!-- Grid -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-6">
             <?php foreach ($games as $game): ?>
-            <div class="glass-card rounded-[2.5rem] p-6 flex flex-col h-full group">
-                <!-- Game Icon -->
-                <div class="relative mb-8 pt-4">
-                    <div class="absolute -top-4 -right-2 z-10">
-                        <span class="status-badge px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-wider">
-                            <?php echo $game['status']; ?>
-                        </span>
+            <div class="game-card flex flex-col group" onclick="location.href='<?php echo $game['url']; ?>'">
+                <div class="flex items-start justify-between mb-6">
+                    <div class="p-3 rounded-2xl bg-white/5 border border-white/5 group-hover:bg-yellow-500/10 group-hover:border-yellow-500/20 transition-all">
+                        <img src="<?php echo $game['image']; ?>" class="w-12 h-12 object-contain filter grayscale group-hover:grayscale-0 transition-all duration-500" alt="">
                     </div>
-                    <div class="game-icon-container w-28 h-28 mx-auto p-1 bg-gradient-to-br <?php echo $game['color']; ?> rounded-3xl shadow-2xl transition-transform duration-500 group-hover:rotate-3 group-hover:scale-110">
-                        <div class="w-full h-full rounded-[1.25rem] bg-slate-900/90 p-3 flex items-center justify-center overflow-hidden">
-                            <img src="<?php echo $game['image']; ?>" alt="<?php echo $game['name']; ?>" class="w-full h-full object-contain">
-                        </div>
+                    <div class="px-3 py-1 bg-white/5 rounded-full border border-white/5 flex items-center gap-2">
+                        <div class="status-dot"></div>
+                        <span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest"><?php echo $game['status']; ?></span>
                     </div>
-                </div>
-                
-                <!-- Game Info -->
-                <div class="text-center mb-8 flex-grow">
-                    <h3 class="text-2xl font-black text-white mb-2 tracking-tight"><?php echo $game['name']; ?></h3>
-                    <p class="text-slate-400 text-sm font-medium">Phân tích dữ liệu thời gian thực</p>
                 </div>
 
-                <!-- Action Button -->
-                <button onclick="location.href='<?php echo $game['url']; ?>'" class="w-full py-4 rounded-2xl text-sm font-black text-slate-900 btn-gradient uppercase tracking-[0.15em]">
-                    Kích hoạt Tool
-                </button>
+                <div class="mb-8">
+                    <h4 class="text-xl font-bold mb-1 text-slate-200 group-hover:text-white transition-colors"><?php echo $game['name']; ?></h4>
+                    <p class="text-xs text-slate-500">Phân tích thuật toán AI chuẩn 99%</p>
+                </div>
+
+                <div class="btn-play">Kích hoạt ngay</div>
             </div>
             <?php endforeach; ?>
         </div>
 
-        <!-- Footer Info -->
-        <footer class="mt-20 text-center">
-            <p class="text-slate-500 text-xs font-medium uppercase tracking-[0.2em]">© 2026 TOOLTX2026 - Advanced AI System</p>
+        <footer class="mt-20 py-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4">
+            <p class="text-slate-600 text-[10px] font-bold uppercase tracking-[0.2em]">© 2026 AI SYSTEM TECHNOLOGY</p>
+            <div class="flex gap-6">
+                <a href="#" class="text-slate-600 hover:text-white transition-colors text-[10px] font-bold uppercase tracking-widest">Privacy</a>
+                <a href="#" class="text-slate-600 hover:text-white transition-colors text-[10px] font-bold uppercase tracking-widest">Terms</a>
+            </div>
         </footer>
-    </div>
+    </main>
 
     <script src="../assets/js/transitions.js"></script>
 </body>
