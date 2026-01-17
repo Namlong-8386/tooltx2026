@@ -224,9 +224,9 @@ $gameUrl = "https://web.sun.me/?affId=Sunwin";
         robot.addEventListener('touchstart', dragStart, {passive: false});
         robot.addEventListener('touchend', dragEnd, {passive: false});
         robot.addEventListener('touchmove', drag, {passive: false});
-        robot.addEventListener('mousedown', dragStart, false);
-        robot.addEventListener('mouseup', dragEnd, false);
-        robot.addEventListener('mousemove', drag, false);
+        document.addEventListener('mousedown', dragStart, false);
+        document.addEventListener('mouseup', dragEnd, false);
+        document.addEventListener('mousemove', drag, false);
     </script>
 </body>
 </html>
