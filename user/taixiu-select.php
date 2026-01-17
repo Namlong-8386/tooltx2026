@@ -174,7 +174,7 @@ $games = [
                         </span>
                         <p class="text-slate-400 text-[10px] font-black uppercase tracking-[0.3em]">Hệ thống AI Tài Xỉu</p>
                     </div>
-                    <h1 class="text-3xl md:text-4xl font-black text-gradient uppercase tracking-tight">Vui Lòng Chọn Game</h1>
+                    <h1 class="text-3xl md:text-4xl font-black text-gradient uppercase tracking-tight">Chọn Game</h1>
                 </div>
             </div>
 
