@@ -57,14 +57,14 @@ $games = [
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         body {
-            background-color: #0f172a;
+            background-color: #1e293b;
             color: #f8fafc;
             font-family: 'Plus Jakarta Sans', sans-serif;
             margin: 0;
             overflow-x: hidden;
             background-image: 
-                radial-gradient(at 0% 0%, rgba(59, 130, 246, 0.08) 0px, transparent 50%),
-                radial-gradient(at 100% 100%, rgba(147, 51, 234, 0.08) 0px, transparent 50%);
+                radial-gradient(at 0% 0%, rgba(234, 179, 8, 0.15) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(249, 115, 22, 0.15) 0px, transparent 50%);
         }
 
         .main-content {
@@ -74,17 +74,17 @@ $games = [
         }
 
         .glass-panel {
-            background: rgba(30, 41, 59, 0.5);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.05);
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
         }
 
         .game-card {
-            background: rgba(30, 41, 59, 0.4);
+            background: rgba(255, 255, 255, 0.05);
             backdrop-filter: blur(8px);
             -webkit-backdrop-filter: blur(8px);
-            border: 1px solid rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 28px;
             padding: 1.75rem;
             transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
@@ -94,8 +94,8 @@ $games = [
         }
 
         .game-card:hover {
-            background: rgba(30, 41, 59, 0.6);
-            border-color: rgba(59, 130, 246, 0.3);
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(251, 191, 36, 0.3);
             transform: translateY(-8px) scale(1.02);
             box-shadow: 0 20px 40px -20px rgba(0, 0, 0, 0.5);
         }
@@ -139,7 +139,7 @@ $games = [
         }
 
         .btn-play {
-            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+            background: linear-gradient(135deg, #fbbf24 0%, #f97316 100%);
             color: white;
             font-weight: 700;
             padding: 0.85rem;
@@ -149,17 +149,17 @@ $games = [
             text-transform: uppercase;
             letter-spacing: 1px;
             font-size: 0.75rem;
-            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
+            box-shadow: 0 4px 12px rgba(249, 115, 22, 0.2);
         }
 
         .game-card:hover .btn-play {
-            background: linear-gradient(135deg, #60a5fa 0%, #3b82f6 100%);
+            background: linear-gradient(135deg, #fcd34d 0%, #fbbf24 100%);
             transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(37, 99, 235, 0.4);
+            box-shadow: 0 8px 20px rgba(249, 115, 22, 0.4);
         }
 
         .header-gradient {
-            background: linear-gradient(to right, #fff 20%, rgba(255,255,255,0.4) 100%);
+            background: linear-gradient(135deg, #fbbf24 0%, #f97316 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
@@ -183,14 +183,14 @@ $games = [
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18"></path>
                             </svg>
                         </a>
-                        <span class="px-4 py-1.5 bg-blue-500/10 border border-blue-500/20 rounded-full text-blue-400 text-[10px] font-bold uppercase tracking-[0.2em]">AI Prediction System v2.0</span>
+                        <span class="px-4 py-1.5 bg-yellow-500/10 border border-yellow-500/20 rounded-full text-yellow-500 text-[10px] font-bold uppercase tracking-[0.2em]">Hệ thống phân tích cao cấp</span>
                     </div>
                     <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight mb-4 header-gradient">Chọn Game</h1>
                     <p class="text-slate-400 text-lg max-w-2xl leading-relaxed">Hệ thống AI đang sẵn sàng. Hãy chọn cổng game để bắt đầu phân tích dữ liệu thời gian thực và nhận kết quả chính xác nhất.</p>
                 </div>
 
                 <div class="flex items-center gap-5 glass-panel p-5 rounded-3xl border border-white/10 shadow-2xl">
-                    <div class="w-14 h-14 bg-blue-500/10 rounded-2xl flex items-center justify-center text-blue-500 border border-blue-500/20">
+                    <div class="w-14 h-14 bg-yellow-500/10 rounded-2xl flex items-center justify-center text-yellow-500 border border-yellow-500/20">
                         <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                     </div>
                     <div>
@@ -216,7 +216,7 @@ $games = [
                 <?php foreach ($games as $game): ?>
                 <div class="game-card flex flex-col group" onclick="location.href='<?php echo $game['url']; ?>'">
                     <div class="flex items-start justify-between mb-8">
-                        <div class="w-16 h-16 rounded-2xl bg-white/5 border border-white/5 flex items-center justify-center group-hover:bg-blue-500/10 group-hover:border-blue-500/20 transition-all duration-500 overflow-hidden">
+                        <div class="w-16 h-16 rounded-2xl bg-white/5 border border-white/5 flex items-center justify-center group-hover:bg-yellow-500/10 group-hover:border-yellow-500/20 transition-all duration-500 overflow-hidden">
                             <img src="<?php echo $game['image']; ?>" class="w-10 h-10 object-contain group-hover:scale-110 transition-transform duration-500" alt="<?php echo $game['name']; ?>">
                         </div>
                         <div class="status-badge">
@@ -226,7 +226,7 @@ $games = [
                     </div>
 
                     <div class="mb-8">
-                        <h4 class="text-2xl font-bold mb-2 text-white group-hover:text-blue-400 transition-colors tracking-tight"><?php echo $game['name']; ?></h4>
+                        <h4 class="text-2xl font-bold mb-2 text-white group-hover:text-yellow-500 transition-colors tracking-tight"><?php echo $game['name']; ?></h4>
                         <div class="flex items-center gap-2">
                             <div class="flex -space-x-2">
                                 <div class="w-5 h-5 rounded-full bg-slate-700 border border-slate-800"></div>
@@ -245,8 +245,8 @@ $games = [
             <!-- Footer -->
             <footer class="mt-32 py-10 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-6">
                 <div class="flex items-center gap-3">
-                    <div class="w-8 h-8 bg-blue-500/10 rounded-lg flex items-center justify-center">
-                        <div class="w-2 h-2 bg-blue-500 rounded-full animate-ping"></div>
+                    <div class="w-8 h-8 bg-yellow-500/10 rounded-lg flex items-center justify-center">
+                        <div class="w-2 h-2 bg-yellow-500 rounded-full animate-ping"></div>
                     </div>
                     <p class="text-slate-500 text-[11px] font-bold uppercase tracking-[0.3em]">AI Prediction System • Secure Node</p>
                 </div>
