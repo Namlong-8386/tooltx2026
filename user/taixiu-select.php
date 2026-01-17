@@ -118,10 +118,46 @@ $games = [
             border: 1px solid rgba(34, 197, 94, 0.2);
             color: #22c55e;
         }
+        /* Optimization for different screen sizes */
+        @media (max-width: 768px) {
+            .main-container {
+                padding: 1rem !important;
+            }
+            header {
+                flex-direction: column !important;
+                align-items: flex-start !important;
+                gap: 1.5rem !important;
+                margin-bottom: 2rem !important;
+            }
+            .glass-card {
+                padding: 1.25rem !important;
+            }
+            .game-icon-container {
+                width: 5rem !important;
+                height: 5rem !important;
+            }
+            h1 {
+                font-size: 1.75rem !important;
+            }
+            h3 {
+                font-size: 1.25rem !important;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .games-grid {
+                grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+            }
+        }
+        @media (min-width: 1280px) {
+            .games-grid {
+                grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+            }
+        }
     </style>
 </head>
 <body class="p-4 md:p-8">
-    <div class="max-w-7xl mx-auto">
+    <div class="max-w-7xl mx-auto main-container">
         <!-- Header Section -->
         <header class="flex flex-col md:flex-row items-center justify-between gap-6 mb-16">
             <div class="flex items-center gap-6">
@@ -172,7 +208,7 @@ $games = [
         </header>
 
         <!-- Games Grid -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-8 games-grid">
             <?php foreach ($games as $game): ?>
             <div class="glass-card rounded-[2.5rem] p-6 flex flex-col h-full group">
                 <!-- Game Icon -->
