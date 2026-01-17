@@ -67,43 +67,8 @@ $games = [
                 radial-gradient(at 100% 100%, rgba(249, 115, 22, 0.15) 0px, transparent 50%);
         }
 
-        .animated-bg {
-            display: none;
-        }
-
-        .blob {
-            position: absolute;
-            width: 500px;
-            height: 500px;
-            background: linear-gradient(135deg, rgba(251, 191, 36, 0.1) 0%, rgba(249, 115, 22, 0.05) 100%);
-            filter: blur(80px);
-            border-radius: 50%;
-            z-index: -1;
-            animation: move 20s infinite alternate;
-        }
-
-        @keyframes move {
-            from { transform: translate(-10%, -10%); }
-            to { transform: translate(20%, 20%); }
-        }
-
-        .sidebar {
-            width: 280px;
-            background: rgba(10, 10, 10, 0.8);
-            backdrop-filter: blur(20px);
-            border-right: 1px solid rgba(255, 255, 255, 0.05);
-            height: 100vh;
-            position: fixed;
-            left: 0;
-            top: 0;
-            padding: 2rem;
-            display: flex;
-            flex-direction: column;
-            z-index: 50;
-        }
-
         .main-content {
-            margin-left: 280px;
+            margin-left: 0;
             padding: 3rem;
             min-height: 100vh;
         }
@@ -166,11 +131,7 @@ $games = [
         }
 
         @media (max-width: 1024px) {
-            .sidebar {
-                display: none;
-            }
             .main-content {
-                margin-left: 0;
                 padding: 1.5rem;
             }
         }
@@ -185,119 +146,79 @@ $games = [
     </style>
 </head>
 <body>
-    <div class="animated-bg">
-        <div class="blob"></div>
+    <!-- Main Content Container -->
+    <div class="max-w-7xl mx-auto">
+        <main class="main-content">
+            <!-- Back Button & Header -->
+            <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
+                <div>
+                    <div class="flex items-center gap-4 mb-4">
+                        <a href="dashboard.php" class="p-3 bg-white/5 border border-white/10 rounded-2xl text-slate-400 hover:text-yellow-500 hover:bg-white/10 transition-all group">
+                            <svg class="w-6 h-6 transition-transform group-hover:-translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18"></path>
+                            </svg>
+                        </a>
+                        <p class="text-yellow-500 text-xs font-bold uppercase tracking-[0.2em]">Hệ thống phân tích cao cấp</p>
+                    </div>
+                    <h1 class="text-4xl md:text-5xl font-bold tracking-tight mb-2">Chọn Game</h1>
+                    <p class="text-slate-400 max-w-lg">Vui lòng chọn cổng game bạn đang chơi để hệ thống bắt đầu phân tích dữ liệu và đưa ra kết quả dự đoán chính xác.</p>
+                </div>
+
+                <div class="flex items-center gap-4 bg-white/5 p-4 rounded-2xl border border-white/5 backdrop-blur-md">
+                    <div class="w-12 h-12 bg-white/5 rounded-xl flex items-center justify-center text-yellow-500">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    </div>
+                    <div>
+                        <p class="text-[10px] text-slate-500 font-bold uppercase tracking-widest mb-0.5">Thời gian Key còn lại</p>
+                        <p class="text-xl font-bold text-white">
+                            <?php 
+                            if ($activeKey) {
+                                $remaining = $activeKey['expiry_at'] - time();
+                                if ($remaining > 86400) echo ceil($remaining / 86400) . ' <span class="text-xs font-normal text-slate-500">Ngày</span>';
+                                elseif ($remaining > 3600) echo ceil($remaining / 3600) . ' <span class="text-xs font-normal text-slate-500">Giờ</span>';
+                                else echo ceil($remaining / 60) . ' <span class="text-xs font-normal text-slate-500">Phút</span>';
+                            } else {
+                                echo '<span class="text-red-500 text-sm">Hết hạn</span>';
+                            }
+                            ?>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Grid -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-6">
+                <?php foreach ($games as $game): ?>
+                <div class="game-card flex flex-col group" onclick="location.href='<?php echo $game['url']; ?>'">
+                    <div class="flex items-start justify-between mb-6">
+                        <div class="p-3 rounded-2xl bg-white/5 border border-white/5 group-hover:bg-yellow-500/10 group-hover:border-yellow-500/20 transition-all">
+                            <img src="<?php echo $game['image']; ?>" class="w-12 h-12 object-contain filter grayscale group-hover:grayscale-0 transition-all duration-500" alt="">
+                        </div>
+                        <div class="px-3 py-1 bg-white/5 rounded-full border border-white/5 flex items-center gap-2">
+                            <div class="status-dot"></div>
+                            <span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest"><?php echo $game['status']; ?></span>
+                        </div>
+                    </div>
+
+                    <div class="mb-8">
+                        <h4 class="text-xl font-bold mb-1 text-slate-200 group-hover:text-white transition-colors"><?php echo $game['name']; ?></h4>
+                        <p class="text-xs text-slate-500">Phân tích thuật toán AI chuẩn 99%</p>
+                    </div>
+
+                    <div class="btn-play">Kích hoạt ngay</div>
+                </div>
+                <?php endforeach; ?>
+            </div>
+
+            <footer class="mt-20 py-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4">
+                <p class="text-slate-600 text-[10px] font-bold uppercase tracking-[0.2em]">© 2026 AI SYSTEM TECHNOLOGY</p>
+                <div class="flex gap-6">
+                    <a href="#" class="text-slate-600 hover:text-white transition-colors text-[10px] font-bold uppercase tracking-widest">Privacy</a>
+                    <a href="#" class="text-slate-600 hover:text-white transition-colors text-[10px] font-bold uppercase tracking-widest">Terms</a>
+                </div>
+            </footer>
+        </main>
     </div>
-
-    <!-- Sidebar -->
-    <aside class="sidebar">
-        <div class="flex items-center gap-3 mb-12">
-            <div class="w-10 h-10 bg-yellow-500 rounded-xl flex items-center justify-center font-bold text-black text-xl italic shadow-lg shadow-yellow-500/20">A</div>
-            <span class="text-xl font-bold tracking-tight">AI SYSTEM</span>
-        </div>
-
-        <nav class="flex-1 space-y-2">
-            <a href="dashboard.php" class="flex items-center gap-4 px-4 py-3 rounded-xl bg-white/5 text-white font-medium hover:bg-white/10 transition-all">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
-                Dashboard
-            </a>
-            <a href="#" class="flex items-center gap-4 px-4 py-3 rounded-xl text-slate-400 font-medium hover:bg-white/5 hover:text-white transition-all">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                Lịch sử
-            </a>
-            <a href="#" class="flex items-center gap-4 px-4 py-3 rounded-xl text-slate-400 font-medium hover:bg-white/5 hover:text-white transition-all">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"></path></svg>
-                Nạp tiền
-            </a>
-        </nav>
-
-        <div class="pt-6 border-t border-white/5 mt-auto">
-            <div class="flex items-center gap-3 px-2">
-                <div class="w-10 h-10 rounded-full bg-slate-800 border border-white/10 flex items-center justify-center font-bold text-slate-400">
-                    <?php echo strtoupper(substr($currentUser['username'], 0, 1)); ?>
-                </div>
-                <div>
-                    <p class="text-sm font-bold text-white"><?php echo htmlspecialchars($currentUser['username']); ?></p>
-                    <p class="text-[10px] text-slate-500">Member Plan</p>
-                </div>
-            </div>
-        </div>
-    </aside>
-
-    <main class="main-content">
-        <!-- Top Nav (Mobile) -->
-        <div class="lg:hidden flex items-center justify-between mb-8">
-            <div class="flex items-center gap-2">
-                <div class="w-8 h-8 bg-yellow-500 rounded-lg flex items-center justify-center font-bold text-black italic">A</div>
-                <span class="text-lg font-bold">AI SYSTEM</span>
-            </div>
-            <button class="p-2 bg-white/5 rounded-lg">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"></path></svg>
-            </button>
-        </div>
-
-        <!-- Header -->
-        <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
-            <div>
-                <p class="text-yellow-500 text-xs font-bold uppercase tracking-[0.2em] mb-2">Hệ thống phân tích cao cấp</p>
-                <h1 class="text-4xl md:text-5xl font-bold tracking-tight mb-2">Chọn Game</h1>
-                <p class="text-slate-400 max-w-lg">Vui lòng chọn cổng game bạn đang chơi để hệ thống bắt đầu phân tích dữ liệu và đưa ra kết quả dự đoán chính xác.</p>
-            </div>
-
-            <div class="flex items-center gap-4 bg-white/5 p-4 rounded-2xl border border-white/5 backdrop-blur-md">
-                <div class="w-12 h-12 bg-white/5 rounded-xl flex items-center justify-center text-yellow-500">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                </div>
-                <div>
-                    <p class="text-[10px] text-slate-500 font-bold uppercase tracking-widest mb-0.5">Thời gian Key còn lại</p>
-                    <p class="text-xl font-bold text-white">
-                        <?php 
-                        if ($activeKey) {
-                            $remaining = $activeKey['expiry_at'] - time();
-                            if ($remaining > 86400) echo ceil($remaining / 86400) . ' <span class="text-xs font-normal text-slate-500">Ngày</span>';
-                            elseif ($remaining > 3600) echo ceil($remaining / 3600) . ' <span class="text-xs font-normal text-slate-500">Giờ</span>';
-                            else echo ceil($remaining / 60) . ' <span class="text-xs font-normal text-slate-500">Phút</span>';
-                        } else {
-                            echo '<span class="text-red-500 text-sm">Hết hạn</span>';
-                        }
-                        ?>
-                    </p>
-                </div>
-            </div>
-        </div>
-
-        <!-- Grid -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-6">
-            <?php foreach ($games as $game): ?>
-            <div class="game-card flex flex-col group" onclick="location.href='<?php echo $game['url']; ?>'">
-                <div class="flex items-start justify-between mb-6">
-                    <div class="p-3 rounded-2xl bg-white/5 border border-white/5 group-hover:bg-yellow-500/10 group-hover:border-yellow-500/20 transition-all">
-                        <img src="<?php echo $game['image']; ?>" class="w-12 h-12 object-contain filter grayscale group-hover:grayscale-0 transition-all duration-500" alt="">
-                    </div>
-                    <div class="px-3 py-1 bg-white/5 rounded-full border border-white/5 flex items-center gap-2">
-                        <div class="status-dot"></div>
-                        <span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest"><?php echo $game['status']; ?></span>
-                    </div>
-                </div>
-
-                <div class="mb-8">
-                    <h4 class="text-xl font-bold mb-1 text-slate-200 group-hover:text-white transition-colors"><?php echo $game['name']; ?></h4>
-                    <p class="text-xs text-slate-500">Phân tích thuật toán AI chuẩn 99%</p>
-                </div>
-
-                <div class="btn-play">Kích hoạt ngay</div>
-            </div>
-            <?php endforeach; ?>
-        </div>
-
-        <footer class="mt-20 py-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4">
-            <p class="text-slate-600 text-[10px] font-bold uppercase tracking-[0.2em]">© 2026 AI SYSTEM TECHNOLOGY</p>
-            <div class="flex gap-6">
-                <a href="#" class="text-slate-600 hover:text-white transition-colors text-[10px] font-bold uppercase tracking-widest">Privacy</a>
-                <a href="#" class="text-slate-600 hover:text-white transition-colors text-[10px] font-bold uppercase tracking-widest">Terms</a>
-            </div>
-        </footer>
-    </main>
 
     <script src="../assets/js/transitions.js"></script>
 </body>
