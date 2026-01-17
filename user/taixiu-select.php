@@ -91,6 +91,25 @@ $games = [
             cursor: pointer;
             position: relative;
             overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        @media (max-width: 768px) {
+            .main-content {
+                padding: 1rem;
+            }
+            .game-card {
+                padding: 1.25rem;
+                border-radius: 20px;
+            }
+            .header-section {
+                margin-bottom: 2rem;
+            }
+            h1 {
+                font-size: 2.5rem !important;
+            }
         }
 
         .game-card:hover {
@@ -175,35 +194,35 @@ $games = [
     <div class="max-w-7xl mx-auto">
         <main class="main-content">
             <!-- Header Section -->
-            <div class="flex flex-col md:flex-row md:items-center justify-between gap-8 mb-16">
+            <div class="header-section flex flex-col md:flex-row md:items-center justify-between gap-8 mb-16">
                 <div class="flex-1">
-                    <div class="flex items-center gap-4 mb-6">
-                        <a href="dashboard.php" class="w-12 h-12 flex items-center justify-center bg-white/5 border border-white/10 rounded-2xl text-slate-400 hover:text-white hover:bg-white/10 hover:border-white/20 transition-all group">
+                    <div class="flex items-center gap-4 mb-4 md:mb-6">
+                        <a href="dashboard.php" class="w-10 h-10 md:w-12 md:h-12 flex items-center justify-center bg-white/5 border border-white/10 rounded-xl md:rounded-2xl text-slate-400 hover:text-white hover:bg-white/10 hover:border-white/20 transition-all group">
                             <svg class="w-5 h-5 transition-transform group-hover:-translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18"></path>
                             </svg>
                         </a>
-                        <span class="px-4 py-1.5 bg-yellow-500/10 border border-yellow-500/20 rounded-full text-yellow-500 text-[10px] font-bold uppercase tracking-[0.2em]">Hệ thống phân tích cao cấp</span>
+                        <span class="px-3 py-1 md:px-4 md:py-1.5 bg-yellow-500/10 border border-yellow-500/20 rounded-full text-yellow-500 text-[9px] md:text-[10px] font-bold uppercase tracking-[0.2em]">Hệ thống phân tích cao cấp</span>
                     </div>
                     <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight mb-4 header-gradient">Chọn Game</h1>
-                    <p class="text-slate-400 text-lg max-w-2xl leading-relaxed">Hệ thống AI đang sẵn sàng. Hãy chọn cổng game để bắt đầu phân tích dữ liệu thời gian thực và nhận kết quả chính xác nhất.</p>
+                    <p class="text-slate-400 text-base md:text-lg max-w-2xl leading-relaxed">Hệ thống AI đang sẵn sàng. Hãy chọn cổng game để bắt đầu phân tích dữ liệu thời gian thực.</p>
                 </div>
 
-                <div class="flex items-center gap-5 glass-panel p-5 rounded-3xl border border-white/10 shadow-2xl">
-                    <div class="w-14 h-14 bg-yellow-500/10 rounded-2xl flex items-center justify-center text-yellow-500 border border-yellow-500/20">
-                        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                <div class="flex items-center gap-4 md:gap-5 glass-panel p-4 md:p-5 rounded-2xl md:rounded-3xl border border-white/10 shadow-2xl">
+                    <div class="w-10 h-10 md:w-14 md:h-14 bg-yellow-500/10 rounded-xl md:rounded-2xl flex items-center justify-center text-yellow-500 border border-yellow-500/20">
+                        <svg class="w-6 h-6 md:w-7 md:h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                     </div>
                     <div>
-                        <p class="text-[10px] text-slate-500 font-bold uppercase tracking-widest mb-1">Thời gian Key còn lại</p>
-                        <p class="text-2xl font-black text-white tracking-tight">
+                        <p class="text-[9px] md:text-[10px] text-slate-500 font-bold uppercase tracking-widest mb-1">Key còn lại</p>
+                        <p class="text-lg md:text-2xl font-black text-white tracking-tight">
                             <?php 
                             if ($activeKey) {
                                 $remaining = $activeKey['expiry_at'] - time();
-                                if ($remaining > 86400) echo ceil($remaining / 86400) . ' <span class="text-xs font-medium text-slate-500 uppercase tracking-widest ml-1">Ngày</span>';
-                                elseif ($remaining > 3600) echo ceil($remaining / 3600) . ' <span class="text-xs font-medium text-slate-500 uppercase tracking-widest ml-1">Giờ</span>';
-                                else echo ceil($remaining / 60) . ' <span class="text-xs font-medium text-slate-500 uppercase tracking-widest ml-1">Phút</span>';
+                                if ($remaining > 86400) echo ceil($remaining / 86400) . ' <span class="text-[10px] md:text-xs font-medium text-slate-500 uppercase tracking-widest ml-1">Ngày</span>';
+                                elseif ($remaining > 3600) echo ceil($remaining / 3600) . ' <span class="text-[10px] md:text-xs font-medium text-slate-500 uppercase tracking-widest ml-1">Giờ</span>';
+                                else echo ceil($remaining / 60) . ' <span class="text-[10px] md:text-xs font-medium text-slate-500 uppercase tracking-widest ml-1">Phút</span>';
                             } else {
-                                echo '<span class="text-rose-500 text-lg uppercase tracking-widest">Hết hạn</span>';
+                                echo '<span class="text-rose-500 text-sm md:text-lg uppercase tracking-widest">Hết hạn</span>';
                             }
                             ?>
                         </p>
@@ -212,32 +231,27 @@ $games = [
             </div>
 
             <!-- Game Grid -->
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+            <div class="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-8">
                 <?php foreach ($games as $game): ?>
                 <div class="game-card flex flex-col group" onclick="location.href='<?php echo $game['url']; ?>'">
-                    <div class="flex items-start justify-between mb-8">
-                        <div class="w-16 h-16 rounded-2xl bg-white/5 border border-white/5 flex items-center justify-center group-hover:bg-yellow-500/10 group-hover:border-yellow-500/20 transition-all duration-500 overflow-hidden">
-                            <img src="<?php echo $game['image']; ?>" class="w-10 h-10 object-contain group-hover:scale-110 transition-transform duration-500" alt="<?php echo $game['name']; ?>">
+                    <div class="flex items-start justify-between mb-4 md:mb-8">
+                        <div class="w-12 h-12 md:w-16 md:h-16 rounded-xl md:rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center group-hover:bg-yellow-500/10 group-hover:border-yellow-500/20 transition-all duration-500 overflow-hidden">
+                            <img src="<?php echo $game['image']; ?>" class="w-8 h-8 md:w-10 md:h-10 object-contain group-hover:scale-110 transition-transform duration-500" alt="<?php echo $game['name']; ?>">
                         </div>
-                        <div class="status-badge">
+                        <div class="status-badge hidden sm:flex">
                             <div class="status-dot"></div>
-                            <span class="text-[10px] font-bold text-green-400 uppercase tracking-widest"><?php echo $game['status']; ?></span>
+                            <span class="text-[9px] md:text-[10px] font-bold text-green-400 uppercase tracking-widest"><?php echo $game['status']; ?></span>
                         </div>
                     </div>
 
-                    <div class="mb-8">
-                        <h4 class="text-2xl font-bold mb-2 text-white group-hover:text-yellow-500 transition-colors tracking-tight"><?php echo $game['name']; ?></h4>
+                    <div class="mb-4 md:mb-8">
+                        <h4 class="text-lg md:text-2xl font-bold mb-1 md:mb-2 text-white group-hover:text-yellow-500 transition-colors tracking-tight"><?php echo $game['name']; ?></h4>
                         <div class="flex items-center gap-2">
-                            <div class="flex -space-x-2">
-                                <div class="w-5 h-5 rounded-full bg-slate-700 border border-slate-800"></div>
-                                <div class="w-5 h-5 rounded-full bg-slate-600 border border-slate-800"></div>
-                                <div class="w-5 h-5 rounded-full bg-slate-500 border border-slate-800"></div>
-                            </div>
-                            <p class="text-[11px] text-slate-500 font-medium">1.2k+ người đang dùng</p>
+                            <p class="text-[9px] md:text-[11px] text-slate-500 font-medium">1.2k+ người dùng</p>
                         </div>
                     </div>
 
-                    <div class="btn-play">Kích hoạt AI</div>
+                    <div class="btn-play mt-auto py-2 md:py-3.5">Kích hoạt</div>
                 </div>
                 <?php endforeach; ?>
             </div>
