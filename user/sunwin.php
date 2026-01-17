@@ -163,6 +163,7 @@ $gameUrl = "https://web.sun.me/?affId=Sunwin";
             </a>
         </div>
     </div>
+    <iframe id="iframeGame" src="<?php echo $gameUrl; ?>"></iframe>
     <script>
         function toggleMenu() {
             const menu = document.getElementById('dropdownMenu');
