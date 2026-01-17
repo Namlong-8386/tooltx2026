@@ -63,11 +63,11 @@ $gameUrl = "https://web.sun.me/?affId=Sunwin";
             position: fixed;
             top: 50%;
             left: 20px;
-            transform: translateY(-50%);
+            transform: translate3d(0, -50%, 0);
             z-index: 9999;
             cursor: move;
             will-change: transform;
-            transition: transform 0.05s linear;
+            touch-action: none;
         }
         #robotInner {
             display: flex;
@@ -217,12 +217,13 @@ $gameUrl = "https://web.sun.me/?affId=Sunwin";
                 currentX = clientX - initialX;
                 currentY = clientY - initialY;
                 xOffset = currentX; yOffset = currentY;
-                requestAnimationFrame(() => { robot.style.transform = `translate3d(${currentX}px, ${currentY}px, 0) translateY(-50%)`; });
+                requestAnimationFrame(() => { robot.style.transform = `translate3d(${currentX}px, calc(-50% + ${currentY}px), 0)`; });
             }
         }
-        robot.addEventListener('touchstart', dragStart, false);
-        robot.addEventListener('touchend', dragEnd, false);
-        robot.addEventListener('touchmove', drag, false);
+        
+        robot.addEventListener('touchstart', dragStart, {passive: false});
+        robot.addEventListener('touchend', dragEnd, {passive: false});
+        robot.addEventListener('touchmove', drag, {passive: false});
         robot.addEventListener('mousedown', dragStart, false);
         robot.addEventListener('mouseup', dragEnd, false);
         robot.addEventListener('mousemove', drag, false);
