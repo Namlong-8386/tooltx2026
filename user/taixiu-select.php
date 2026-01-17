@@ -20,7 +20,6 @@ $keys = readJSON('keys');
 $activeKey = null;
 foreach ($keys as $key) {
     if ($key['user_id'] === $currentUser['id']) {
-        // Ưu tiên key còn hạn
         $created_at = strtotime($key['created_at']);
         $package = $key['package_name'];
         $duration = 0;
@@ -41,12 +40,12 @@ foreach ($keys as $key) {
 }
 
 $games = [
-    ['name' => 'Go88', 'image' => 'https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=Go88', 'url' => 'https://play.go88.vin/', 'status' => 'Hoạt động'],
-    ['name' => 'Sunwin', 'image' => 'https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=Sunwin', 'url' => 'https://web.sun.me/?affId=Sunwin', 'status' => 'Hoạt động'],
-    ['name' => '789Club', 'image' => 'https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=789Club', 'url' => 'https://789.club/', 'status' => 'Hoạt động'],
-    ['name' => 'B52', 'image' => 'https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=B52', 'url' => 'https://b52.club/', 'status' => 'Hoạt động'],
-    ['name' => 'Rikvip', 'image' => 'https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=Rikvip', 'url' => 'https://rik.vip/', 'status' => 'Hoạt động'],
-    ['name' => 'Manclub', 'image' => 'https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=Manclub', 'url' => 'https://man.club/', 'status' => 'Hoạt động'],
+    ['name' => 'Go88', 'image' => 'https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=Go88', 'url' => 'go88.php', 'status' => 'Hoạt động', 'color' => 'from-blue-600 to-indigo-600'],
+    ['name' => 'Sunwin', 'image' => 'https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=Sunwin', 'url' => 'sunwin.php', 'status' => 'Hoạt động', 'color' => 'from-yellow-500 to-orange-600'],
+    ['name' => '789Club', 'image' => 'https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=789Club', 'url' => '789club.php', 'status' => 'Hoạt động', 'color' => 'from-purple-600 to-pink-600'],
+    ['name' => 'B52', 'image' => 'https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=B52', 'url' => 'b52.php', 'status' => 'Hoạt động', 'color' => 'from-red-600 to-orange-600'],
+    ['name' => 'Rikvip', 'image' => 'https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=Rikvip', 'url' => 'rikvip.php', 'status' => 'Hoạt động', 'color' => 'from-emerald-600 to-teal-600'],
+    ['name' => 'Manclub', 'image' => 'https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=Manclub', 'url' => 'manclub.php', 'status' => 'Hoạt động', 'color' => 'from-slate-700 to-slate-900'],
 ];
 
 ?>
@@ -60,397 +59,156 @@ $games = [
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../assets/css/transitions.css">
     <style>
-        html, body {
-            margin: 0;
-            padding: 0;
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
+        :root {
+            --primary: #fbbf24;
+            --secondary: #f97316;
         }
         body { 
-            background-color: #1e293b; 
+            background-color: #0f172a; 
             color: #f8fafc; 
             font-family: 'Plus Jakarta Sans', sans-serif;
+            min-height: 100vh;
             background-image: 
-                radial-gradient(at 0% 0%, rgba(234, 179, 8, 0.15) 0px, transparent 50%),
-                radial-gradient(at 100% 100%, rgba(249, 115, 22, 0.15) 0px, transparent 50%);
+                radial-gradient(at 0% 0%, rgba(234, 179, 8, 0.1) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(249, 115, 22, 0.1) 0px, transparent 50%);
         }
-        .main-content {
-            height: 100vh;
-            overflow-y: auto;
-            -webkit-overflow-scrolling: touch;
-            zoom: 0.9;
+        .glass-card { 
+            background: rgba(30, 41, 59, 0.5); 
+            backdrop-filter: blur(12px); 
+            border: 1px solid rgba(255, 255, 255, 0.05); 
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
-        .glass { 
-            background: rgba(255, 255, 255, 0.08); 
-            backdrop-filter: blur(16px); 
-            border: 1px solid rgba(255, 255, 255, 0.15); 
+        .glass-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            background: rgba(30, 41, 59, 0.8);
+            border-color: rgba(251, 191, 36, 0.3);
+            box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.5);
         }
         .text-gradient {
             background: linear-gradient(135deg, #fbbf24 0%, #f97316 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
-
-        /* Robot Prediction Styles */
-        #robotContainer {
-            position: fixed;
-            top: 50%;
-            left: 20px;
-            transform: translateY(-50%);
-            display: none;
-            z-index: 9999;
-            cursor: move;
-            will-change: transform;
-            transition: transform 0.05s linear;
-        }
-        /* Rest of style content remains same */
-
-        #robotInner {
-            display: flex;
-            align-items: center;
-            transform: rotate(90deg);
-            transform-origin: left center;
-        }
-
-        #robotIcon {
-            width: 95px;
-            height: 95px;
-            margin-right: 8px;
-            pointer-events: none;
-        }
-
-        #robotText {
-            background: rgba(50, 50, 50, 0.7);
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
-            color: #fff;
-            padding: 6px 10px;
-            border-radius: 10px;
-            font-size: 12px;
-            line-height: 1.4;
-            box-shadow: 0 0 12px rgba(0, 0, 0, 0.3);
-            white-space: nowrap;
-            max-width: 200px;
-            position: relative;
-            font-family: 'Inter', sans-serif;
-            font-weight: 600;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-
-        #robotText #line1 {
-            font-size: 17px;
-            color: #fff;
-        }
-
-        #robotText #line2 {
-            font-size: 17px;
-            color: #fff;
-            font-weight: 500;
-        }
-
-        /* Iframe Styles */
-        #iframeGame {
-            display: none; 
-            width: 100vw; 
-            height: 100vh; 
-            border: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            z-index: 1000;
-            background: #000;
-        }
-
-        /* Logout Button in Game */
-        .game-logout-btn {
-            position: fixed;
-            top: 12px;
-            right: 12px;
-            background: rgba(239, 68, 68, 0.8);
-            color: white;
-            border: none;
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            font-size: 16px;
-            cursor: pointer;
-            z-index: 1002;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 3px 8px rgba(239, 68, 68, 0.3);
+        .btn-gradient {
+            background: linear-gradient(135deg, #fbbf24 0%, #f97316 100%);
             transition: all 0.3s ease;
         }
-
-        .game-logout-btn:hover {
-            background: rgba(239, 68, 68, 1);
+        .btn-gradient:hover {
+            filter: brightness(1.1);
             transform: translateY(-2px);
+            box-shadow: 0 10px 20px -5px rgba(249, 115, 22, 0.4);
         }
-
-        /* Rotate Button */
-        #rotateRobotBtn {
-            position: fixed;
-            bottom: 15px;
-            right: 65px;
-            background: rgba(255, 255, 255, 0.1);
-            color: white;
-            border: none;
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            font-size: 16px;
-            cursor: pointer;
-            display: none;
-            align-items: center;
-            justify-content: center;
-            z-index: 10000;
-            transition: all 0.3s ease;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        .game-icon-container {
+            position: relative;
+            overflow: hidden;
         }
-
-        #rotateRobotBtn:hover {
-            background: rgba(255, 255, 255, 0.2);
-            transform: scale(1.1);
+        .game-icon-container::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(0deg, rgba(0,0,0,0.4) 0%, transparent 100%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .glass-card:hover .game-icon-container::after {
+            opacity: 1;
+        }
+        .status-badge {
+            background: rgba(34, 197, 94, 0.1);
+            border: 1px solid rgba(34, 197, 94, 0.2);
+            color: #22c55e;
         }
     </style>
-    <script src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs" type="module"></script>
 </head>
-<body class="min-h-screen">
-    <div class="main-content">
-        <div class="max-w-7xl mx-auto px-6 md:px-12 py-8">
-        <div class="flex items-center justify-between mb-12">
+<body class="p-4 md:p-8">
+    <div class="max-w-7xl mx-auto">
+        <!-- Header Section -->
+        <header class="flex flex-col md:flex-row items-center justify-between gap-6 mb-16">
             <div class="flex items-center gap-6">
-                <div class="relative">
-                    <a href="dashboard.php" class="p-3 bg-white/5 border border-white/10 rounded-2xl text-slate-400 hover:text-white hover:bg-white/10 transition-all shadow-lg block">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-6 h-6">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
-                        </svg>
-                    </a>
-                </div>
+                <a href="dashboard.php" class="group p-4 bg-slate-800/50 border border-white/5 rounded-2xl hover:bg-slate-700/50 hover:border-yellow-500/50 transition-all duration-300">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-6 h-6 text-slate-400 group-hover:text-yellow-500 transition-colors">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
+                    </svg>
+                </a>
                 <div>
                     <div class="flex items-center gap-2 mb-1">
-                        <span class="w-2 h-2 rounded-full bg-green-500 shadow-[0_0_10px_rgba(34,197,94,1)] animate-pulse"></span>
-                        <p class="text-white text-[10px] font-black uppercase tracking-[0.3em]">Hệ thống Tool AI</p>
+                        <span class="relative flex h-2 w-2">
+                            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                            <span class="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
+                        </span>
+                        <p class="text-slate-400 text-[10px] font-black uppercase tracking-[0.3em]">Hệ thống AI Prediction</p>
                     </div>
-                    <h1 class="text-3xl font-black text-gradient uppercase tracking-tight">Chọn Game Tool Tài Xỉu</h1>
+                    <h1 class="text-3xl md:text-4xl font-black text-gradient uppercase tracking-tight">Chọn Game Tool</h1>
                 </div>
             </div>
-            <div class="glass px-6 py-3 rounded-2xl flex items-center gap-4">
-                <div class="p-2 bg-green-500 rounded-xl text-white shadow-[0_0_15px_rgba(34,197,94,0.5)]">
-                    <?php echo getIcon('clock', 'w-6 h-6'); ?>
+
+            <!-- Key Status -->
+            <div class="glass-card px-8 py-4 rounded-3xl flex items-center gap-5">
+                <div class="w-12 h-12 bg-gradient-to-tr from-green-500/20 to-emerald-500/20 rounded-2xl flex items-center justify-center border border-green-500/30">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6 text-green-500">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
                 </div>
                 <div>
-                    <p class="text-[10px] text-gradient font-black uppercase tracking-widest">Thời gian Key</p>
-                    <span class="font-bold text-white">
+                    <p class="text-[10px] text-slate-400 font-bold uppercase tracking-widest mb-0.5">Thời gian Key còn lại</p>
+                    <span class="text-xl font-black text-white">
                         <?php 
                         if ($activeKey) {
                             $remaining = $activeKey['expiry_at'] - time();
                             if ($remaining > 86400) {
-                                echo ceil($remaining / 86400) . ' Ngày';
+                                echo ceil($remaining / 86400) . ' <span class="text-sm font-medium text-slate-400">Ngày</span>';
                             } elseif ($remaining > 3600) {
-                                echo ceil($remaining / 3600) . ' Giờ';
+                                echo ceil($remaining / 3600) . ' <span class="text-sm font-medium text-slate-400">Giờ</span>';
                             } else {
-                                echo ceil($remaining / 60) . ' Phút';
+                                echo ceil($remaining / 60) . ' <span class="text-sm font-medium text-slate-400">Phút</span>';
                             }
                         } else {
-                            echo 'Chưa có Key';
+                            echo '<span class="text-red-500">Hết hạn</span>';
                         }
                         ?>
                     </span>
                 </div>
             </div>
-        </div>
+        </header>
 
-        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+        <!-- Games Grid -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
             <?php foreach ($games as $game): ?>
-            <div class="group relative glass rounded-[2.5rem] p-8 hover:border-yellow-500/30 transition-all duration-500 hover:shadow-2xl hover:shadow-yellow-500/10 flex flex-col items-center">
-                <div class="absolute inset-0 bg-gradient-to-br from-yellow-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity rounded-[2.5rem]"></div>
-                
-                <div class="relative flex flex-col items-center w-full">
-                    <div class="w-24 h-24 mb-6 p-1 bg-gradient-to-br from-yellow-400 to-orange-600 rounded-3xl flex items-center justify-center group-hover:scale-110 group-hover:rotate-3 transition-all duration-500 shadow-xl shadow-orange-500/20">
-                        <div class="w-full h-full rounded-2xl bg-slate-900/90 p-2 flex items-center justify-center overflow-hidden">
-                            <img src="<?php echo $game['image']; ?>" alt="<?php echo $game['name']; ?>" class="w-full h-full object-contain rounded-xl">
+            <div class="glass-card rounded-[2.5rem] p-6 flex flex-col h-full group">
+                <!-- Game Icon -->
+                <div class="relative mb-8 pt-4">
+                    <div class="absolute -top-4 -right-2 z-10">
+                        <span class="status-badge px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-wider">
+                            <?php echo $game['status']; ?>
+                        </span>
+                    </div>
+                    <div class="game-icon-container w-28 h-28 mx-auto p-1 bg-gradient-to-br <?php echo $game['color']; ?> rounded-3xl shadow-2xl transition-transform duration-500 group-hover:rotate-3 group-hover:scale-110">
+                        <div class="w-full h-full rounded-[1.25rem] bg-slate-900/90 p-3 flex items-center justify-center overflow-hidden">
+                            <img src="<?php echo $game['image']; ?>" alt="<?php echo $game['name']; ?>" class="w-full h-full object-contain">
                         </div>
                     </div>
-                    
-                    <h3 class="text-xl font-black text-slate-100 mb-1 tracking-tight"><?php echo $game['name']; ?></h3>
-                    <div class="flex items-center gap-2 mb-8">
-                        <span class="w-2 h-2 rounded-full bg-green-500 shadow-[0_0_10px_rgba(34,197,94,0.8)] animate-pulse"></span>
-                        <span class="text-[10px] font-black text-green-500 uppercase tracking-widest drop-shadow-[0_0_5px_rgba(34,197,94,0.5)]"><?php echo $game['status']; ?></span>
-                    </div>
-
-                    <button onclick="location.href='sunwin.php'" class="w-full py-4 glass rounded-2xl text-xs font-black hover:bg-yellow-500 hover:text-black transition-all border border-white/5 shadow-lg active:scale-95 uppercase tracking-widest">
-                        VÀO GAME
-                    </button>
                 </div>
+                
+                <!-- Game Info -->
+                <div class="text-center mb-8 flex-grow">
+                    <h3 class="text-2xl font-black text-white mb-2 tracking-tight"><?php echo $game['name']; ?></h3>
+                    <p class="text-slate-400 text-sm font-medium">Phân tích dữ liệu thời gian thực</p>
+                </div>
+
+                <!-- Action Button -->
+                <button onclick="location.href='<?php echo $game['url']; ?>'" class="w-full py-4 rounded-2xl text-sm font-black text-slate-900 btn-gradient uppercase tracking-[0.15em]">
+                    Kích hoạt Tool
+                </button>
             </div>
             <?php endforeach; ?>
         </div>
-    </div>
-</div>
 
-    <!-- Robot Prediction with Lottie Animation -->
-    <div id="robotContainer">
-        <div id="robotInner">
-            <dotlottie-player 
-                id="robotIcon" 
-                src="https://lottie.host/55ab9688-9a63-4f35-93f8-b40bd7fb8058/4n00MLJLZk.lottie" 
-                background="transparent" 
-                speed="1" 
-                loop 
-                autoplay>
-            </dotlottie-player>
-            <div id="robotText">
-                <div id="line1"><strong>Đang tải...</strong></div>
-                <div id="line2"></div>
-            </div>
-        </div>
+        <!-- Footer Info -->
+        <footer class="mt-20 text-center">
+            <p class="text-slate-500 text-xs font-medium uppercase tracking-[0.2em]">© 2026 TOOLTX2026 - Advanced AI System</p>
+        </footer>
     </div>
 
-    <!-- Logout Button in Game -->
-    <button class="game-logout-btn" id="gameLogoutBtn" onclick="backToMenu()" style="display: none;">
-        <?php echo getIcon('logout', 'w-6 h-6'); ?>
-    </button>
-
-    <!-- Game Iframe -->
-    <iframe id="iframeGame" src=""></iframe>
-
-    <!-- Rotate Robot Button -->
-    <button id="rotateRobotBtn" onclick="rotateRobot()" style="display: none;" title="Xoay Robot">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0 3.181 3.183a8.25 8.25 0 0 0 13.803-3.7M4.031 9.865a8.25 8.25 0 0 1 13.803-3.7l3.181 3.182m0-4.991v4.99" />
-        </svg>
-    </button>
-
-    <script>
-        let predictionInterval = null;
-        let robotRotation = 90;
-
-        function rotateRobot() {
-            const robotInner = document.getElementById('robotInner');
-            // Xoay 4 hướng: 0, 90, 180, 270
-            robotRotation = (robotRotation + 90) % 360;
-            robotInner.style.transform = `rotate(${robotRotation}deg)`;
-        }
-
-        function startGame(gameName, gameUrl) {
-            const iframe = document.getElementById('iframeGame');
-            const robotContainer = document.getElementById('robotContainer');
-            const logoutBtn = document.getElementById('gameLogoutBtn');
-            const rotateBtn = document.getElementById('rotateRobotBtn');
-            const mainContent = document.querySelector('.main-content');
-            
-            mainContent.style.display = 'none';
-            iframe.src = gameUrl;
-            iframe.style.display = 'block';
-            robotContainer.style.display = 'block';
-            logoutBtn.style.display = 'flex';
-            rotateBtn.style.display = 'flex';
-            
-            // Start mock predictions
-            startPredictions(gameName);
-        }
-
-        function backToMenu() {
-            const iframe = document.getElementById('iframeGame');
-            const robotContainer = document.getElementById('robotContainer');
-            const logoutBtn = document.getElementById('gameLogoutBtn');
-            const rotateBtn = document.getElementById('rotateRobotBtn');
-            const mainContent = document.querySelector('.main-content');
-            
-            mainContent.style.display = 'block';
-            iframe.src = '';
-            iframe.style.display = 'none';
-            robotContainer.style.display = 'none';
-            logoutBtn.style.display = 'none';
-            rotateBtn.style.display = 'none';
-            
-            if (predictionInterval) {
-                clearInterval(predictionInterval);
-            }
-        }
-
-        function startPredictions(gameName) {
-            if (predictionInterval) clearInterval(predictionInterval);
-            
-            const outcomes = ['TÀI', 'XỈU'];
-            const robotText = document.getElementById('line1');
-            const robotSubText = document.getElementById('line2');
-
-            predictionInterval = setInterval(() => {
-                const outcome = outcomes[Math.floor(Math.random() * outcomes.length)];
-                const percentage = Math.floor(Math.random() * 20) + 75; // 75-95%
-                
-                robotText.innerHTML = `<strong>DỰ ĐOÁN: ${outcome}</strong>`;
-                robotSubText.innerHTML = `Độ chính xác: ${percentage}%`;
-            }, 5000);
-        }
-
-        // Draggable Robot
-        const robot = document.getElementById('robotContainer');
-        let isDragging = false;
-        let currentX;
-        let currentY;
-        let initialX;
-        let initialY;
-        let xOffset = 0;
-        let yOffset = 0;
-
-        function dragStart(e) {
-            if (e.type === 'touchstart') {
-                initialX = e.touches[0].clientX - xOffset;
-                initialY = e.touches[0].clientY - yOffset;
-            } else {
-                initialX = e.clientX - xOffset;
-                initialY = e.clientY - yOffset;
-            }
-            if (e.target === robot || robot.contains(e.target)) {
-                isDragging = true;
-            }
-        }
-
-        function dragEnd(e) {
-            initialX = currentX;
-            initialY = currentY;
-            isDragging = false;
-        }
-
-        function drag(e) {
-            if (isDragging) {
-                e.preventDefault();
-                let clientX, clientY;
-                if (e.type === 'touchmove') {
-                    clientX = e.touches[0].clientX;
-                    clientY = e.touches[0].clientY;
-                } else {
-                    clientX = e.clientX;
-                    clientY = e.clientY;
-                }
-                
-                currentX = clientX - initialX;
-                currentY = clientY - initialY;
-                
-                xOffset = currentX;
-                yOffset = currentY;
-                
-                requestAnimationFrame(() => {
-                    setTranslate(currentX, currentY, robot);
-                });
-            }
-        }
-
-        function setTranslate(xPos, yPos, el) {
-            el.style.transform = `translate3d(${xPos}px, ${yPos}px, 0) translateY(-50%)`;
-        }
-
-        robot.addEventListener('touchstart', dragStart, false);
-        robot.addEventListener('touchend', dragEnd, false);
-        robot.addEventListener('touchmove', drag, false);
-        robot.addEventListener('mousedown', dragStart, false);
-        robot.addEventListener('mouseup', dragEnd, false);
-        robot.addEventListener('mousemove', drag, false);
-    </script>
     <script src="../assets/js/transitions.js"></script>
 </body>
 </html>
