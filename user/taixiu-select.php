@@ -89,51 +89,43 @@ $games = [
         }
 
         .game-card {
-            background: linear-gradient(145deg, rgba(30, 41, 59, 0.8), rgba(15, 23, 42, 0.9));
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            border-radius: 24px;
-            padding: 2rem;
-            transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+            background: linear-gradient(145deg, rgba(30, 41, 59, 0.4), rgba(15, 23, 42, 0.6));
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            border-radius: 32px;
+            padding: 2.5rem 2rem;
+            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
             position: relative;
             overflow: hidden;
             z-index: 1;
             display: flex;
             flex-direction: column;
             height: 100%;
-        }
-
-        .game-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(45deg, transparent, rgba(251, 191, 36, 0.05), transparent);
-            transform: translateX(-100%);
-            transition: 0.6s;
-            z-index: -1;
-        }
-
-        .game-card:hover::before {
-            transform: translateX(100%);
+            backdrop-filter: blur(10px);
         }
 
         .game-card:hover {
-            transform: translateY(-10px);
-            border-color: var(--primary);
-            box-shadow: 0 20px 40px -15px rgba(251, 191, 36, 0.2);
+            transform: translateY(-12px) scale(1.02);
+            border-color: rgba(251, 191, 36, 0.4);
+            background: linear-gradient(145deg, rgba(30, 41, 59, 0.6), rgba(15, 23, 42, 0.8));
+            box-shadow: 
+                0 30px 60px -12px rgba(0, 0, 0, 0.5),
+                0 0 40px -10px rgba(251, 191, 36, 0.2);
         }
 
         .game-logo-container {
-            width: 80px;
-            height: 80px;
-            border-radius: 20px;
-            padding: 3px;
-            background: linear-gradient(135deg, rgba(255,255,255,0.1), transparent);
-            margin-bottom: 1.5rem;
+            width: 100px;
+            height: 100px;
+            border-radius: 28px;
+            padding: 4px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            margin-bottom: 2rem;
             position: relative;
             overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 10px 20px -5px rgba(0, 0, 0, 0.3);
         }
 
         .game-logo-container img {
@@ -176,23 +168,25 @@ $games = [
         .btn-play {
             background: linear-gradient(135deg, #fbbf24, #f59e0b);
             color: #000;
-            font-weight: 800;
-            padding: 1rem;
-            border-radius: 15px;
+            font-weight: 900;
+            padding: 1.25rem;
+            border-radius: 20px;
             text-align: center;
             text-transform: uppercase;
-            letter-spacing: 1px;
-            font-size: 0.8rem;
-            transition: 0.3s;
+            letter-spacing: 2px;
+            font-size: 0.85rem;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             margin-top: auto;
-            box-shadow: 0 4px 15px rgba(251, 191, 36, 0.2);
+            box-shadow: 0 10px 20px -5px rgba(245, 158, 11, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .game-card:hover .btn-play {
             background: #fff;
             color: #000;
-            transform: scale(1.02);
-            box-shadow: 0 8px 25px rgba(255, 255, 255, 0.2);
+            transform: scale(1.05);
+            box-shadow: 0 15px 30px -10px rgba(255, 255, 255, 0.4);
+            border-color: #fff;
         }
 
         .header-gradient {
@@ -261,7 +255,7 @@ $games = [
             </div>
 
             <!-- Game Grid -->
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 md:gap-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 md:gap-10">
                 <?php foreach ($games as $game): ?>
                 <div class="game-card group cursor-pointer" onclick="location.href='<?php echo $game['url']; ?>'">
                     <div class="flex items-start justify-between mb-6">
@@ -274,15 +268,23 @@ $games = [
                         </div>
                     </div>
 
-                    <div class="mb-6">
-                        <div class="flex items-center gap-2 mb-2">
-                            <h4 class="text-xl md:text-2xl font-bold text-white group-hover:text-yellow-500 transition-colors tracking-tight"><?php echo $game['name']; ?></h4>
-                            <div class="w-1.5 h-1.5 rounded-full bg-slate-600"></div>
-                            <span class="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Live AI</span>
+                    <div class="mb-8">
+                        <div class="flex items-center justify-between mb-4">
+                            <h4 class="text-2xl md:text-3xl font-extrabold text-white group-hover:text-yellow-400 transition-colors tracking-tight"><?php echo $game['name']; ?></h4>
+                            <div class="flex items-center gap-1.5 px-3 py-1 bg-white/5 rounded-full border border-white/10">
+                                <div class="w-1.5 h-1.5 rounded-full bg-yellow-500 animate-pulse"></div>
+                                <span class="text-[10px] font-black text-slate-300 uppercase tracking-widest">Live</span>
+                            </div>
                         </div>
-                        <div class="flex flex-wrap gap-2">
-                            <span class="stats-chip">1.2k+ Users</span>
-                            <span class="stats-chip">98% Accuracy</span>
+                        <div class="flex flex-wrap gap-3">
+                            <div class="stats-chip flex items-center gap-2">
+                                <svg class="w-3 h-3 text-yellow-500" fill="currentColor" viewBox="0 0 20 20"><path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z"></path></svg>
+                                1.2k+
+                            </div>
+                            <div class="stats-chip flex items-center gap-2">
+                                <svg class="w-3 h-3 text-green-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+                                98% Acc
+                            </div>
                         </div>
                     </div>
 
