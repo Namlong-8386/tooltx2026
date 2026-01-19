@@ -81,11 +81,77 @@ $games = [
             min-height: 100vh;
         }
 
-        .glass-panel {
-            background: rgba(30, 41, 59, 0.4);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        .key-panel {
+            background: linear-gradient(135deg, rgba(251, 191, 36, 0.1), rgba(249, 115, 22, 0.1));
+            border: 1px solid rgba(251, 191, 36, 0.2);
+            padding: 1rem 1.5rem;
+            border-radius: 24px;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .key-panel::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(251, 191, 36, 0.1) 0%, transparent 70%);
+            animation: rotate 10s linear infinite;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .key-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #fbbf24, #f97316);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #000;
+            box-shadow: 0 5px 15px rgba(249, 115, 22, 0.3);
+            flex-shrink: 0;
+            z-index: 1;
+        }
+
+        .key-info {
+            z-index: 1;
+        }
+
+        .key-label {
+            font-size: 0.65rem;
+            font-weight: 800;
+            color: #fbbf24;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 2px;
+        }
+
+        .key-value {
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: #fff;
+            line-height: 1;
+            display: flex;
+            align-items: baseline;
+            gap: 4px;
+        }
+
+        .key-unit {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: #94a3b8;
+            text-transform: uppercase;
         }
 
         .game-card {
@@ -232,24 +298,30 @@ $games = [
                     <p class="text-slate-400 text-base md:text-lg max-w-2xl leading-relaxed">Hệ thống AI đang sẵn sàng. Hãy chọn cổng game để bắt đầu phân tích dữ liệu thời gian thực.</p>
                 </div>
 
-                <div class="flex items-center gap-4 md:gap-5 glass-panel p-4 md:p-5 rounded-2xl md:rounded-3xl border border-white/10 shadow-2xl">
-                    <div class="w-10 h-10 md:w-14 md:h-14 bg-yellow-500/10 rounded-xl md:rounded-2xl flex items-center justify-center text-yellow-500 border border-yellow-500/20">
-                        <svg class="w-6 h-6 md:w-7 md:h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                <div class="key-panel">
+                    <div class="key-icon">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z"></path>
+                        </svg>
                     </div>
-                    <div>
-                        <p class="text-[9px] md:text-[10px] text-slate-500 font-bold uppercase tracking-widest mb-1">Key còn lại</p>
-                        <p class="text-lg md:text-2xl font-black text-white tracking-tight">
+                    <div class="key-info">
+                        <p class="key-label">Thời gian còn lại</p>
+                        <div class="key-value">
                             <?php 
                             if ($activeKey) {
                                 $remaining = $activeKey['expiry_at'] - time();
-                                if ($remaining > 86400) echo ceil($remaining / 86400) . ' <span class="text-[10px] md:text-xs font-medium text-slate-500 uppercase tracking-widest ml-1">Ngày</span>';
-                                elseif ($remaining > 3600) echo ceil($remaining / 3600) . ' <span class="text-[10px] md:text-xs font-medium text-slate-500 uppercase tracking-widest ml-1">Giờ</span>';
-                                else echo ceil($remaining / 60) . ' <span class="text-[10px] md:text-xs font-medium text-slate-500 uppercase tracking-widest ml-1">Phút</span>';
+                                if ($remaining > 86400) {
+                                    echo ceil($remaining / 86400) . '<span class="key-unit">Ngày</span>';
+                                } elseif ($remaining > 3600) {
+                                    echo ceil($remaining / 3600) . '<span class="key-unit">Giờ</span>';
+                                } else {
+                                    echo ceil($remaining / 60) . '<span class="key-unit">Phút</span>';
+                                }
                             } else {
-                                echo '<span class="text-rose-500 text-sm md:text-lg uppercase tracking-widest">Hết hạn</span>';
+                                echo '<span class="text-rose-500 text-base uppercase tracking-widest">Hết hạn</span>';
                             }
                             ?>
-                        </p>
+                        </div>
                     </div>
                 </div>
             </div>
