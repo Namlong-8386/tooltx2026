@@ -56,88 +56,104 @@ $games = [
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --primary: #fbbf24;
+            --primary-dark: #f59e0b;
+            --accent: #f97316;
+            --bg-dark: #0f172a;
+            --card-bg: rgba(30, 41, 59, 0.7);
+        }
+
         body {
-            background-color: #1e293b;
+            background-color: var(--bg-dark);
             color: #f8fafc;
             font-family: 'Plus Jakarta Sans', sans-serif;
             margin: 0;
             overflow-x: hidden;
             background-image: 
-                radial-gradient(at 0% 0%, rgba(234, 179, 8, 0.15) 0px, transparent 50%),
-                radial-gradient(at 100% 100%, rgba(249, 115, 22, 0.15) 0px, transparent 50%);
+                radial-gradient(at 0% 0%, rgba(251, 191, 36, 0.1) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(249, 115, 22, 0.1) 0px, transparent 50%),
+                url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
         }
 
         .main-content {
-            margin-left: 0;
-            padding: 2rem;
+            padding: 3rem 1.5rem;
             min-height: 100vh;
         }
 
         .glass-panel {
-            background: rgba(255, 255, 255, 0.08);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(255, 255, 255, 0.15);
+            background: rgba(30, 41, 59, 0.4);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
         }
 
         .game-card {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 28px;
-            padding: 1.75rem;
-            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-            cursor: pointer;
+            background: linear-gradient(145deg, rgba(30, 41, 59, 0.8), rgba(15, 23, 42, 0.9));
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 24px;
+            padding: 2rem;
+            transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
             position: relative;
             overflow: hidden;
+            z-index: 1;
             display: flex;
             flex-direction: column;
             height: 100%;
         }
 
-        @media (max-width: 768px) {
-            .main-content {
-                padding: 1rem;
-            }
-            .game-card {
-                padding: 1.25rem;
-                border-radius: 20px;
-            }
-            .header-section {
-                margin-bottom: 2rem;
-            }
-            h1 {
-                font-size: 2.5rem !important;
-            }
+        .game-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent, rgba(251, 191, 36, 0.05), transparent);
+            transform: translateX(-100%);
+            transition: 0.6s;
+            z-index: -1;
+        }
+
+        .game-card:hover::before {
+            transform: translateX(100%);
         }
 
         .game-card:hover {
-            background: rgba(255, 255, 255, 0.08);
-            border-color: rgba(251, 191, 36, 0.3);
-            transform: translateY(-8px) scale(1.02);
-            box-shadow: 0 20px 40px -20px rgba(0, 0, 0, 0.5);
+            transform: translateY(-10px);
+            border-color: var(--primary);
+            box-shadow: 0 20px 40px -15px rgba(251, 191, 36, 0.2);
         }
 
-        .game-card::after {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: radial-gradient(600px circle at var(--x) var(--y), rgba(255,255,255,0.06), transparent 40%);
-            opacity: 0;
-            transition: opacity 0.3s;
+        .game-logo-container {
+            width: 80px;
+            height: 80px;
+            border-radius: 20px;
+            padding: 3px;
+            background: linear-gradient(135deg, rgba(255,255,255,0.1), transparent);
+            margin-bottom: 1.5rem;
+            position: relative;
+            overflow: hidden;
         }
 
-        .game-card:hover::after {
-            opacity: 1;
+        .game-logo-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 18px;
         }
 
         .status-badge {
+            font-size: 0.7rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
             padding: 4px 12px;
+            border-radius: 20px;
             background: rgba(34, 197, 94, 0.1);
+            color: #22c55e;
             border: 1px solid rgba(34, 197, 94, 0.2);
-            border-radius: 100px;
-            display: flex;
+            display: inline-flex;
             align-items: center;
             gap: 6px;
         }
@@ -145,47 +161,61 @@ $games = [
         .status-dot {
             width: 6px;
             height: 6px;
-            border-radius: 50%;
             background: #22c55e;
-            box-shadow: 0 0 8px #22c55e;
+            border-radius: 50%;
+            box-shadow: 0 0 10px #22c55e;
             animation: pulse 2s infinite;
         }
 
         @keyframes pulse {
-            0% { transform: scale(1); opacity: 1; }
-            50% { transform: scale(1.2); opacity: 0.7; }
-            100% { transform: scale(1); opacity: 1; }
+            0% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.4; transform: scale(1.2); }
+            100% { opacity: 1; transform: scale(1); }
         }
 
         .btn-play {
-            background: linear-gradient(135deg, #fbbf24 0%, #f97316 100%);
-            color: white;
-            font-weight: 700;
-            padding: 0.85rem;
-            border-radius: 16px;
+            background: linear-gradient(135deg, #fbbf24, #f59e0b);
+            color: #000;
+            font-weight: 800;
+            padding: 1rem;
+            border-radius: 15px;
             text-align: center;
-            transition: all 0.3s ease;
             text-transform: uppercase;
             letter-spacing: 1px;
-            font-size: 0.75rem;
-            box-shadow: 0 4px 12px rgba(249, 115, 22, 0.2);
+            font-size: 0.8rem;
+            transition: 0.3s;
+            margin-top: auto;
+            box-shadow: 0 4px 15px rgba(251, 191, 36, 0.2);
         }
 
         .game-card:hover .btn-play {
-            background: linear-gradient(135deg, #fcd34d 0%, #fbbf24 100%);
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(249, 115, 22, 0.4);
+            background: #fff;
+            color: #000;
+            transform: scale(1.02);
+            box-shadow: 0 8px 25px rgba(255, 255, 255, 0.2);
         }
 
         .header-gradient {
-            background: linear-gradient(135deg, #fbbf24 0%, #f97316 100%);
+            background: linear-gradient(135deg, #fff 0%, #fbbf24 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
-        @media (max-width: 1024px) {
+        .stats-chip {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 4px 10px;
+            border-radius: 8px;
+            font-size: 0.75rem;
+            color: #94a3b8;
+        }
+
+        @media (max-width: 768px) {
             .main-content {
-                padding: 1.25rem;
+                padding: 1.5rem 1rem;
+            }
+            h1 {
+                font-size: 2.5rem !important;
             }
         }
     </style>
@@ -231,27 +261,32 @@ $games = [
             </div>
 
             <!-- Game Grid -->
-            <div class="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-8">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 md:gap-8">
                 <?php foreach ($games as $game): ?>
-                <div class="game-card flex flex-col group" onclick="location.href='<?php echo $game['url']; ?>'">
-                    <div class="flex items-start justify-between mb-4 md:mb-8">
-                        <div class="w-12 h-12 md:w-16 md:h-16 rounded-xl md:rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center group-hover:bg-yellow-500/10 group-hover:border-yellow-500/20 transition-all duration-500 overflow-hidden">
-                            <img src="<?php echo $game['image']; ?>" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" alt="<?php echo $game['name']; ?>">
+                <div class="game-card group cursor-pointer" onclick="location.href='<?php echo $game['url']; ?>'">
+                    <div class="flex items-start justify-between mb-6">
+                        <div class="game-logo-container">
+                            <img src="<?php echo $game['image']; ?>" class="group-hover:scale-110 transition-transform duration-500" alt="<?php echo $game['name']; ?>">
                         </div>
-                        <div class="status-badge hidden sm:flex">
+                        <div class="status-badge">
                             <div class="status-dot"></div>
-                            <span class="text-[9px] md:text-[10px] font-bold text-green-400 uppercase tracking-widest"><?php echo $game['status']; ?></span>
+                            <span><?php echo $game['status']; ?></span>
                         </div>
                     </div>
 
-                    <div class="mb-4 md:mb-8">
-                        <h4 class="text-lg md:text-2xl font-bold mb-1 md:mb-2 text-white group-hover:text-yellow-500 transition-colors tracking-tight"><?php echo $game['name']; ?></h4>
-                        <div class="flex items-center gap-2">
-                            <p class="text-[9px] md:text-[11px] text-slate-500 font-medium">1.2k+ người dùng</p>
+                    <div class="mb-6">
+                        <div class="flex items-center gap-2 mb-2">
+                            <h4 class="text-xl md:text-2xl font-bold text-white group-hover:text-yellow-500 transition-colors tracking-tight"><?php echo $game['name']; ?></h4>
+                            <div class="w-1.5 h-1.5 rounded-full bg-slate-600"></div>
+                            <span class="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Live AI</span>
+                        </div>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="stats-chip">1.2k+ Users</span>
+                            <span class="stats-chip">98% Accuracy</span>
                         </div>
                     </div>
 
-                    <div class="btn-play mt-auto py-2 md:py-3.5">Kích hoạt</div>
+                    <div class="btn-play">Kích hoạt Tool</div>
                 </div>
                 <?php endforeach; ?>
             </div>
@@ -276,13 +311,13 @@ $games = [
     <script>
         // Spotlight effect
         document.querySelectorAll('.game-card').forEach(card => {
-            card.onmousemove = e => {
+            card.addEventListener('mousemove', e => {
                 const rect = card.getBoundingClientRect();
                 const x = e.clientX - rect.left;
                 const y = e.clientY - rect.top;
                 card.style.setProperty('--x', `${x}px`);
                 card.style.setProperty('--y', `${y}px`);
-            };
+            });
         });
     </script>
     <script src="../assets/js/transitions.js"></script>
