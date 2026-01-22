@@ -43,7 +43,7 @@ $games = [
     ['name' => 'Sunwin', 'image' => '../assets/images/sunwin-logo.png', 'url' => 'sunwin.php', 'status' => 'VIP 1', 'color' => '#b45309'],
     ['name' => '789Club', 'image' => '../assets/images/789club-logo.png', 'url' => '789club.php', 'status' => 'Hot', 'color' => '#7e22ce'],
     ['name' => 'B52', 'image' => '../assets/images/b52-logo.png', 'url' => 'b52.php', 'status' => 'Active', 'color' => '#be123c'],
-    ['name' => 'XócĐĩa88', 'image' => 'https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=XocDia88', 'url' => 'xocdia88.php', 'status' => 'Hoạt động', 'color' => '#047857'],
+    ['name' => 'XócĐĩa88', 'image' => '../assets/images/xocdia88-logo.png', 'url' => 'xocdia88.php', 'status' => 'Hoạt động', 'color' => '#047857'],
     ['name' => 'Manclub', 'image' => 'https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=Manclub', 'url' => 'manclub.php', 'status' => 'Ổn định', 'color' => '#334155'],
 ];
 ?>
