@@ -52,7 +52,7 @@ if (!$activeKey) {
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
     body {
-      background-color: #1e293b;
+      background-color: #0f172a;
       color: #f8fafc;
       font-family: 'Plus Jakarta Sans', sans-serif;
       margin: 0;
@@ -62,8 +62,9 @@ if (!$activeKey) {
       align-items: center;
       min-height: 100vh;
       background-image: 
-        radial-gradient(at 0% 0%, rgba(234, 179, 8, 0.15) 0px, transparent 50%),
-        radial-gradient(at 100% 100%, rgba(249, 115, 22, 0.15) 0px, transparent 50%);
+        radial-gradient(at 0% 0%, rgba(251, 191, 36, 0.1) 0px, transparent 50%),
+        radial-gradient(at 100% 100%, rgba(249, 115, 22, 0.1) 0px, transparent 50%),
+        url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
     }
 
     .wrapper {
