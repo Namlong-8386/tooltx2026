@@ -42,7 +42,7 @@ $games = [
     ['name' => 'HitClub', 'image' => '../assets/images/hitclub-logo.png', 'url' => 'hitclub.php', 'status' => 'Premium', 'color' => '#1e40af'],
     ['name' => 'Sunwin', 'image' => '../assets/images/sunwin-logo.png', 'url' => 'sunwin.php', 'status' => 'VIP 1', 'color' => '#b45309'],
     ['name' => '789Club', 'image' => 'https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=789Club', 'url' => '789club.php', 'status' => 'Hot', 'color' => '#7e22ce'],
-    ['name' => 'B52', 'image' => 'https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=B52', 'url' => 'b52.php', 'status' => 'Active', 'color' => '#be123c'],
+    ['name' => 'B52', 'image' => '../assets/images/b52-logo.png', 'url' => 'b52.php', 'status' => 'Active', 'color' => '#be123c'],
     ['name' => 'Rikvip', 'image' => 'https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=Rikvip', 'url' => 'rikvip.php', 'status' => 'Hoạt động', 'color' => '#047857'],
     ['name' => 'Manclub', 'image' => 'https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=Manclub', 'url' => 'manclub.php', 'status' => 'Ổn định', 'color' => '#334155'],
 ];
